@@ -25,3 +25,28 @@ body {
 .hero-overlay {
   background: rgba(0, 0, 0, 0.4);
 }
+
+/* Custom scrollbar utility for menu */
+.menu-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #d9c3ac transparent;
+}
+.menu-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.menu-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.menu-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #d9c3ac;
+  border-radius: 20px;
+}
+
+/* Hide scrollbar utility */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

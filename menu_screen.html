@@ -1,0 +1,448 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Novotel Hyderabad Convention Centre | FoodieQR</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+                  "on-secondary-fixed-variant": "#43474c",
+                  "on-primary-fixed-variant": "#653e00",
+                  "tertiary": "#006685",
+                  "on-surface-variant": "#534433",
+                  "surface": "#f8f9fa",
+                  "surface-container-high": "#e7e8e9",
+                  "secondary": "#5b5f63",
+                  "inverse-surface": "#2e3132",
+                  "surface-tint": "#855400",
+                  "on-tertiary-fixed": "#001f2a",
+                  "on-primary-container": "#684000",
+                  "inverse-primary": "#ffb95c",
+                  "secondary-container": "#dde0e5",
+                  "tertiary-container": "#02c7ff",
+                  "outline-variant": "#d9c3ac",
+                  "inverse-on-surface": "#f0f1f2",
+                  "on-secondary-fixed": "#181c20",
+                  "on-surface": "#191c1d",
+                  "surface-container": "#edeeef",
+                  "secondary-fixed": "#e0e3e8",
+                  "background": "#f8f9fa",
+                  "error": "#ba1a1a",
+                  "on-tertiary-fixed-variant": "#004d65",
+                  "surface-container-low": "#f3f4f5",
+                  "on-tertiary-container": "#004f68",
+                  "bg-subtle": "#F8F9FA",
+                  "accent-orange": "#FFA500",
+                  "text-dark": "#212529",
+                  "surface-container-highest": "#e1e3e4",
+                  "primary-fixed-dim": "#ffb95c",
+                  "on-error-container": "#93000a",
+                  "on-secondary-container": "#5f6368",
+                  "on-primary": "#ffffff",
+                  "on-tertiary": "#ffffff",
+                  "surface-dim": "#d9dadb",
+                  "outline": "#867461",
+                  "on-background": "#191c1d",
+                  "secondary-fixed-dim": "#c3c7cc",
+                  "on-primary-fixed": "#2a1700",
+                  "on-error": "#ffffff",
+                  "tertiary-fixed": "#bee9ff",
+                  "primary": "#855400",
+                  "surface-bright": "#f8f9fa",
+                  "tertiary-fixed-dim": "#6bd3ff",
+                  "surface-variant": "#e1e3e4",
+                  "on-secondary": "#ffffff",
+                  "primary-fixed": "#ffddb7",
+                  "surface-container-lowest": "#ffffff",
+                  "surface-white": "#FFFFFF",
+                  "primary-container": "#ffa500",
+                  "error-container": "#ffdad6"
+          },
+          "borderRadius": {
+                  "DEFAULT": "0.25rem",
+                  "lg": "0.5rem",
+                  "xl": "0.75rem",
+                  "full": "9999px"
+          },
+          "spacing": {
+                  "xs": "4px",
+                  "xl": "80px",
+                  "gutter": "24px",
+                  "container-max": "1200px",
+                  "sm": "12px",
+                  "lg": "48px",
+                  "md": "24px",
+                  "base": "8px"
+          },
+          "fontFamily": {
+                  "label-md": ["Outfit"],
+                  "headline-lg": ["Outfit"],
+                  "body-md": ["Outfit"],
+                  "headline-xl-mobile": ["Outfit"],
+                  "label-sm": ["Outfit"],
+                  "headline-xl": ["Outfit"],
+                  "headline-md": ["Outfit"],
+                  "body-lg": ["Outfit"]
+          },
+          "fontSize": {
+                  "label-md": ["14px", {"lineHeight": "1.2", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                  "headline-lg": ["32px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                  "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                  "headline-xl-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                  "label-sm": ["12px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                  "headline-xl": ["48px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                  "headline-md": ["24px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                  "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    body { font-family: 'Outfit', sans-serif; }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background-color: #DEE2E6; border-radius: 10px; }
+    .gallery-container { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 12px; height: 500px; }
+    @media (max-width: 768px) { .gallery-container { grid-template-columns: 1fr; height: auto; } }
+    
+    /* Category Navigation Styles */
+    .menu-tab.active {
+      color: #855400;
+      border-bottom: 3px solid #ffa500;
+    }
+    .menu-section { display: none; }
+    .menu-section.active { display: block; }
+  </style>
+</head>
+<body class="bg-surface text-on-surface transition-colors duration-300">
+<!-- TopNavBar Component -->
+<main class="max-w-container-max mx-auto px-gutter py-md">
+<!-- Breadcrumb -->
+
+<!-- Main Content Grid -->
+<nav class="sticky top-0 z-50 bg-white border-b border-outline-variant flex items-center gap-lg px-md mb-md overflow-x-auto whitespace-nowrap shadow-sm">
+<a class="py-md font-bold text-label-md text-on-surface-variant hover:text-primary transition-all" href="#overview">Overview</a>
+<a class="py-md font-bold text-label-md text-primary border-b-2 border-accent-orange transition-all" href="#menu">Menu</a>
+<a class="py-md font-bold text-label-md text-on-surface-variant hover:text-primary transition-all" href="#reviews">Reviews</a>
+<a class="py-md font-bold text-label-md text-on-surface-variant hover:text-primary transition-all" href="#location">Location</a>
+</nav><section class="mb-lg transition-all duration-700 opacity-100 translate-y-0">
+<!-- Premium Gallery Layout mimicking IMAGE_4 -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-md md:h-[520px]">
+<!-- Large Featured Image -->
+<div class="md:col-span-2 relative group overflow-hidden rounded-xl bg-surface-container shadow-sm border border-outline-variant">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A grand wide-angle architectural shot of the Novotel Hyderabad Convention Centre exterior during the golden hour. The modern multi-story building features a rhythmic pattern of glass windows and pristine white facades, surrounded by lush tropical palm trees and a shimmering circular blue swimming pool in the foreground. The lighting is warm and cinematic, emphasizing the professional, high-end luxury resort aesthetic of the property under a clear blue sky." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmQCxBfnbAwz-DOBrLkB3cXDcuvS6Cj8t5D6__skPO-WtlmKfKFcIcR2WAuYmdEge6BrH7IvW2GboNU5l5ObX_Du9xcRghQdzcbdZ1wuLBAh5kgQmx_XNVwpKNVX_3z8e8NBxXjwticEdX5TOJMvenw8xro3OS7VND5h68qpgjFKhx-G4WUL-l0grR0zWC1VbkNFO2b3V2W_BRPuc9DlDxDyoGLQfdfS7JkL8-08lO5bNRd44dUdupB-zfudYmNeAU4hf0kzSHlcVV">
+<div class="absolute bottom-md right-md">
+<button class="flex items-center gap-sm bg-white/90 backdrop-blur-md px-md py-sm rounded-full text-text-dark font-label-md shadow-lg hover:bg-white transition-all">
+<span class="material-symbols-outlined text-[20px]">photo_camera</span>
+              See all photos
+            </button>
+</div>
+</div>
+<!-- Grid of smaller images -->
+<div class="md:col-span-2 grid grid-cols-2 grid-rows-2 gap-md">
+<!-- Top Left -->
+<div class="relative overflow-hidden rounded-xl bg-surface-container border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A sophisticated fine-dining restaurant interior at the Novotel hotel. Dark wood tables are meticulously set with crisp white linens, crystal glassware, and elegant navy blue chairs. The space is illuminated by warm, soft overhead lighting and features contemporary architectural details. The atmosphere is quiet, professional, and luxurious, typical of a high-end business hotel dining experience." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNYXHjq9CCgqOG45Ixfk0UyX04pE8PAKXT7cgV9zfA0jtU9WjRxD6z3VoVTwjECmAnSvSEgKixTGSog9rgkToBd5fzKK4Is-WvRQPiY68na-mK_DNlfhImykTlD3ZAFp3C9ywmPwrD-8Oj0H-y-qabRDwRkVBKQcEBEhZFX5l1mRsYqXR3rR3MigxP85y58uYucmIYljyND70nqVR6XxfPeapXAdBOjN1ocyrghLF_mSchZdAf9oUkkU5QVINEMBxmRAXqSAnMoJQM">
+
+</div>
+<!-- Top Right -->
+<div class="relative overflow-hidden rounded-xl bg-surface-container border border-outline-variant group">
+<img class="w-full h-full object-cover" data-alt="An expansive aerial view of the outdoor pool area at Novotel Hyderabad. The turquoise blue water of the pool reflects the modern architectural lines of the surrounding hotel building. Mature palm trees and manicured landscape gardening create a serene oasis atmosphere. The bright daylight creates a vibrant, energetic mood suitable for a premium international convention center and hotel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdZpxumZhZbIDDyYUprxQ6o-JcvDAzIzXQUlAythF6IC1lx9I_4ABGRHu9e6lLsBCmpcOObccKLeJp3ouNyauS7OcyMjqrnAsJ66a31OtusNujQU_94XYG1Zf9BQhnBWxupVhWZ2firieCFIMlpiNVUt-UuMymtnfC738zfSbR1S0rQiixHsUlxlTeI1pZpp1f0-cP-YvhFnemgHraAI0V9R7KQUimaQoBQH0vRGkRKkjGlXHKGszV_O_OxfCoXt3rIYklXngKPiHb">
+
+</div>
+<!-- Bottom Left -->
+<div class="relative overflow-hidden rounded-xl bg-surface-container border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A spacious and modern executive suite bedroom interior at Novotel. The room features a large king-sized bed with premium white bedding, a functional office desk with an ergonomic chair, and a cozy seating area with grey upholstered sofas. Large windows offer a panoramic view of the Hyderabad skyline, flooding the room with natural light. The decor is minimalist and business-oriented with deep navy and orange accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1RTJ6vD61wzzWVrdyYHKC4CGjR48ywdj8YnTI6Ttp6SSzvUViyLSX_Blv4Cv2nW6dkRAMJy_N6-0boOkO23QQDhUW0BRcIp2n42NCPpUzkEyVa4oVLtq1jJfqfZwgEodptygnGPYGWM276Zp9gNWCVGNzqUkXW_LbAd9mzcvUb8jW1UhGs4YxTB74uBAtiIsUyx7CM3ApYSB99XIJX9sMi8FJk_tkjA3e5JHOAd-yz9-GhJAMO5FK2N3d8yDz7wAutjB5wmB7vMB4">
+</div>
+<!-- Bottom Right -->
+<div class="relative overflow-hidden rounded-xl bg-surface-container border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A high-tech and sleek kitchen and living area within a luxury serviced apartment at the Novotel hotel. The space features light wood cabinetry, a polished stone countertop with high stools, and a warm dining area. The lighting is bright and inviting, showcasing the clean lines and premium materials. It depicts a home-away-from-home environment designed for long-stay business travelers." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOMiQ65A2b8uXRXxkxkr1te75HhLZ4Fd_eVuMN4OBkp2Zs-aZxQSQ0QVAdLN6YtrM8GuE-lWTjYsDPkkxZ9yLFuBmbJbGRv_YSHzsNwJCbTPShNgD5cIIlZJiWZ83lrcei-TzZJyiMLXvAf_L0KiPIGFCOE5fbnN8U2Uh-D8eKLgC8FtfB3r8iUk0lE0XEVbkUTifa_zqU88l-2iq5uGnPztDLjDCNjjdWHuSZVKFyzN7R2q1QmeDUa3M-AxJXdxBEutFTuIRnRlOT">
+</div>
+</div>
+</div>
+</section>
+<!-- Hotel Information & Redesigned Menu Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-lg">
+<div class="lg:col-span-2">
+<div class="flex items-start justify-between mb-md">
+<div>
+<div class="flex items-center gap-xs mb-1">
+<span class="bg-accent-orange text-white text-label-sm px-2 py-0.5 rounded">PREMIUM</span>
+<div class="flex text-accent-orange">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-text-dark mb-2 leading-tight">Novotel Signature Restaurant</h1>
+<p class="flex items-center gap-xs text-on-surface-variant font-body-md">
+<span class="material-symbols-outlined text-primary">location_on</span>
+              P.O Bag 1101, HITEC City, Kondapur, Hyderabad, 500081, India
+            </p>
+</div>
+</div>
+<!-- Category Navigation Tabs -->
+<div class="flex border-b border-outline-variant mb-md overflow-x-auto custom-scrollbar" id="menu">
+<button class="menu-tab active px-lg py-sm font-bold text-label-md transition-all whitespace-nowrap" onclick="switchCategory('main-course', this)">Main Course</button>
+<button class="menu-tab px-lg py-sm font-bold text-label-md text-on-surface-variant hover:text-primary transition-all whitespace-nowrap" onclick="switchCategory('drinks', this)">Drinks</button>
+</div>
+<!-- Menu Items Content -->
+<div class="menu-section active space-y-md" id="main-course">
+<!-- Main Course Card: Truffle Burrata -->
+<div class="flex items-center gap-md bg-white p-sm rounded-xl border border-outline-variant hover:shadow-md transition-shadow group">
+<div class="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container">
+<img alt="Truffle Burrata" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/AP1WRLtt37hoKaXq4KAzkPM3qWw5ReyBx_d-BxhJluuB5JN1XhNg14aZoXkIpPONzBAc16ZgxZ_VqazxEuLByPdYY9WyBpwHkLhKu8vonAeqJ96yxuJXvBltJ8LuU0_6sJeBY-TwlohpX0dfcVd4FEUsYCAvQUrhV-gUvXEnj9L_hwsmzHYHwvn7F9d3W_jOgDGyeH3SObvBQZcM6oCUJLqOvEe9dokars_nEALIA82tYYWDfNoGTK7i5CVD0tll">
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-1"><div class="flex flex-col"><div class="flex items-center gap-xs"><h3 class="font-bold text-text-dark text-body-lg">Truffle Burrata</h3><div class="ml-2 flex items-center justify-center w-4 h-4 border-2 border-green-600 p-[2px]"><div class="w-full h-full rounded-full bg-green-600"></div></div></div><p class="text-[10px] text-on-surface-variant mt-1">320 kcal</p></div><div class="text-right"><span class="font-bold text-primary">₹850</span></div></div>
+<p class="text-label-sm text-on-surface-variant line-clamp-2">Creamy burrata, heirloom tomatoes, basil pesto, and shaved black truffle.</p>
+</div>
+<button class="ml-sm w-10 h-10 rounded-full bg-accent-orange text-white flex items-center justify-center hover:bg-orange-600 transition-colors shadow-sm">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<!-- Main Course Card: Pan-Seared Salmon -->
+<div class="flex items-center gap-md bg-white p-sm rounded-xl border border-outline-variant hover:shadow-md transition-shadow group">
+<div class="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container">
+<img alt="Pan-Seared Salmon" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/AP1WRLttvmillzjiktR7oBvnPhJ0caFebD-1TXCHiqSZwZc4goxLDGnCEdOMn_5jVFb6LBGcSbhZnjUiq2SmoTLSrZJTt0Fj0-aPBzQHHxP-fomFl-Mu0FiOnVwV88sKEQLXkvZkuaVSOBqqztsITakqBY0VexAHmNq62lwICytnSLr4VzskFfRx1LX2p71cKQruamspzyb9jTtxR02IA6b18yXENxoF_hUs1hKUtKX4HgvaIZB2E_m2-wcUblGG">
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-1"><div class="flex flex-col"><div class="flex items-center gap-xs"><h3 class="font-bold text-text-dark text-body-lg">Pan-Seared Salmon</h3><div class="ml-2 flex items-center justify-center w-4 h-4 border-2 border-red-600 p-[2px]"><div class="w-full h-full rounded-full bg-red-600"></div></div></div><div class="flex items-center gap-sm mt-1"><span class="text-xs text-on-surface-variant">Spice Level: 🌶️</span><span class="text-[10px] text-on-surface-variant">• 480 kcal</span></div></div><div class="text-right"><span class="font-bold text-primary">₹1,850</span></div></div>
+<p class="text-label-sm text-on-surface-variant line-clamp-2">Atlantic salmon, asparagus spears, saffron risotto, and lemon butter sauce.</p>
+</div>
+<button class="ml-sm w-10 h-10 rounded-full bg-accent-orange text-white flex items-center justify-center hover:bg-orange-600 transition-colors shadow-sm">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<!-- Main Course Card: Lamb Rogan Josh -->
+<div class="flex items-center gap-md bg-white p-sm rounded-xl border border-outline-variant hover:shadow-md transition-shadow group">
+<div class="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container">
+<img alt="Lamb Rogan Josh" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNYXHjq9CCgqOG45Ixfk0UyX04pE8PAKXT7cgV9zfA0jtU9WjRxD6z3VoVTwjECmAnSvSEgKixTGSog9rgkToBd5fzKK4Is-WvRQPiY68na-mK_DNlfhImykTlD3ZAFp3C9ywmPwrD-8Oj0H-y-qabRDwRkVBKQcEBEhZFX5l1mRsYqXR3rR3MigxP85y58uYucmIYljyND70nqVR6XxfPeapXAdBOjN1ocyrghLF_mSchZdAf9oUkkU5QVINEMBxmRAXqSAnMoJQM">
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-1"><div class="flex flex-col"><div class="flex items-center gap-xs"><h3 class="font-bold text-text-dark text-body-lg">Lamb Rogan Josh</h3><div class="ml-2 flex items-center justify-center w-4 h-4 border-2 border-red-600 p-[2px]"><div class="w-full h-full rounded-full bg-red-600"></div></div></div><div class="flex items-center gap-sm mt-1"><span class="text-xs text-on-surface-variant">Spice Level: 🌶️🌶️🌶️</span><span class="text-[10px] text-on-surface-variant">• 650 kcal</span></div></div><div class="text-right"><span class="font-bold text-primary">₹1,450</span></div></div>
+<p class="text-label-sm text-on-surface-variant line-clamp-2">Slow-cooked tender lamb in a rich aromatic Kashmiri gravy with saffron rice.</p>
+</div>
+<button class="ml-sm w-10 h-10 rounded-full bg-accent-orange text-white flex items-center justify-center hover:bg-orange-600 transition-colors shadow-sm">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div>
+<div class="menu-section space-y-md" id="drinks">
+<!-- Drinks Card: Artisan Cocktail -->
+<div class="flex items-center gap-md bg-white p-sm rounded-xl border border-outline-variant hover:shadow-md transition-shadow group">
+<div class="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container">
+<img alt="Artisan Cocktail" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida/AP1WRLsIfEvr0qi9LK7m5xOXnWfAhZoOCSnBMBX5pQz8zvl-pnTcmdFXGR5HSmN9OD9yC7mTcIn03R6eS7nATEisR0LlbT2J__79_wOPHwoJijmI8F3-igNUhrPROrg-Q4x3Q62H0sD35uwsMMUeAyzjISJiOy6cz-rmMDbOP1CGLGf468Il7Mw0KmiKz19HM14_oJfdVh0TD6vPVDfKLkxCzAkS8Ln87tORDcEsnvZvEv9icH_ktg1UsqcUqP4">
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-1"><div class="flex flex-col"><div class="flex items-center gap-xs"><h3 class="font-bold text-text-dark text-body-lg">Artisan Cocktail</h3><div class="ml-2 flex items-center justify-center w-4 h-4 border-2 border-green-600 p-[2px]"><div class="w-full h-full rounded-full bg-green-600"></div></div></div><p class="text-[10px] text-on-surface-variant mt-1">180 kcal</p></div><div class="text-right"><span class="font-bold text-primary">₹950</span></div></div>
+<p class="text-label-sm text-on-surface-variant line-clamp-2">A craft blend of premium spirits, botanical bitters, and fresh seasonal citrus.</p>
+</div>
+<button class="ml-sm w-10 h-10 rounded-full bg-accent-orange text-white flex items-center justify-center hover:bg-orange-600 transition-colors shadow-sm">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<!-- Drinks Card: Vintage Red Wine -->
+<div class="flex items-center gap-md bg-white p-sm rounded-xl border border-outline-variant hover:shadow-md transition-shadow group">
+<div class="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container">
+<img alt="Vintage Red Wine" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdZpxumZhZbIDDyYUprxQ6o-JcvDAzIzXQUlAythF6IC1lx9I_4ABGRHu9e6lLsBCmpcOObccKLeJp3ouNyauS7OcyMjqrnAsJ66a31OtusNujQU_94XYG1Zf9BQhnBWxupVhWZ2firieCFIMlpiNVUt-UuMymtnfC738zfSbR1S0rQiixHsUlxlTeI1pZpp1f0-cP-YvhFnemgHraAI0V9R7KQUimaQoBQH0vRGkRKkjGlXHKGszV_O_OxfCoXt3rIYklXngKPiHb">
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-1"><div class="flex flex-col"><div class="flex items-center gap-xs"><h3 class="font-bold text-text-dark text-body-lg">Vintage Red Wine</h3><div class="ml-2 flex items-center justify-center w-4 h-4 border-2 border-green-600 p-[2px]"><div class="w-full h-full rounded-full bg-green-600"></div></div></div><p class="text-[10px] text-on-surface-variant mt-1">125 kcal</p></div><div class="text-right"><span class="font-bold text-primary">₹1,200</span></div></div>
+<p class="text-label-sm text-on-surface-variant line-clamp-2">A robust Cabernet Sauvignon with notes of dark berries and oak finish.</p>
+</div>
+<button class="ml-sm w-10 h-10 rounded-full bg-accent-orange text-white flex items-center justify-center hover:bg-orange-600 transition-colors shadow-sm">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<!-- Drinks Card: Sparkling Water -->
+<div class="flex items-center gap-md bg-white p-sm rounded-xl border border-outline-variant hover:shadow-md transition-shadow group">
+<div class="w-24 h-24 rounded-lg overflow-hidden flex-shrink-0 bg-surface-container">
+<img alt="Sparkling Water" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdZpxumZhZbIDDyYUprxQ6o-JcvDAzIzXQUlAythF6IC1lx9I_4ABGRHu9e6lLsBCmpcOObccKLeJp3ouNyauS7OcyMjqrnAsJ66a31OtusNujQU_94XYG1Zf9BQhnBWxupVhWZ2firieCFIMlpiNVUt-UuMymtnfC738zfSbR1S0rQiixHsUlxlTeI1pZpp1f0-cP-YvhFnemgHraAI0V9R7KQUimaQoBQH0vRGkRKkjGlXHKGszV_O_OxfCoXt3rIYklXngKPiHb">
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-1"><div class="flex flex-col"><div class="flex items-center gap-xs"><h3 class="font-bold text-text-dark text-body-lg">Sparkling Water</h3><div class="ml-2 flex items-center justify-center w-4 h-4 border-2 border-green-600 p-[2px]"><div class="w-full h-full rounded-full bg-green-600"></div></div></div><p class="text-[10px] text-on-surface-variant mt-1">0 kcal</p></div><div class="text-right"><span class="font-bold text-primary">₹350</span></div></div>
+<p class="text-label-sm text-on-surface-variant line-clamp-2">Crisp, naturally carbonated mineral water served chilled with lemon.</p>
+</div>
+<button class="ml-sm w-10 h-10 rounded-full bg-accent-orange text-white flex items-center justify-center hover:bg-orange-600 transition-colors shadow-sm">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+</div><section class="py-lg border-t border-outline-variant mt-lg transition-all duration-700 opacity-100 translate-y-0" id="overview">
+<h2 class="font-headline-md text-headline-md text-text-dark mb-md">Overview</h2>
+<p class="text-body-md text-on-surface-variant">Experience the finest culinary delights at Novotel Signature Restaurant. Our chefs use only the freshest ingredients to create unforgettable dishes that blend traditional flavors with modern techniques.</p>
+</section>
+<section class="py-lg border-t border-outline-variant transition-all duration-700 opacity-100 translate-y-0" id="reviews">
+<h2 class="font-headline-md text-headline-md text-text-dark mb-md">Reviews</h2>
+<div class="bg-surface-container p-md rounded-xl text-center">
+<p class="text-on-surface-variant italic">"Exceptional service and the Truffle Burrata is a must-try!"</p>
+<p class="font-bold mt-2">- Sarah J.</p>
+</div>
+</section>
+<section class="py-lg border-t border-outline-variant transition-all duration-700 opacity-100 translate-y-0" id="location">
+<h2 class="font-headline-md text-headline-md text-text-dark mb-md">Location</h2>
+<div class="h-64 bg-surface-container rounded-xl flex items-center justify-center border border-outline-variant">
+<div class="text-center">
+<span class="material-symbols-outlined text-primary text-lg">location_on</span>
+<p class="text-label-md mt-2">P.O Bag 1101, HITEC City, Kondapur, Hyderabad</p>
+</div>
+</div>
+</section>
+</div>
+<!-- Booking Card -->
+<aside class="lg:col-span-1 transition-all duration-700 opacity-100 translate-y-0">
+<div class="sticky top-24 bg-white p-md rounded-xl border border-outline-variant shadow-lg">
+
+<div class="space-y-md">
+<div class="grid grid-cols-2 gap-xs">
+<div class="border border-outline-variant rounded-lg p-sm">
+<p class="text-label-sm text-on-surface-variant">DATE</p>
+<p class="font-bold">Oct 12, 2024</p>
+</div>
+<div class="border border-outline-variant rounded-lg p-sm">
+<p class="text-label-sm text-on-surface-variant">TIME</p>
+<p class="font-bold">07:30 PM</p>
+</div>
+</div>
+<div class="border border-outline-variant rounded-lg p-sm">
+<p class="text-label-sm text-on-surface-variant">GUESTS</p>
+<p class="font-bold">2 Adults, 1 Room</p>
+</div>
+<button class="w-full py-md bg-accent-orange text-white rounded-xl font-headline-md hover:bg-orange-600 transition-all shadow-md active:scale-[0.98]">Book a Table</button>
+<p class="text-center text-label-sm text-on-surface-variant">No booking fees. Instant confirmation.</p>
+</div>
+<hr class="my-md border-outline-variant">
+<div class="space-y-sm">
+<div class="flex items-center gap-sm text-body-md text-on-surface">
+<span class="material-symbols-outlined text-primary">done</span>
+              Free cancellation until Oct 10
+            </div>
+
+</div>
+</div>
+<div class="mt-md bg-white p-md rounded-xl border border-outline-variant shadow-lg">
+<h3 class="font-headline-md text-headline-md text-text-dark mb-md">Amenities</h3>
+<div class="grid grid-cols-2 gap-sm">
+<div class="flex items-center gap-xs text-body-md text-on-surface">
+<span class="material-symbols-outlined text-primary text-[20px]">wifi</span>
+<span class="text-label-md">Free WiFi</span>
+</div>
+<div class="flex items-center gap-xs text-body-md text-on-surface">
+<span class="material-symbols-outlined text-primary text-[20px]">local_parking</span>
+<span class="text-label-md">Valet Parking</span>
+</div>
+<div class="flex items-center gap-xs text-body-md text-on-surface">
+<span class="material-symbols-outlined text-primary text-[20px]">accessible</span>
+<span class="text-label-md">Accessible</span>
+</div>
+<div class="flex items-center gap-xs text-body-md text-on-surface">
+<span class="material-symbols-outlined text-primary text-[20px]">ac_unit</span>
+<span class="text-label-md">Air Conditioned</span>
+</div>
+<div class="flex items-center gap-xs text-body-md text-on-surface">
+<span class="material-symbols-outlined text-primary text-[20px]">local_bar</span>
+<span class="text-label-md">Bar</span>
+</div>
+<div class="flex items-center gap-xs text-body-md text-on-surface">
+<span class="material-symbols-outlined text-primary text-[20px]">music_note</span>
+<span class="text-label-md">Live Music</span>
+</div>
+</div>
+</div></aside>
+</div>
+</main>
+<!-- Footer Component -->
+<footer class="bg-text-dark dark:bg-black border-t border-on-secondary-fixed-variant">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg w-full px-gutter max-w-container-max mx-auto py-xl">
+<div class="space-y-md">
+<span class="font-headline-md text-headline-md font-bold text-accent-orange">FoodieQR</span>
+<p class="text-surface-variant dark:text-secondary-fixed-dim text-body-md">
+          Connecting you to the world's most premium hospitality experiences. Discover, book, and enjoy seamless travel.
+        </p>
+<div class="flex gap-sm">
+<a class="w-10 h-10 rounded-full bg-on-secondary-fixed-variant flex items-center justify-center hover:bg-accent-orange transition-colors" href="#"><span class="material-symbols-outlined text-white">face_nod</span></a>
+<a class="w-10 h-10 rounded-full bg-on-secondary-fixed-variant flex items-center justify-center hover:bg-accent-orange transition-colors" href="#"><span class="material-symbols-outlined text-white">share</span></a>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-md">
+<div class="space-y-sm">
+<h4 class="font-label-md text-label-md text-accent-orange uppercase tracking-wider">Company</h4>
+<nav class="flex flex-col gap-xs">
+<a class="text-surface-variant dark:text-secondary-fixed-dim text-label-sm hover:text-white transition-colors" href="#">About FoodieQR</a>
+<a class="text-surface-variant dark:text-secondary-fixed-dim text-label-sm hover:text-white transition-colors" href="#">Disclaimer</a>
+<a class="text-surface-variant dark:text-secondary-fixed-dim text-label-sm hover:text-white transition-colors" href="#">Privacy Policy</a>
+<a class="text-surface-variant dark:text-secondary-fixed-dim text-label-sm hover:text-white transition-colors" href="#">Refund Policy</a>
+</nav>
+</div>
+<div class="space-y-sm">
+<h4 class="font-label-md text-label-md text-accent-orange uppercase tracking-wider">Support</h4>
+<nav class="flex flex-col gap-xs">
+<p class="text-surface-variant dark:text-secondary-fixed-dim text-label-sm">Phone: +1 (555) 000-0000</p>
+<p class="text-surface-variant dark:text-secondary-fixed-dim text-label-sm">Email: support@foodieqr.com</p>
+</nav>
+</div>
+</div>
+<div class="space-y-md">
+<h4 class="font-label-md text-label-md text-accent-orange uppercase tracking-wider">Newsletter</h4>
+<p class="text-surface-variant dark:text-secondary-fixed-dim text-label-sm">Stay updated with the latest travel deals.</p>
+<div class="flex">
+<input class="bg-on-secondary-fixed-variant border-none text-white px-md py-sm rounded-l-lg focus:ring-1 focus:ring-accent-orange w-full" placeholder="Your email" type="email">
+<button class="bg-accent-orange text-white px-md py-sm rounded-r-lg font-bold">Join</button>
+</div>
+</div>
+</div>
+<div class="max-w-container-max mx-auto px-gutter py-md border-t border-on-secondary-fixed-variant/30">
+<p class="text-center text-label-sm text-surface-variant dark:text-secondary-fixed-dim">© 2024 FoodieQR. All rights reserved.</p>
+</div>
+</footer>
+<script>
+    // Tab switching logic for Menu Categories
+    function switchCategory(categoryId, element) {
+      // Hide all sections
+      document.querySelectorAll('.menu-section').forEach(section => {
+        section.classList.remove('active');
+      });
+      // Show selected section
+      document.getElementById(categoryId).classList.add('active');
+      
+      // Update tab styles
+      document.querySelectorAll('.menu-tab').forEach(tab => {
+        tab.classList.remove('active', 'text-primary');
+        tab.classList.add('text-on-surface-variant');
+      });
+      element.classList.add('active', 'text-primary');
+      element.classList.remove('text-on-surface-variant');
+    }
+
+    // Micro-interactions and effects
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('opacity-100', 'translate-y-0');
+            entry.target.classList.remove('opacity-0', 'translate-y-10');
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('section, aside').forEach(el => {
+        el.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-10');
+        observer.observe(el);
+      });
+    });
+  </script>
+
+
+
+
+</body></html>
