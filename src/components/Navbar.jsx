@@ -11,14 +11,19 @@ export default function Navbar() {
           
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
-            <Link className="flex items-center gap-2 relative" to="/">
-              <span className="text-2xl font-bold tracking-tight text-gray-900">
-                Foodie<span className="text-primary">QR</span>
+            <Link className="flex flex-col relative" to="/">
+              <div className="flex items-center gap-2">
+                <span className="text-3xl font-bold tracking-tight text-gray-900">
+                  Foodie<span className="text-primary">QR</span>
+                </span>
+                <svg className="w-7 h-7 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M4 4h4v4H4V4zm6 0h4v4h-4V4zm6 0h4v4h-4V4zM4 10h4v4H4v-4zm6 0h4v4h-4v-4zm6 0h4v4h-4v-4zM4 16h4v4H4v-4zm6 0h4v4h-4v-4zm6 0h4v4h-4v-4z"></path>
+                </svg>
+                <span className="text-[11px] font-bold text-gray-400 absolute -top-1.5 -right-5">TM</span>
+              </div>
+              <span className="text-[11px] font-extrabold tracking-widest text-[#FFA500] uppercase -mt-0.5 leading-none">
+                hunger's fest
               </span>
-              <svg className="w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M4 4h4v4H4V4zm6 0h4v4h-4V4zm6 0h4v4h-4V4zM4 10h4v4H4v-4zm6 0h4v4h-4v-4zm6 0h4v4h-4v-4zM4 16h4v4H4v-4zm6 0h4v4h-4v-4zm6 0h4v4h-4v-4z"></path>
-              </svg>
-              <span className="text-[10px] font-bold text-gray-400 absolute -top-1 -right-4">TM</span>
             </Link>
           </div>
           

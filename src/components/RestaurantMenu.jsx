@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function RestaurantMenu() {
+export default function RestaurantMenu({ onAddItem }) {
   const [activeTab, setActiveTab] = useState('main-course');
   const [selectedRecipeItem, setSelectedRecipeItem] = useState(null);
 
@@ -159,7 +159,7 @@ export default function RestaurantMenu() {
   ];
 
   const renderItemCard = (item) => (
-    <div key={item.id} className="max-w-[95%] md:max-w-2xl flex items-center gap-3 sm:gap-6 bg-white p-3 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow group min-w-0">
+    <div key={item.id} className="w-full flex items-center gap-3 sm:gap-6 bg-white p-3 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow group min-w-0 h-[115px] sm:h-[135px]">
       {/* Left Image */}
       <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-lg overflow-hidden flex-shrink-0 bg-[#edeeef]">
         <img 
@@ -172,37 +172,50 @@ export default function RestaurantMenu() {
       {/* Center content */}
       <div className="flex-grow min-w-0 flex flex-col justify-between self-stretch py-0.5">
         <div>
-          <div className="flex items-center gap-1.5 mb-1 flex-wrap">
-            <h3 className="font-bold text-[#212529] text-[14px] sm:text-[18px] leading-tight truncate">{item.name}</h3>
+          {/* Row 1: Title & Type Indicator */}
+          <div className="flex items-center gap-2 mb-1">
             <div className={`flex-shrink-0 flex items-center justify-center w-3.5 h-3.5 sm:w-4 sm:h-4 border-2 ${item.veg ? 'border-green-600' : 'border-red-600'} p-[1.5px] sm:p-[2px]`}>
               <div className={`w-full h-full rounded-full ${item.veg ? 'bg-green-600' : 'bg-red-600'}`}></div>
             </div>
+            <h3 className="font-bold text-[#212529] text-[13px] sm:text-[16px] leading-tight truncate flex-grow">{item.name}</h3>
           </div>
-          <p className="text-[10px] sm:text-[12px] font-normal text-[#534433] line-clamp-2 leading-snug mb-1">{item.description}</p>
+
+          {/* Row 2: Consistent Badges (Calories & Spice) */}
+          <div className="flex items-center gap-1.5 mb-1">
+            <span className="text-[8px] sm:text-[9px] text-gray-500 font-bold bg-slate-50 border border-slate-100 px-1.5 py-0.5 rounded leading-none shrink-0">
+              {item.kcal}
+            </span>
+            <span className={`text-[8px] sm:text-[9px] font-bold px-1.5 py-0.5 rounded leading-none shrink-0 border ${
+              item.spice 
+                ? 'text-orange-600 bg-orange-50 border-orange-100' 
+                : 'text-slate-400 bg-slate-50 border-slate-100'
+            }`}>
+              {item.spice ? `${item.spice} Spice` : 'Mild'}
+            </span>
+          </div>
+
+          {/* Row 3: Description (Truncated to exactly 1 line for perfect alignment) */}
+          <p className="text-[10px] sm:text-[11px] font-normal text-[#534433] truncate leading-normal">{item.description}</p>
         </div>
-        <div className="flex items-center flex-wrap gap-x-2 gap-y-1 text-[9px] sm:text-[11px] text-[#534433] font-semibold mt-1">
-          {/* View Recipe Button */}
+        
+        {/* Row 4: Bottom Action Button */}
+        <div className="flex items-center">
           <button 
             onClick={() => setSelectedRecipeItem(item)}
             className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded bg-[#fff8ed] border border-orange-100 text-[#855400] text-[9px] sm:text-[10px] font-bold hover:bg-[#855400] hover:text-white transition-colors cursor-pointer active:scale-95 whitespace-nowrap"
           >
             View Recipe
           </button>
-          <span className="text-gray-400">•</span>
-          <span className="whitespace-nowrap">{item.kcal}</span>
-          {item.spice && (
-            <>
-              <span className="text-gray-400">•</span>
-              <span className="whitespace-nowrap">Spice Level: {item.spice}</span>
-            </>
-          )}
         </div>
       </div>
       
       {/* Right Column: Price & Add Button */}
-      <div className="flex flex-col items-end justify-center gap-1.5 flex-shrink-0 pl-1.5 sm:pl-4 border-l border-gray-100 self-stretch">
+      <div className="flex flex-col items-end justify-between flex-shrink-0 pl-1.5 sm:pl-4 border-l border-gray-100 self-stretch py-0.5">
         <span className="font-extrabold text-[#855400] text-xs sm:text-base whitespace-nowrap">{item.price}</span>
-        <button className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#FFA500] text-white flex items-center justify-center hover:bg-[#e69500] transition-colors shadow-sm cursor-pointer">
+        <button 
+          onClick={() => onAddItem && onAddItem(item)}
+          className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#FFA500] text-white flex items-center justify-center hover:bg-[#e69500] transition-colors shadow-sm cursor-pointer mt-auto"
+        >
           <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
           </svg>
@@ -241,13 +254,13 @@ export default function RestaurantMenu() {
 
       {/* Menu Items Content */}
       {activeTab === 'main-course' && (
-        <div className="space-y-6 max-h-[640px] overflow-y-auto menu-scrollbar pr-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[640px] overflow-y-auto menu-scrollbar pr-2 py-1">
           {mainCourses.map(renderItemCard)}
         </div>
       )}
 
       {activeTab === 'drinks' && (
-        <div className="space-y-6 max-h-[640px] overflow-y-auto menu-scrollbar pr-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[640px] overflow-y-auto menu-scrollbar pr-2 py-1">
           {drinks.map(renderItemCard)}
         </div>
       )}

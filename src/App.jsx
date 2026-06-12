@@ -2,6 +2,8 @@ import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Home from './pages/user/Home'
 import DetailedView from './pages/user/DetailedView'
+import About from './pages/user/About'
+import Contact from './pages/user/Contact'
 import Register from './pages/user/register/Register'
 import Packages from './pages/user/register/Packages'
 import Outlet from './pages/user/register/Outlet'
@@ -24,6 +26,8 @@ function App() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/restaurant/:id" element={<DetailedView />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/contact" element={<Contact />} />
       <Route path="/register" element={<Register />} />
       <Route path="/packages" element={<Packages />} />
       <Route path="/outlet" element={<Outlet />} />

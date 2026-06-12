@@ -308,7 +308,7 @@ export default function HotelListings() {
                 <div className="flex flex-row h-full w-full">
                   
                   {/* Left: Image (Agoda style large image) */}
-                  <div className="relative w-[130px] sm:w-[320px] md:w-[340px] flex-shrink-0 h-full group cursor-pointer overflow-hidden">
+                  <div className="relative w-[115px] sm:w-[260px] md:w-[280px] flex-shrink-0 h-full group cursor-pointer overflow-hidden">
                     
                     {/* Sliding Image Track */}
                     <div 
@@ -465,6 +465,11 @@ export default function HotelListings() {
                       </div>
 
                       {/* Pricing Bottom Right */}
+                      {/* 
+                        PRICING & DISCOUNT PANEL
+                        Commented out for now to hide price rendering on listing cards.
+                        Can be uncommented later to show pricing, discounts, coupons, and tax labels.
+                      
                       <div className="flex flex-col items-end w-full mt-1.5">
                         {restaurant.appliedCoupons && restaurant.appliedCoupons.map((coupon, idx) => (
                           <div key={idx} className={`text-[9px] sm:text-[11px] px-1 py-0.5 rounded-sm mb-0.5 ${
@@ -474,7 +479,6 @@ export default function HotelListings() {
                           </div>
                         ))}
                         
-                        {/* Only show "Per night before taxes" if there's no red coupon above the price */}
                         {!restaurant.appliedCoupons && (
                            <div className="text-gray-500 text-[9px] sm:text-[11px] mt-0.5 mb-0.5">{restaurant.pricingLabel}</div>
                         )}
@@ -492,6 +496,7 @@ export default function HotelListings() {
                           Before taxes and fees
                         </div>
                       </div>
+                      */}
                       
                     </div>
                   </div>

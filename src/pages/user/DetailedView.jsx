@@ -7,6 +7,47 @@ export default function DetailedView() {
   const [activePhotoIndex, setActivePhotoIndex] = useState(null);
   const [showReviewsModal, setShowReviewsModal] = useState(false);
   const [showLocationModal, setShowLocationModal] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
+  const [showOrderSuccessModal, setShowOrderSuccessModal] = useState(false);
+
+  const handleAddItem = (item) => {
+    const priceValue = parseInt(item.price.replace(/[^\d]/g, ''), 10) || 0;
+    setCartItems(prevItems => {
+      const existingItem = prevItems.find(i => i.id === item.id);
+      if (existingItem) {
+        return prevItems.map(i => i.id === item.id ? { ...i, qty: i.qty + 1 } : i);
+      } else {
+        return [...prevItems, { id: item.id, name: item.name, price: item.price, priceValue, veg: item.veg, qty: 1 }];
+      }
+    });
+  };
+
+  const handleIncrement = (itemId) => {
+    setCartItems(prevItems =>
+      prevItems.map(item => item.id === itemId ? { ...item, qty: item.qty + 1 } : item)
+    );
+  };
+
+  const handleDecrement = (itemId) => {
+    setCartItems(prevItems =>
+      prevItems
+        .map(item => item.id === itemId ? { ...item, qty: item.qty - 1 } : item)
+        .filter(item => item.qty > 0)
+    );
+  };
+
+  const handleClearCart = () => {
+    setCartItems([]);
+  };
+
+  const handlePlaceOrder = () => {
+    setShowOrderSuccessModal(true);
+  };
+
+  const subtotal = cartItems.reduce((acc, item) => acc + (item.priceValue * item.qty), 0);
+  const gst = Math.round(subtotal * 0.05);
+  const serviceCharge = Math.round(subtotal * 0.05);
+  const grandTotal = subtotal + gst + serviceCharge;
 
   const galleryImages = [
     {
@@ -35,6 +76,164 @@ export default function DetailedView() {
     }
   ];
 
+  const renderLiveBillCard = () => (
+    <div className="bg-white p-4 sm:p-5 rounded-xl border border-[#d9c3ac] shadow-md flex flex-col min-w-0">
+      {/* Card Header */}
+      <div className="flex items-center justify-between pb-3 border-b border-gray-100 mb-4">
+        <div>
+          <h3 className="font-bold text-gray-900 text-sm sm:text-base">Live Bill</h3>
+          <p className="text-[10px] text-gray-500 font-semibold mt-0.5 flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse animate-duration-1000"></span>
+            Table #4 • Live Connection
+          </p>
+        </div>
+        {cartItems.length > 0 && (
+          <button 
+            onClick={handleClearCart}
+            className="text-[10px] sm:text-xs font-bold text-rose-600 hover:text-rose-700 bg-rose-50 hover:bg-rose-100 px-2.5 py-1 rounded transition-colors cursor-pointer border border-rose-100"
+          >
+            Clear Bill
+          </button>
+        )}
+      </div>
+
+      {/* Card Body / Items List */}
+      {cartItems.length === 0 ? (
+        <div className="flex flex-col items-center justify-center py-8 text-center">
+          <div className="w-16 h-16 rounded-full bg-[#fff8ed] border border-[#d9c3ac]/40 flex items-center justify-center text-[#855400] mb-3">
+            <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+            </svg>
+          </div>
+          <h4 className="font-bold text-gray-800 text-sm">Your bill is empty</h4>
+          <p className="text-xs text-gray-500 max-w-[180px] mt-1 leading-normal font-semibold">Add delicious items from the menu to start your order.</p>
+        </div>
+      ) : (
+        <div className="space-y-3 max-h-[240px] overflow-y-auto pr-1">
+          {cartItems.map((item) => (
+            <div key={item.id} className="flex items-center justify-between gap-2 border-b border-gray-50 pb-2 last:border-0 last:pb-0">
+              <div className="min-w-0 flex-grow">
+                <div className="flex items-center gap-1.5">
+                  <span className={`w-2.5 h-2.5 border shrink-0 flex items-center justify-center p-[1px] ${item.veg ? 'border-green-600' : 'border-red-600'}`}>
+                    <span className={`w-full h-full rounded-full ${item.veg ? 'bg-green-600' : 'bg-red-600'}`}></span>
+                  </span>
+                  <p className="font-bold text-gray-800 text-xs sm:text-sm truncate leading-tight">{item.name}</p>
+                </div>
+                <p className="text-[10px] text-[#855400] font-bold mt-0.5">{item.price}</p>
+              </div>
+
+              {/* Quantity Controls */}
+              <div className="flex items-center gap-1.5 shrink-0 bg-slate-50 border border-slate-200/60 rounded-lg p-0.5">
+                <button 
+                  onClick={() => handleDecrement(item.id)}
+                  className="w-5 h-5 flex items-center justify-center text-gray-600 font-bold hover:bg-slate-200 rounded text-xs transition-colors cursor-pointer"
+                >
+                  -
+                </button>
+                <span className="w-4 text-center font-extrabold text-xs text-gray-800">{item.qty}</span>
+                <button 
+                  onClick={() => handleIncrement(item.id)}
+                  className="w-5 h-5 flex items-center justify-center text-gray-600 font-bold hover:bg-slate-200 rounded text-xs transition-colors cursor-pointer"
+                >
+                  +
+                </button>
+              </div>
+
+              {/* Item Total Price */}
+              <div className="w-16 text-right shrink-0">
+                <span className="font-extrabold text-[#855400] text-xs sm:text-sm">
+                  ₹{(item.priceValue * item.qty).toLocaleString()}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Calculations block */}
+      {cartItems.length > 0 && (
+        <>
+          <hr className="my-3 border-gray-100" />
+          <div className="space-y-1.5 text-xs font-semibold text-gray-600">
+            <div className="flex justify-between">
+              <span>Subtotal</span>
+              <span className="font-bold text-gray-800">₹{subtotal.toLocaleString()}</span>
+            </div>
+            <div className="flex justify-between">
+              <span>GST (5%)</span>
+              <span className="font-bold text-gray-800">₹{gst.toLocaleString()}</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Service Charge (5%)</span>
+              <span className="font-bold text-gray-800">₹{serviceCharge.toLocaleString()}</span>
+            </div>
+            <hr className="my-2 border-dashed border-gray-200" />
+            <div className="flex justify-between text-sm sm:text-base font-extrabold text-gray-900">
+              <span className="text-[#855400]">Total Bill</span>
+              <span className="text-orange-600">₹{grandTotal.toLocaleString()}</span>
+            </div>
+          </div>
+
+          <button 
+            onClick={handlePlaceOrder}
+            className="w-full mt-4 py-2.5 sm:py-3 bg-[#FFA500] hover:bg-orange-600 text-white rounded-lg font-bold text-sm sm:text-base transition-all shadow-sm active:scale-[0.98] cursor-pointer flex items-center justify-center gap-2"
+          >
+            <svg className="w-4 h-4 sm:w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
+            </svg>
+            Place Order
+          </button>
+          <p className="text-center text-[9px] font-bold text-emerald-600 mt-2">✓ Order will be instantly synced to KDS kitchen panel</p>
+        </>
+      )}
+    </div>
+  );
+
+  const renderAmenitiesCard = () => (
+    <div className="bg-white p-4 sm:p-5 rounded-xl border border-[#d9c3ac] shadow-md">
+      <h3 className="font-bold text-[14px] sm:text-[16px] text-gray-900 mb-3 sm:mb-4 pb-2 border-b border-gray-100">Amenities</h3>
+      <div className="grid grid-cols-3 sm:grid-cols-2 gap-y-3 gap-x-2">
+        <div className="flex items-center gap-1.5 sm:gap-2 text-gray-700">
+          <svg className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-[#855400] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 16.25a6 6 0 017.5 0m-9.75-2.25a9.75 9.75 0 0112 0m-14.25-2.25a13.5 13.5 0 0116.5 0M12 18.75h.007v.008H12v-.008z" />
+          </svg>
+          <span className="text-[11px] sm:text-xs font-semibold text-gray-600">Free WiFi</span>
+        </div>
+        <div className="flex items-center gap-1.5 sm:gap-2 text-gray-700">
+          <svg className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-[#855400] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.5 5.25h3a2.25 2.25 0 010 4.5h-3V7.5zm0 9V7.5H9v9h1.5z" />
+          </svg>
+          <span className="text-[11px] sm:text-xs font-semibold text-gray-600">Valet Parking</span>
+        </div>
+        <div className="flex items-center gap-1.5 sm:gap-2 text-gray-700">
+          <svg className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-[#855400] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+            <circle cx="12" cy="5" r="2" />
+            <path d="M5 14a6 6 0 008.5 5.5m.5 1.5v-7M9 9h6v3" />
+          </svg>
+          <span className="text-[11px] sm:text-xs font-semibold text-gray-600">Accessible</span>
+        </div>
+        <div className="flex items-center gap-1.5 sm:gap-2 text-gray-700">
+          <svg className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-[#855400] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v18M3 12h18m-3-6L6 18M6 6l12 12" />
+          </svg>
+          <span className="text-[11px] sm:text-xs font-semibold text-gray-600">Air Conditioned</span>
+        </div>
+        <div className="flex items-center gap-1.5 sm:gap-2 text-gray-700">
+          <svg className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-[#855400] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+          <span className="text-[11px] sm:text-xs font-semibold text-gray-600">Bar</span>
+        </div>
+        <div className="flex items-center gap-1.5 sm:gap-2 text-gray-700">
+          <svg className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-[#855400] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 19V6l12-3v13M9 10l12-3M9 19a3 3 0 11-6 0 3 3 0 016 0zm12-3a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          <span className="text-[11px] sm:text-xs font-semibold text-gray-600">Live Music</span>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <UserLayout>
       <div className="max-w-[1240px] mx-auto px-4 sm:px-6 py-6 font-sans">
@@ -55,6 +254,14 @@ export default function DetailedView() {
           >
             Location
           </button>
+          <a 
+            href="https://www.google.com/maps/dir/?api=1&destination=17.456,78.375" 
+            target="_blank" 
+            rel="noreferrer"
+            className="py-4 font-bold text-sm text-gray-500 hover:text-[#855400] transition-all cursor-pointer"
+          >
+            Get Directions
+          </a>
         </nav>
 
         {/* Mobile Swipeable Gallery (Agoda style responsive slider) */}
@@ -198,8 +405,18 @@ export default function DetailedView() {
         {/* Menu Section */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mt-12">
           <div className="lg:col-span-2">
-            <RestaurantMenu />
+            <RestaurantMenu onAddItem={handleAddItem} />
             
+            {/* Mobile/Tablet Live Bill (hidden on desktop) */}
+            <div className="lg:hidden mt-8">
+              {renderLiveBillCard()}
+            </div>
+
+            {/* Mobile/Tablet Amenities (hidden on desktop) */}
+            <div className="lg:hidden mt-6">
+              {renderAmenitiesCard()}
+            </div>
+
             <section className="py-12 border-t border-[#d9c3ac] mt-12" id="overview">
               <h2 className="font-bold text-[24px] text-[#212529] mb-6">About Us</h2>
               <p className="text-[16px] text-[#534433] leading-relaxed">Welcome to Novotel Signature Restaurant, where culinary art meets timeless hospitality in the heart of Hyderabad. Our kitchen is led by award-winning chefs dedicated to crafting an exceptional dining experience. We blend authentic local heritage with contemporary global cooking techniques, selecting only the finest organic produce and sustainably sourced ingredients. Whether you are hosting a celebratory family dinner or a sophisticated business lunch, our warm ambience and curated menus promise to make every visit truly memorable.</p>
@@ -208,89 +425,14 @@ export default function DetailedView() {
 
           {/* Sidebar (Responsive Layout) */}
           <aside className="lg:col-span-1 self-start grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6 lg:space-y-6 lg:gap-0 lg:pt-40">
-            {/* Booking Card */}
-            <div className="bg-white p-4 sm:p-5 rounded-xl border border-[#d9c3ac] shadow-md">
-              <div className="space-y-4">
-                <div className="grid grid-cols-2 gap-2">
-                  <div className="border border-[#d9c3ac] rounded-lg p-2 sm:p-2.5">
-                    <p className="text-[9px] sm:text-[10px] font-bold tracking-wider text-[#855400] uppercase">DATE</p>
-                    <p className="text-xs sm:text-sm font-bold text-gray-800">Oct 12, 2024</p>
-                  </div>
-                  <div className="border border-[#d9c3ac] rounded-lg p-2 sm:p-2.5">
-                    <p className="text-[9px] sm:text-[10px] font-bold tracking-wider text-[#855400] uppercase">TIME</p>
-                    <p className="text-xs sm:text-sm font-bold text-gray-800">07:30 PM</p>
-                  </div>
-                </div>
-                <div className="border border-[#d9c3ac] rounded-lg p-2 sm:p-2.5 flex flex-col justify-center">
-                  <label htmlFor="guests" className="text-[9px] sm:text-[10px] font-bold tracking-wider text-[#855400] uppercase mb-0.5 block">PERSONS</label>
-                  <select 
-                    id="guests" 
-                    name="guests" 
-                    className="w-full text-xs sm:text-sm font-bold text-gray-800 bg-transparent border-none p-0 focus:ring-0 cursor-pointer appearance-none outline-none"
-                  >
-                    <option value="1">1 Person</option>
-                    <option value="2" selected>2 Persons</option>
-                    <option value="3">3 Persons</option>
-                    <option value="4">4 Persons</option>
-                    <option value="5">5+ Persons</option>
-                  </select>
-                </div>
-                <button className="w-full py-2.5 sm:py-3 bg-[#FFA500] text-white rounded-lg font-bold text-[14px] sm:text-[16px] hover:bg-orange-600 transition-all shadow-sm active:scale-[0.98] cursor-pointer">Book a Table</button>
-                <p className="text-center text-[10px] sm:text-[11px] font-semibold text-[#534433]">No booking fees. Instant confirmation.</p>
-              </div>
-              <hr className="my-3.5 sm:my-4 border-[#d9c3ac]" />
-              <div className="space-y-3">
-                <div className="flex items-center gap-2 text-[11px] sm:text-xs font-semibold text-[#191c1d]">
-                  <svg className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-[#855400] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                  </svg>
-                  Free cancellation until Oct 10
-                </div>
-              </div>
+            {/* Desktop Live Bill Card (hidden on mobile/tablet) */}
+            <div className="hidden lg:block">
+              {renderLiveBillCard()}
             </div>
             
-            {/* Amenities Card */}
-            <div className="bg-white p-4 sm:p-5 rounded-xl border border-[#d9c3ac] shadow-md">
-              <h3 className="font-bold text-[14px] sm:text-[16px] text-gray-900 mb-3 sm:mb-4 pb-2 border-b border-gray-100">Amenities</h3>
-              <div className="grid grid-cols-3 sm:grid-cols-2 gap-y-3 gap-x-2">
-                <div className="flex items-center gap-1.5 sm:gap-2 text-gray-700">
-                  <svg className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-[#855400] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 16.25a6 6 0 017.5 0m-9.75-2.25a9.75 9.75 0 0112 0m-14.25-2.25a13.5 13.5 0 0116.5 0M12 18.75h.007v.008H12v-.008z" />
-                  </svg>
-                  <span className="text-[11px] sm:text-xs font-semibold text-gray-600">Free WiFi</span>
-                </div>
-                <div className="flex items-center gap-1.5 sm:gap-2 text-gray-700">
-                  <svg className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-[#855400] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.5 5.25h3a2.25 2.25 0 010 4.5h-3V7.5zm0 9V7.5H9v9h1.5z" />
-                  </svg>
-                  <span className="text-[11px] sm:text-xs font-semibold text-gray-600">Valet Parking</span>
-                </div>
-                <div className="flex items-center gap-1.5 sm:gap-2 text-gray-700">
-                  <svg className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-[#855400] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                    <circle cx="12" cy="5" r="2" />
-                    <path d="M5 14a6 6 0 008.5 5.5m.5 1.5v-7M9 9h6v3" />
-                  </svg>
-                  <span className="text-[11px] sm:text-xs font-semibold text-gray-600">Accessible</span>
-                </div>
-                <div className="flex items-center gap-1.5 sm:gap-2 text-gray-700">
-                  <svg className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-[#855400] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v18M3 12h18m-3-6L6 18M6 6l12 12" />
-                  </svg>
-                  <span className="text-[11px] sm:text-xs font-semibold text-gray-600">Air Conditioned</span>
-                </div>
-                <div className="flex items-center gap-1.5 sm:gap-2 text-gray-700">
-                  <svg className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-[#855400] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                  <span className="text-[11px] sm:text-xs font-semibold text-gray-600">Bar</span>
-                </div>
-                <div className="flex items-center gap-1.5 sm:gap-2 text-gray-700">
-                  <svg className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-[#855400] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 19V6l12-3v13M9 10l12-3M9 19a3 3 0 11-6 0 3 3 0 016 0zm12-3a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                  <span className="text-[11px] sm:text-xs font-semibold text-gray-600">Live Music</span>
-                </div>
-              </div>
+            {/* Desktop Amenities Card (hidden on mobile/tablet) */}
+            <div className="hidden lg:block">
+              {renderAmenitiesCard()}
             </div>
           </aside>
         </div>
@@ -565,6 +707,62 @@ export default function DetailedView() {
               </button>
             </div>
 
+          </div>
+        </div>
+      )}
+      {/* Order Success Confirmation Modal */}
+      {showOrderSuccessModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl w-full max-w-[460px] overflow-hidden border border-[#d9c3ac] shadow-2xl flex flex-col p-6 text-center">
+            {/* Success Icon */}
+            <div className="w-20 h-20 rounded-full bg-emerald-50 border-4 border-emerald-100 flex items-center justify-center text-emerald-500 mx-auto mb-4 animate-bounce">
+              <svg className="w-10 h-10" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+              </svg>
+            </div>
+            
+            <h3 className="font-extrabold text-[22px] sm:text-[24px] text-gray-900 leading-tight">Order Placed Successfully!</h3>
+            <p className="text-xs sm:text-sm text-gray-500 font-semibold mt-2 leading-relaxed">
+              Your table order has been dispatched directly to the kitchen display panel. Chef and kitchen staff have started preparing your meal!
+            </p>
+
+            <div className="bg-[#fff8ed] border border-[#d9c3ac]/40 rounded-xl p-4 my-5 text-left">
+              <h4 className="font-bold text-[#855400] text-xs uppercase tracking-wider mb-2">Order Summary (Table #4)</h4>
+              <div className="space-y-1.5 max-h-[140px] overflow-y-auto pr-1">
+                {cartItems.map((item) => (
+                  <div key={item.id} className="flex justify-between text-xs font-semibold text-gray-700">
+                    <span className="truncate max-w-[240px]">• {item.name} <span className="text-gray-400 font-bold">x{item.qty}</span></span>
+                    <span className="font-extrabold text-[#855400]">₹{(item.priceValue * item.qty).toLocaleString()}</span>
+                  </div>
+                ))}
+              </div>
+              <hr className="my-2.5 border-dashed border-[#d9c3ac]/60" />
+              <div className="flex justify-between text-xs font-bold text-gray-900">
+                <span>Total Amount Charged</span>
+                <span className="text-orange-600 font-extrabold text-sm">₹{grandTotal.toLocaleString()}</span>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <button 
+                onClick={() => {
+                  setShowOrderSuccessModal(false);
+                  handleClearCart();
+                }}
+                className="w-full py-2.5 sm:py-3 bg-emerald-500 hover:bg-emerald-600 text-white rounded-lg font-bold text-sm sm:text-base shadow-md transition-colors cursor-pointer"
+              >
+                Track Order Status
+              </button>
+              <button 
+                onClick={() => {
+                  setShowOrderSuccessModal(false);
+                  handleClearCart();
+                }}
+                className="w-full py-2 text-gray-500 hover:text-gray-700 font-bold text-xs hover:bg-gray-50 rounded-lg transition-colors cursor-pointer"
+              >
+                Close Summary
+              </button>
+            </div>
           </div>
         </div>
       )}
