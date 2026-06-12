@@ -67,9 +67,9 @@ export default function Hero() {
                   name="type"
                 >
                   <option>All Types</option>
-                  <option>Delivery</option>
-                  <option>Dine-out</option>
-                  <option>Cafes</option>
+                  <option>Restaurant</option>
+                  <option>Bakery</option>
+                  <option>Cool Bar</option>
                 </select>
               </div>
             </div>
