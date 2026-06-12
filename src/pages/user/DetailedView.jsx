@@ -221,9 +221,19 @@ export default function DetailedView() {
                     <p className="text-xs sm:text-sm font-bold text-gray-800">07:30 PM</p>
                   </div>
                 </div>
-                <div className="border border-[#d9c3ac] rounded-lg p-2 sm:p-2.5">
-                  <p className="text-[9px] sm:text-[10px] font-bold tracking-wider text-[#855400] uppercase">GUESTS</p>
-                  <p className="text-xs sm:text-sm font-bold text-gray-800">2 Adults, 1 Room</p>
+                <div className="border border-[#d9c3ac] rounded-lg p-2 sm:p-2.5 flex flex-col justify-center">
+                  <label htmlFor="guests" className="text-[9px] sm:text-[10px] font-bold tracking-wider text-[#855400] uppercase mb-0.5 block">PERSONS</label>
+                  <select 
+                    id="guests" 
+                    name="guests" 
+                    className="w-full text-xs sm:text-sm font-bold text-gray-800 bg-transparent border-none p-0 focus:ring-0 cursor-pointer appearance-none outline-none"
+                  >
+                    <option value="1">1 Person</option>
+                    <option value="2" selected>2 Persons</option>
+                    <option value="3">3 Persons</option>
+                    <option value="4">4 Persons</option>
+                    <option value="5">5+ Persons</option>
+                  </select>
                 </div>
                 <button className="w-full py-2.5 sm:py-3 bg-[#FFA500] text-white rounded-lg font-bold text-[14px] sm:text-[16px] hover:bg-orange-600 transition-all shadow-sm active:scale-[0.98] cursor-pointer">Book a Table</button>
                 <p className="text-center text-[10px] sm:text-[11px] font-semibold text-[#534433]">No booking fees. Instant confirmation.</p>

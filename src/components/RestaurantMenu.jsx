@@ -159,7 +159,7 @@ export default function RestaurantMenu() {
   ];
 
   const renderItemCard = (item) => (
-    <div key={item.id} className="flex items-center gap-3 sm:gap-6 bg-white p-3 rounded-xl border border-[#d9c3ac] hover:shadow-md transition-shadow group min-w-0">
+    <div key={item.id} className="max-w-[95%] md:max-w-2xl flex items-center gap-3 sm:gap-6 bg-white p-3 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow group min-w-0">
       {/* Left Image */}
       <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-lg overflow-hidden flex-shrink-0 bg-[#edeeef]">
         <img 
@@ -184,7 +184,7 @@ export default function RestaurantMenu() {
           {/* View Recipe Button */}
           <button 
             onClick={() => setSelectedRecipeItem(item)}
-            className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded bg-[#fff8ed] border border-[#d9c3ac] text-[#855400] text-[9px] sm:text-[10px] font-bold hover:bg-[#855400] hover:text-white transition-colors cursor-pointer active:scale-95 whitespace-nowrap"
+            className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded bg-[#fff8ed] border border-orange-100 text-[#855400] text-[9px] sm:text-[10px] font-bold hover:bg-[#855400] hover:text-white transition-colors cursor-pointer active:scale-95 whitespace-nowrap"
           >
             View Recipe
           </button>
@@ -200,9 +200,9 @@ export default function RestaurantMenu() {
       </div>
       
       {/* Right Column: Price & Add Button */}
-      <div className="flex flex-col items-end justify-center gap-1.5 flex-shrink-0 pl-1.5 sm:pl-4 border-l border-[#d9c3ac]/20 self-stretch">
+      <div className="flex flex-col items-end justify-center gap-1.5 flex-shrink-0 pl-1.5 sm:pl-4 border-l border-gray-100 self-stretch">
         <span className="font-extrabold text-[#855400] text-xs sm:text-base whitespace-nowrap">{item.price}</span>
-        <button className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#FFA500] text-white flex items-center justify-center hover:bg-orange-600 transition-colors shadow-sm cursor-pointer">
+        <button className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#FFA500] text-white flex items-center justify-center hover:bg-[#e69500] transition-colors shadow-sm cursor-pointer">
           <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
           </svg>
@@ -224,15 +224,15 @@ export default function RestaurantMenu() {
       </div>
 
       {/* Category Navigation Tabs */}
-      <div className="flex border-b border-[#d9c3ac] mb-6 overflow-x-auto scrollbar-none" id="menu">
+      <div className="flex border-b border-gray-200 mb-6 overflow-x-auto scrollbar-none" id="menu">
         <button 
-          className={`px-6 sm:px-12 py-3 font-bold text-[14px] transition-all whitespace-nowrap cursor-pointer ${activeTab === 'main-course' ? 'text-[#855400] border-b-2 border-[#ffa500]' : 'text-[#534433] hover:text-[#855400]'}`} 
+          className={`px-6 sm:px-12 py-3 font-bold text-[14px] transition-all whitespace-nowrap cursor-pointer border-b-2 ${activeTab === 'main-course' ? 'text-[#855400] border-[#ffa500] bg-[#fff8ed]' : 'text-[#534433] border-transparent hover:text-[#855400]'}`} 
           onClick={() => setActiveTab('main-course')}
         >
           Main Course
         </button>
         <button 
-          className={`px-6 sm:px-12 py-3 font-bold text-[14px] transition-all whitespace-nowrap cursor-pointer ${activeTab === 'drinks' ? 'text-[#855400] border-b-2 border-[#ffa500]' : 'text-[#534433] hover:text-[#855400]'}`} 
+          className={`px-6 sm:px-12 py-3 font-bold text-[14px] transition-all whitespace-nowrap cursor-pointer border-b-2 ${activeTab === 'drinks' ? 'text-[#855400] border-[#ffa500] bg-[#fff8ed]' : 'text-[#534433] border-transparent hover:text-[#855400]'}`} 
           onClick={() => setActiveTab('drinks')}
         >
           Drinks

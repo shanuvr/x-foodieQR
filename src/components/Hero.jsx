@@ -1,5 +1,4 @@
 import React from 'react';
-import heroImg from '../assets/hero.png';
 
 export default function Hero() {
   return (
@@ -10,7 +9,7 @@ export default function Hero() {
         <img 
           alt="Restaurant setting" 
           className="w-full h-full object-cover" 
-          src={heroImg} 
+          src="/restaurant-interior.jpg" 
         />
         <div aria-hidden="true" className="absolute inset-0 hero-overlay"></div>
       </div>
