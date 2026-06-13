@@ -5,8 +5,8 @@ import RestaurantMenu from '../../components/RestaurantMenu';
 
 export default function DetailedView() {
   const [profile, setProfile] = useState({
-    website: 'https://gourmetcentral.com',
-    instagram: 'https://instagram.com/gourmetcentral',
+    website: 'www.google.com',
+    instagram: 'https://instagram.com/',
     kitchenName: 'Novotel Signature Restaurant'
   });
 
