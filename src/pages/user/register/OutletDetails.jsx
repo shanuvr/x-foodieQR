@@ -302,7 +302,7 @@ export default function OutletDetails() {
               <div>
                 <SectionTitle title="Business Information" />
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-3 sm:gap-y-4">
-                  <Field label="Cloud Kitchen Name">
+                  <Field label="Name">
                     <input name="kitchenName" value={form.kitchenName} onChange={handleChange}
                       className={inputCls} />
                   </Field>
