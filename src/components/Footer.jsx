@@ -92,8 +92,18 @@ export default function Footer() {
           </div>
 
         </div>
-        <div className="border-t border-white/5 text-center pt-6 sm:pt-8">
-          <p className="text-gray-500 text-xs sm:text-sm">© 2024 FoodieQR. All rights reserved.</p>
+        <div className="border-t border-white/5 text-center pt-6 sm:pt-8 flex justify-center">
+          <div className="group relative flex items-center justify-center cursor-pointer select-none">
+            {/* Hover Revealed Text - Absolute positioned above the copyright */}
+            <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 whitespace-nowrap text-primary text-[10px] sm:text-xs font-bold opacity-0 translate-y-1.5 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 pointer-events-none">
+              Powered by programers.in
+            </div>
+            
+            {/* Copyright Text */}
+            <p className="text-gray-500 text-xs sm:text-sm transition-colors duration-300 group-hover:text-gray-400">
+              © 2026 FoodieQR. All rights reserved.
+            </p>
+          </div>
         </div>
       </div>
     </footer>
