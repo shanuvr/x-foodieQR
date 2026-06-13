@@ -2,6 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import UserLayout from '../../../layouts/UserLayout';
 
+const PLANS = [
+  { id: 'standard', name: 'STANDARD', price: 200, discount: 20, billing: 'Monthly', features: { digitalMenu: true, qrOrdering: true, tableBooking: false, billing: false, analytics: false, reviews: false } },
+  { id: 'premium', name: 'PREMIUM', price: 400, discount: 20, billing: 'Monthly', features: { digitalMenu: true, qrOrdering: true, tableBooking: false, billing: false, analytics: false, reviews: false } },
+  { id: 'gold', name: 'GOLD', price: 600, discount: 15, billing: 'Monthly', features: { digitalMenu: true, qrOrdering: true, tableBooking: true, billing: false, analytics: true, reviews: false } },
+  { id: 'platinum', name: 'PLATINUM', price: 800, discount: 10, billing: 'Monthly', features: { digitalMenu: true, qrOrdering: true, tableBooking: true, billing: true, analytics: true, reviews: true } }
+];
+
 export default function Packages() {
   const navigate = useNavigate();
   const [selectedPlan, setSelectedPlan] = useState('standard');
@@ -205,162 +212,120 @@ export default function Packages() {
                   <thead>
                     <tr className="bg-[#fffcf5] border-b border-[#d9c3ac]/35">
                       <th className="p-3 text-[11px] font-bold text-gray-400 uppercase tracking-wider">Features</th>
-
-                      {/* Standard Plan Column Header */}
-                      <th className="p-3 text-center border-l border-[#d9c3ac]/20">
-                        <div className="flex flex-col items-center gap-0.5">
-                          <span className="text-[10px] font-extrabold text-gray-900 tracking-tight">STANDARD</span>
-                          <span className="text-xl font-black text-orange-500">₹200</span>
-                          <span className="text-[9px] font-bold text-emerald-600 uppercase tracking-wider">20% OFF</span>
-                          <span className="text-[8px] text-gray-400 font-semibold uppercase">Monthly</span>
-                        </div>
-                      </th>
-
-                      {/* Premium Plan Column Header */}
-                      <th className="p-3 text-center border-l border-[#d9c3ac]/20">
-                        <div className="flex flex-col items-center gap-0.5">
-                          <span className="text-[10px] font-extrabold text-gray-900 tracking-tight">PREMIUM</span>
-                          <span className="text-xl font-black text-orange-500">₹400</span>
-                          <span className="text-[9px] font-bold text-emerald-600 uppercase tracking-wider">20% OFF</span>
-                          <span className="text-[8px] text-gray-400 font-semibold uppercase">Monthly</span>
-                        </div>
-                      </th>
-
-                      {/* Gold Plan Column Header */}
-                      <th className="p-3 text-center border-l border-[#d9c3ac]/20">
-                        <div className="flex flex-col items-center gap-0.5">
-                          <span className="text-[10px] font-extrabold text-gray-900 tracking-tight">GOLD</span>
-                          <span className="text-xl font-black text-orange-500">₹600</span>
-                          <span className="text-[9px] font-bold text-emerald-600 uppercase tracking-wider">15% OFF</span>
-                          <span className="text-[8px] text-gray-400 font-semibold uppercase">Monthly</span>
-                        </div>
-                      </th>
-
-                      {/* Platinum Plan Column Header */}
-                      <th className="p-3 text-center border-l border-[#d9c3ac]/20">
-                        <div className="flex flex-col items-center gap-0.5">
-                          <span className="text-[10px] font-extrabold text-gray-900 tracking-tight">PLATINUM</span>
-                          <span className="text-xl font-black text-orange-500">₹800</span>
-                          <span className="text-[9px] font-bold text-emerald-600 uppercase tracking-wider">10% OFF</span>
-                          <span className="text-[8px] text-gray-400 font-semibold uppercase">Monthly</span>
-                        </div>
-                      </th>
+                      {PLANS.map((pkg) => (
+                        <th key={pkg.id} className="p-3 text-center border-l border-[#d9c3ac]/20">
+                          <div className="flex flex-col items-center gap-0.5">
+                            <span className="text-[10px] font-extrabold text-gray-900 tracking-tight uppercase">{pkg.name}</span>
+                            <span className="text-xl font-black text-orange-500">₹{pkg.price}</span>
+                            <span className="text-[9px] font-bold text-emerald-600 uppercase tracking-wider">{pkg.discount}% OFF</span>
+                            <span className="text-[8px] text-gray-400 font-semibold uppercase">{pkg.billing}</span>
+                          </div>
+                        </th>
+                      ))}
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100 text-xs">
                     {/* Digital Menu */}
                     <tr className="hover:bg-gray-50/50">
                       <td className="p-3 font-bold text-gray-700">Digital Menu</td>
-                      <td className="p-3 text-center border-l border-[#d9c3ac]/20"><span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-green-50 text-green-600">✓</span></td>
-                      <td className="p-3 text-center border-l border-[#d9c3ac]/20"><span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-green-50 text-green-600">✓</span></td>
-                      <td className="p-3 text-center border-l border-[#d9c3ac]/20"><span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-green-50 text-green-600">✓</span></td>
-                      <td className="p-3 text-center border-l border-[#d9c3ac]/20"><span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-green-50 text-green-600">✓</span></td>
+                      {PLANS.map(pkg => (
+                        <td key={pkg.id} className="p-3 text-center border-l border-[#d9c3ac]/20">
+                          {pkg.features.digitalMenu ? (
+                            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-green-50 text-green-600">✓</span>
+                          ) : (
+                            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-50 text-red-500 font-extrabold text-[10px]">✕</span>
+                          )}
+                        </td>
+                      ))}
                     </tr>
 
                     {/* QR Ordering */}
                     <tr className="hover:bg-gray-50/50">
                       <td className="p-3 font-bold text-gray-700">QR Ordering</td>
-                      <td className="p-3 text-center border-l border-[#d9c3ac]/20"><span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-green-50 text-green-600">✓</span></td>
-                      <td className="p-3 text-center border-l border-[#d9c3ac]/20"><span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-green-50 text-green-600">✓</span></td>
-                      <td className="p-3 text-center border-l border-[#d9c3ac]/20"><span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-green-50 text-green-600">✓</span></td>
-                      <td className="p-3 text-center border-l border-[#d9c3ac]/20"><span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-green-50 text-green-600">✓</span></td>
+                      {PLANS.map(pkg => (
+                        <td key={pkg.id} className="p-3 text-center border-l border-[#d9c3ac]/20">
+                          {pkg.features.qrOrdering ? (
+                            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-green-50 text-green-600">✓</span>
+                          ) : (
+                            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-50 text-red-500 font-extrabold text-[10px]">✕</span>
+                          )}
+                        </td>
+                      ))}
                     </tr>
 
                     {/* Table Booking */}
                     <tr className="hover:bg-gray-50/50">
                       <td className="p-3 font-bold text-gray-700">Table Booking</td>
-                      <td className="p-3 text-center border-l border-[#d9c3ac]/20"><span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-50 text-red-500 font-extrabold text-[10px]">✕</span></td>
-                      <td className="p-3 text-center border-l border-[#d9c3ac]/20"><span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-50 text-red-500 font-extrabold text-[10px]">✕</span></td>
-                      <td className="p-3 text-center border-l border-[#d9c3ac]/20"><span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-green-50 text-green-600">✓</span></td>
-                      <td className="p-3 text-center border-l border-[#d9c3ac]/20"><span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-green-50 text-green-600">✓</span></td>
+                      {PLANS.map(pkg => (
+                        <td key={pkg.id} className="p-3 text-center border-l border-[#d9c3ac]/20">
+                          {pkg.features.tableBooking ? (
+                            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-green-50 text-green-600">✓</span>
+                          ) : (
+                            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-50 text-red-500 font-extrabold text-[10px]">✕</span>
+                          )}
+                        </td>
+                      ))}
                     </tr>
 
                     {/* Billing */}
                     <tr className="hover:bg-gray-50/50">
                       <td className="p-3 font-bold text-gray-700">Billing</td>
-                      <td className="p-3 text-center border-l border-[#d9c3ac]/20"><span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-50 text-red-500 font-extrabold text-[10px]">✕</span></td>
-                      <td className="p-3 text-center border-l border-[#d9c3ac]/20"><span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-50 text-red-500 font-extrabold text-[10px]">✕</span></td>
-                      <td className="p-3 text-center border-l border-[#d9c3ac]/20"><span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-50 text-red-500 font-extrabold text-[10px]">✕</span></td>
-                      <td className="p-3 text-center border-l border-[#d9c3ac]/20"><span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-green-50 text-green-600">✓</span></td>
+                      {PLANS.map(pkg => (
+                        <td key={pkg.id} className="p-3 text-center border-l border-[#d9c3ac]/20">
+                          {pkg.features.billing ? (
+                            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-green-50 text-green-600">✓</span>
+                          ) : (
+                            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-50 text-red-500 font-extrabold text-[10px]">✕</span>
+                          )}
+                        </td>
+                      ))}
                     </tr>
 
                     {/* Analytics */}
                     <tr className="hover:bg-gray-50/50">
                       <td className="p-3 font-bold text-gray-700">Analytics</td>
-                      <td className="p-3 text-center border-l border-[#d9c3ac]/20"><span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-50 text-red-500 font-extrabold text-[10px]">✕</span></td>
-                      <td className="p-3 text-center border-l border-[#d9c3ac]/20"><span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-50 text-red-500 font-extrabold text-[10px]">✕</span></td>
-                      <td className="p-3 text-center border-l border-[#d9c3ac]/20"><span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-green-50 text-green-600">✓</span></td>
-                      <td className="p-3 text-center border-l border-[#d9c3ac]/20"><span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-green-50 text-green-600">✓</span></td>
+                      {PLANS.map(pkg => (
+                        <td key={pkg.id} className="p-3 text-center border-l border-[#d9c3ac]/20">
+                          {pkg.features.analytics ? (
+                            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-green-50 text-green-600">✓</span>
+                          ) : (
+                            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-50 text-red-500 font-extrabold text-[10px]">✕</span>
+                          )}
+                        </td>
+                      ))}
                     </tr>
 
                     {/* Reviews */}
                     <tr className="hover:bg-gray-50/50">
                       <td className="p-3 font-bold text-gray-700">Reviews</td>
-                      <td className="p-3 text-center border-l border-[#d9c3ac]/20"><span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-50 text-red-500 font-extrabold text-[10px]">✕</span></td>
-                      <td className="p-3 text-center border-l border-[#d9c3ac]/20"><span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-50 text-red-500 font-extrabold text-[10px]">✕</span></td>
-                      <td className="p-3 text-center border-l border-[#d9c3ac]/20"><span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-50 text-red-500 font-extrabold text-[10px]">✕</span></td>
-                      <td className="p-3 text-center border-l border-[#d9c3ac]/20"><span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-green-50 text-green-600">✓</span></td>
+                      {PLANS.map(pkg => (
+                        <td key={pkg.id} className="p-3 text-center border-l border-[#d9c3ac]/20">
+                          {pkg.features.reviews ? (
+                            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-green-50 text-green-600">✓</span>
+                          ) : (
+                            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-50 text-red-500 font-extrabold text-[10px]">✕</span>
+                          )}
+                        </td>
+                      ))}
                     </tr>
 
                     {/* Actions Row */}
                     <tr className="bg-gray-50/30">
                       <td className="p-3 font-bold text-gray-400 text-xs">Action</td>
-
-                      {/* Standard */}
-                      <td className="p-3 text-center border-l border-[#d9c3ac]/20">
-                        <div className="flex flex-col gap-1.5 w-full">
-                          <button type="button" onClick={() => handlePlanSelect('standard-trial')}
-                            className="w-full inline-flex justify-center items-center gap-1 py-1.5 bg-[#0f172a] text-white rounded text-[10px] font-bold hover:bg-slate-800 transition-all cursor-pointer">
-                            🚀 Trial
-                          </button>
-                          <button type="button" onClick={() => handlePlanSelect('standard')}
-                            className="w-full py-1.5 bg-[#FFA500] hover:bg-orange-600 text-white rounded text-[10px] font-bold transition-all cursor-pointer">
-                            Register
-                          </button>
-                        </div>
-                      </td>
-
-                      {/* Premium */}
-                      <td className="p-3 text-center border-l border-[#d9c3ac]/20">
-                        <div className="flex flex-col gap-1.5 w-full">
-                          <button type="button" onClick={() => handlePlanSelect('premium-trial')}
-                            className="w-full inline-flex justify-center items-center gap-1 py-1.5 bg-[#0f172a] text-white rounded text-[10px] font-bold hover:bg-slate-800 transition-all cursor-pointer">
-                            🚀 Trial
-                          </button>
-                          <button type="button" onClick={() => handlePlanSelect('premium')}
-                            className="w-full py-1.5 bg-[#FFA500] hover:bg-orange-600 text-white rounded text-[10px] font-bold transition-all cursor-pointer">
-                            Register
-                          </button>
-                        </div>
-                      </td>
-
-                      {/* Gold */}
-                      <td className="p-3 text-center border-l border-[#d9c3ac]/20">
-                        <div className="flex flex-col gap-1.5 w-full">
-                          <button type="button" onClick={() => handlePlanSelect('gold-trial')}
-                            className="w-full inline-flex justify-center items-center gap-1 py-1.5 bg-[#0f172a] text-white rounded text-[10px] font-bold hover:bg-slate-800 transition-all cursor-pointer">
-                            🚀 Trial
-                          </button>
-                          <button type="button" onClick={() => handlePlanSelect('gold')}
-                            className="w-full py-1.5 bg-[#FFA500] hover:bg-orange-600 text-white rounded text-[10px] font-bold transition-all cursor-pointer">
-                            Register
-                          </button>
-                        </div>
-                      </td>
-
-                      {/* Platinum */}
-                      <td className="p-3 text-center border-l border-[#d9c3ac]/20">
-                        <div className="flex flex-col gap-1.5 w-full">
-                          <button type="button" onClick={() => handlePlanSelect('platinum-trial')}
-                            className="w-full inline-flex justify-center items-center gap-1 py-1.5 bg-[#0f172a] text-white rounded text-[10px] font-bold hover:bg-slate-800 transition-all cursor-pointer">
-                            🚀 Trial
-                          </button>
-                          <button type="button" onClick={() => handlePlanSelect('platinum')}
-                            className="w-full py-1.5 bg-[#FFA500] hover:bg-orange-600 text-white rounded text-[10px] font-bold transition-all cursor-pointer">
-                            Register
-                          </button>
-                        </div>
-                      </td>
+                      {PLANS.map(pkg => (
+                        <td key={pkg.id} className="p-3 text-center border-l border-[#d9c3ac]/20">
+                          <div className="flex flex-col gap-1.5 w-full">
+                            <button type="button" onClick={() => handlePlanSelect(`${pkg.id}-trial`)}
+                              className="w-full inline-flex justify-center items-center gap-1 py-1.5 bg-[#0f172a] text-white rounded text-[10px] font-bold hover:bg-slate-800 transition-all cursor-pointer">
+                              🚀 Trial
+                            </button>
+                            <button type="button" onClick={() => handlePlanSelect(pkg.id)}
+                              className="w-full py-1.5 bg-[#FFA500] hover:bg-orange-600 text-white rounded text-[10px] font-bold transition-all cursor-pointer">
+                              Register
+                            </button>
+                          </div>
+                        </td>
+                      ))}
                     </tr>
                   </tbody>
                 </table>

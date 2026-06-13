@@ -1,8 +1,39 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  // Load user from localStorage
+  const checkUser = () => {
+    try {
+      const saved = localStorage.getItem('current_user');
+      setCurrentUser(saved ? JSON.parse(saved) : null);
+    } catch (e) {
+      setCurrentUser(null);
+    }
+  };
+
+  useEffect(() => {
+    checkUser();
+
+    // Listen to custom storage event to update instantly when logged in/out
+    window.addEventListener('storage', checkUser);
+    return () => {
+      window.removeEventListener('storage', checkUser);
+    };
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('current_user');
+    setCurrentUser(null);
+    setIsDropdownOpen(false);
+    setIsOpen(false);
+    navigate('/');
+  };
 
   return (
     <nav className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm w-full">
@@ -53,10 +84,71 @@ export default function Navbar() {
               Partner With Us
             </Link>
             
-            {/* Sign In Button (Desktop) */}
-            <button className="hidden md:inline-flex items-center px-6 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors cursor-pointer" type="button">
-              Sign In
-            </button>
+            {/* User Profile Dropdown or Sign In (Desktop) */}
+            {currentUser ? (
+              <div className="relative hidden md:block">
+                <button
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  className="flex items-center justify-center w-10 h-10 rounded-full bg-orange-500 hover:bg-orange-600 text-white font-extrabold text-sm transition-colors cursor-pointer border-2 border-white shadow shadow-orange-500/10 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                  type="button"
+                >
+                  {currentUser.initials || 'US'}
+                </button>
+                {isDropdownOpen && (
+                  <>
+                    <div className="fixed inset-0 z-10" onClick={() => setIsDropdownOpen(false)} />
+                    <div className="absolute right-0 mt-2.5 w-56 bg-white border border-slate-100 rounded-2xl shadow-xl z-20 py-2.5 text-left animate-fade-in-down">
+                      <div className="px-4 py-2 border-b border-slate-50 mb-1.5">
+                        <p className="text-xs font-bold text-slate-800 truncate">{currentUser.name}</p>
+                        <p className="text-[10px] text-slate-400 font-semibold truncate mt-0.5">{currentUser.email}</p>
+                      </div>
+                      
+                      <Link
+                        to="/"
+                        onClick={() => setIsDropdownOpen(false)}
+                        className="flex items-center gap-2.5 px-4 py-2 text-xs font-bold text-slate-600 hover:text-slate-800 hover:bg-slate-50 transition-colors"
+                      >
+                        <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.03 0 1.9.693 2.166 1.638m-7.377 2.24a4.75 4.75 0 11-9.5 0 4.75 4.75 0 019.5 0z" />
+                        </svg>
+                        My Orders
+                      </Link>
+                      
+                      <Link
+                        to="/"
+                        onClick={() => setIsDropdownOpen(false)}
+                        className="flex items-center gap-2.5 px-4 py-2 text-xs font-bold text-slate-600 hover:text-slate-800 hover:bg-slate-50 transition-colors"
+                      >
+                        <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                        </svg>
+                        Favorite Outlets
+                      </Link>
+                      
+                      <hr className="border-slate-50 my-1.5" />
+                      
+                      <button
+                        type="button"
+                        onClick={handleLogout}
+                        className="w-full flex items-center gap-2.5 px-4 py-2 text-xs font-bold text-rose-600 hover:bg-rose-50 transition-colors text-left cursor-pointer"
+                      >
+                        <svg className="w-4 h-4 text-rose-400" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+                        </svg>
+                        Logout
+                      </button>
+                    </div>
+                  </>
+                )}
+              </div>
+            ) : (
+              <Link
+                to="/login"
+                className="hidden md:inline-flex items-center px-6 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors cursor-pointer"
+              >
+                Sign In
+              </Link>
+            )}
             
             {/* Hamburger Button (Mobile Only with Morphing Animation) */}
             <button 
@@ -114,12 +206,50 @@ export default function Navbar() {
             >
               Partner With Us
             </Link>
-            <button 
-              className="w-full inline-flex justify-center items-center px-4 py-2.5 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none transition-colors cursor-pointer" 
-              type="button"
-            >
-              Sign In
-            </button>
+            
+            {currentUser ? (
+              <div className="space-y-1.5 pt-2 border-t border-gray-100">
+                <div className="px-3 py-2 bg-slate-50 border border-slate-100 rounded-xl mb-2 flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center text-white font-extrabold text-sm border-2 border-white shadow shadow-orange-500/10">
+                    {currentUser.initials || 'US'}
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-xs font-bold text-slate-800 truncate">{currentUser.name}</p>
+                    <p className="text-[9px] text-slate-400 font-semibold truncate mt-0.5">{currentUser.email}</p>
+                  </div>
+                </div>
+                
+                <Link
+                  to="/"
+                  onClick={() => setIsOpen(false)}
+                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+                >
+                  My Orders
+                </Link>
+                <Link
+                  to="/"
+                  onClick={() => setIsOpen(false)}
+                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+                >
+                  Favorite Outlets
+                </Link>
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  className="w-full inline-flex justify-center items-center px-4 py-2.5 bg-rose-50 hover:bg-rose-100 border border-rose-100 text-base font-medium rounded-md text-rose-600 focus:outline-none transition-colors cursor-pointer"
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <Link
+                to="/login"
+                onClick={() => setIsOpen(false)}
+                className="w-full inline-flex justify-center items-center px-4 py-2.5 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none transition-colors cursor-pointer"
+              >
+                Sign In
+              </Link>
+            )}
           </div>
         </div>
       </div>

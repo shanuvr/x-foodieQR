@@ -294,13 +294,14 @@ export default function HotelListings() {
         
         {/* Cards Area */}
         <div className="flex-1 min-w-0 space-y-4">
-          {restaurants.map((restaurant) => {
+          {restaurants.map((restaurant, index) => {
             const activeImageIndex = activeImageIndices[restaurant.id] || 0;
             return (
               <div 
                 key={restaurant.id} 
                 onClick={() => navigate(`/restaurant/${restaurant.id}`)}
-                className="bg-white rounded-md shadow-[0_2px_8px_rgba(0,0,0,0.1)] border border-gray-200 overflow-hidden flex flex-row font-sans h-[190px] sm:h-[270px] cursor-pointer hover:shadow-md hover:border-gray-300 transition-all"
+                className="bg-white rounded-md shadow-[0_2px_8px_rgba(0,0,0,0.1)] border border-gray-200 overflow-hidden flex flex-row font-sans h-[150px] sm:h-[270px] cursor-pointer hover:-translate-y-1.5 hover:shadow-xl hover:border-primary/30 transition-all duration-300 ease-out animate-fade-in-up"
+                style={{ animationDelay: `${index * 150}ms`, animationFillMode: 'both' }}
               >
                 
                 {/* Banner Top Removed */}
@@ -381,7 +382,7 @@ export default function HotelListings() {
                     <div className="flex-1 min-w-0 flex flex-col justify-between">
                       <div>
                         {/* Title */}
-                        <h3 className="text-base sm:text-[21px] font-bold text-gray-900 leading-tight mb-1 cursor-pointer hover:text-[#2b6be3] transition-colors line-clamp-2">{restaurant.name}</h3>
+                        <h3 className="text-sm sm:text-[21px] font-bold text-gray-900 leading-tight mb-1 cursor-pointer hover:text-[#2b6be3] transition-colors line-clamp-2">{restaurant.name}</h3>
                         
                         {/* Stars */}
                         <div className="flex text-[#f5a623] mb-1">

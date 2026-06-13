@@ -1,6 +1,24 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 export default function Hero() {
+  const [selectedType, setSelectedType] = useState('All Types');
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  const options = ['All Types', 'Restaurant', 'Bakery', 'Cool Bar'];
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
   return (
     <section className="relative bg-gray-900 min-h-[300px] sm:min-h-[360px] md:h-[500px] w-full flex flex-col justify-center">
       
@@ -16,16 +34,16 @@ export default function Hero() {
       
       {/* Text Content */}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-8 pb-14 md:pt-16 md:pb-32">
-        <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2 md:mb-4 tracking-tight leading-tight">
+        <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-2 md:mb-4 tracking-tight leading-tight animate-fade-in-up">
           Find the Best Food Near You
         </h1>
-        <p className="mt-2 text-sm sm:text-base md:text-xl text-gray-200 max-w-2xl mx-auto">
+        <p className="mt-2 text-sm sm:text-base md:text-xl text-gray-200 max-w-2xl mx-auto animate-fade-in-up-delay">
           Discover restaurants, cafes and offers near you.
         </p>
       </div>
 
       {/* Ultra-Responsive Single-Row Search Bar */}
-      <div className="absolute -bottom-8 md:-bottom-16 left-0 w-full px-4 sm:px-6 lg:px-8 z-10">
+      <div className="absolute -bottom-8 md:-bottom-16 left-0 w-full px-4 sm:px-6 lg:px-8 z-40">
         <div className="max-w-4xl mx-auto bg-white md:bg-white/95 md:backdrop-blur-md rounded-xl shadow-xl p-1.5 md:p-2 border border-white/20">
           <form className="flex flex-row items-center w-full" onSubmit={(e) => e.preventDefault()}>
             
@@ -52,24 +70,53 @@ export default function Hero() {
             <div className="h-8 md:h-12 w-px bg-gray-200 flex-shrink-0"></div>
             
             {/* Restaurant Type Dropdown */}
-            <div className="flex-[1.5] flex items-center px-2 py-1.5 md:px-6 md:py-4 min-w-0">
+            <div ref={dropdownRef} className="flex-[1.5] flex items-center px-2 py-1.5 md:px-6 md:py-4 min-w-0 relative">
               <div className="hidden sm:block flex-shrink-0 mr-2 md:mr-3">
                 <svg className="h-5 w-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path>
                 </svg>
               </div>
-              <div className="flex-grow text-left min-w-0">
-                <label className="hidden md:block text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-wider" htmlFor="type">Cuisine</label>
-                <select 
-                  className="block w-full border-none focus:ring-0 p-0 text-gray-900 text-xs sm:text-sm md:text-lg font-medium bg-transparent appearance-none cursor-pointer focus:outline-none truncate" 
-                  id="type" 
-                  name="type"
+              <div className="flex-grow text-left min-w-0 relative">
+                <label className="hidden md:block text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-wider select-none">Cuisine</label>
+                <input type="hidden" name="type" value={selectedType} />
+                <button
+                  type="button"
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                  className="w-full text-left flex items-center justify-between p-0 text-gray-900 text-xs sm:text-sm md:text-lg font-medium bg-transparent border-none focus:outline-none cursor-pointer truncate"
                 >
-                  <option>All Types</option>
-                  <option>Restaurant</option>
-                  <option>Bakery</option>
-                  <option>Cool Bar</option>
-                </select>
+                  <span className="truncate">{selectedType}</span>
+                  <svg className={`ml-1 h-3.5 w-3.5 sm:h-4 sm:w-4 text-gray-400 transition-transform shrink-0 ${dropdownOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path d="M19 9l-7 7-7-7" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path>
+                  </svg>
+                </button>
+
+                {/* Styled Custom Dropdown Menu */}
+                {dropdownOpen && (
+                  <div className="absolute left-0 right-0 mt-3 md:mt-4 w-44 sm:w-56 bg-white border border-slate-100/80 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.12)] z-50 py-1.5 overflow-hidden animate-fade-in text-left">
+                    {options.map((option) => (
+                      <button
+                        key={option}
+                        type="button"
+                        onClick={() => {
+                          setSelectedType(option);
+                          setDropdownOpen(false);
+                        }}
+                        className={`w-full flex items-center justify-between px-4 py-2.5 text-xs sm:text-sm font-bold text-left transition-colors cursor-pointer ${
+                          selectedType === option 
+                            ? 'text-primary bg-orange-50/40' 
+                            : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                        }`}
+                      >
+                        <span>{option}</span>
+                        {selectedType === option && (
+                          <svg className="w-4 h-4 text-primary shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                          </svg>
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
             

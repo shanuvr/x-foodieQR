@@ -33,7 +33,7 @@ export default function Payment() {
   useEffect(() => {
     try {
       const saved  = JSON.parse(localStorage.getItem('register_formData') || '{}');
-      const planId = saved.selectedPlan || 'standard';
+      const planId = saved.selectedPackage || saved.selectedPlan || 'standard';
       setPlan({ id: planId, ...(PLANS[planId] || PLANS['standard']) });
     } catch {
       setPlan({ id: 'standard', ...PLANS['standard'] });

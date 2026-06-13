@@ -1,5 +1,5 @@
-import React from 'react'
-import { Routes, Route } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import Home from './pages/user/Home'
 import DetailedView from './pages/user/DetailedView'
 import About from './pages/user/About'
@@ -9,6 +9,8 @@ import Packages from './pages/user/register/Packages'
 import Outlet from './pages/user/register/Outlet'
 import OutletDetails from './pages/user/register/OutletDetails'
 import Payment from './pages/user/register/Payment'
+import UserLogin from './pages/user/Login'
+import UserSignUp from './pages/user/SignUp'
 import AdminLogin from './pages/admin/Login'
 import Dashboard from './pages/admin/Dashboard'
 import Orders from './pages/admin/Oders'
@@ -21,10 +23,34 @@ import Settings from './pages/admin/Settings'
 import Template from './pages/admin/Template'
 import Profile from './pages/admin/Profile'
 
+// Super Admin Pages
+import SuperAdminLogin from './pages/superAdmin/Login'
+import SuperAdminDashboard from './pages/superAdmin/superAdminDashboard'
+import SuperAdminRestaurants from './pages/superAdmin/superAdminRetaurants'
+import SuperAdminUsers from './pages/superAdmin/superAdminUsers'
+import SuperAdminPayments from './pages/superAdmin/superAdminPayments'
+import SuperAdminPackages from './pages/superAdmin/superAdminPackages'
+import SuperAdminOutletTypes from './pages/superAdmin/superAdminOutletTypes'
+import SuperAdminAnalytics from './pages/superAdmin/superAdminAnalytics'
+import SuperAdminReports from './pages/superAdmin/superAdminReports'
+import SuperAdminSettings from './pages/superAdmin/superAdminSettings'
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
+    <>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/" element={<Home />} />
       <Route path="/restaurant/:id" element={<DetailedView />} />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
@@ -33,6 +59,8 @@ function App() {
       <Route path="/outlet" element={<Outlet />} />
       <Route path="/outlet-details" element={<OutletDetails />} />
       <Route path="/payment" element={<Payment />} />
+      <Route path="/login" element={<UserLogin />} />
+      <Route path="/signup" element={<UserSignUp />} />
       <Route path="/admin/login" element={<AdminLogin />} />
       <Route path="/admin/dashboard" element={<Dashboard />} />
       <Route path="/admin/orders" element={<Orders />} />
@@ -44,7 +72,20 @@ function App() {
       <Route path="/admin/reviews" element={<Reviews />} />
       <Route path="/admin/settings" element={<Settings />} />
       <Route path="/admin/profile" element={<Profile />} />
-    </Routes>
+
+      {/* Super Admin Routes */}
+      <Route path="/super-admin/login" element={<SuperAdminLogin />} />
+      <Route path="/super-admin/dashboard" element={<SuperAdminDashboard />} />
+      <Route path="/super-admin/restaurants" element={<SuperAdminRestaurants />} />
+      <Route path="/super-admin/users" element={<SuperAdminUsers />} />
+      <Route path="/super-admin/payments" element={<SuperAdminPayments />} />
+      <Route path="/super-admin/packages" element={<SuperAdminPackages />} />
+      <Route path="/super-admin/outlet-types" element={<SuperAdminOutletTypes />} />
+      <Route path="/super-admin/analytics" element={<SuperAdminAnalytics />} />
+      <Route path="/super-admin/reports" element={<SuperAdminReports />} />
+      <Route path="/super-admin/settings" element={<SuperAdminSettings />} />
+      </Routes>
+    </>
   )
 }
 
