@@ -182,7 +182,7 @@ export default function DetailedView() {
       alt: "Outdoor Pool Close-up"
     },
     {
-      src: "https://lh3.googleusercontent.com/aida/AP1WRLsaXzB3okdKoG_Q0IHr2jnBQvcY358jKwMaCJQkM1Bd00xLJJUbvZziuzbIJJ2d8_BeUuQxBzZSwHjjEtLEiDLzJeXHymYuWJ1pVib1c1jDBe0EWkPzclO2Bn6awSKSxusV1mXHGA8IN3EPnfce5SS3M2NKYYzHNv6yJmRsZCOjJxQeoY4WCO81GopHotB-8beK9Ddn7H7AYwr8QY7MkudwsDQLnzU7dWbqdnGoANcS9KXxcTVCLkMG4dzz",
+      src: "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&q=80&w=800",
       alt: "Modern Lobby Lounge"
     },
     {
@@ -207,7 +207,7 @@ export default function DetailedView() {
         </svg>
         <span>View Detailed Cart</span>
         {totalQty > 0 && (
-          <span className="bg-white text-orange-600 rounded-full text-[10px] w-5 h-5 flex items-center justify-center font-black shadow-sm animate-pulse">
+          <span className="bg-white text-orange-600 rounded-full text-xs w-6 h-6 flex items-center justify-center font-black shadow-sm animate-pulse">
             {totalQty}
           </span>
         )}
@@ -639,7 +639,7 @@ export default function DetailedView() {
                 <img 
                   alt="Modern Lobby Lounge" 
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
-                  src="https://lh3.googleusercontent.com/aida/AP1WRLsaXzB3okdKoG_Q0IHr2jnBQvcY358jKwMaCJQkM1Bd00xLJJUbvZziuzbIJJ2d8_BeUuQxBzZSwHjjEtLEiDLzJeXHymYuWJ1pVib1c1jDBe0EWkPzclO2Bn6awSKSxusV1mXHGA8IN3EPnfce5SS3M2NKYYzHNv6yJmRsZCOjJxQeoY4WCO81GopHotB-8beK9Ddn7H7AYwr8QY7MkudwsDQLnzU7dWbqdnGoANcS9KXxcTVCLkMG4dzz"
+                  src={galleryImages[3]?.src}
                 />
               </div>
             </div>

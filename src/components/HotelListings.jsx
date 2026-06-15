@@ -5,6 +5,7 @@ export default function HotelListings() {
   const navigate = useNavigate();
   const [filterOpen, setFilterOpen] = useState(false);
   const [activeImageIndices, setActiveImageIndices] = useState({});
+  const [activeToggle, setActiveToggle] = useState('general');
 
   const restaurants = [
     {
@@ -218,18 +219,43 @@ export default function HotelListings() {
     <section className="max-w-[1320px] mx-auto px-2 sm:px-4 mt-16 md:mt-32 pb-16">
       
       {/* Section Header with Filter Button on Mobile */}
-      <div className="sticky top-20 lg:relative lg:top-0 bg-white z-30 py-4 mb-6 flex justify-between items-center text-left border-b border-gray-100 lg:border-none -mx-2 px-4 sm:mx-0 sm:px-0">
+      <div className="sticky top-20 lg:relative lg:top-0 bg-white z-30 py-4 mb-6 flex flex-wrap gap-3 justify-between items-center text-left border-b border-gray-100 lg:border-none -mx-2 px-4 sm:mx-0 sm:px-0">
         <h2 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">Popular Restaurants Near You</h2>
-        <button
-          onClick={() => setFilterOpen(true)}
-          className="lg:hidden inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 shadow-sm cursor-pointer"
-          type="button"
-        >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path>
-          </svg>
-          Filter
-        </button>
+        
+        <div className="flex items-center gap-3">
+          {/* Static Toggle Button */}
+          <div className="bg-slate-100 p-0.5 sm:p-1 rounded-xl flex items-center border border-slate-200/50 shadow-inner">
+            <button 
+              type="button" 
+              onClick={() => setActiveToggle('general')}
+              className={`px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                activeToggle === 'general' ? 'bg-[#FFA500] text-white shadow-sm' : 'text-slate-500 hover:text-slate-850'
+              }`}
+            >
+              General
+            </button>
+            <button 
+              type="button" 
+              onClick={() => setActiveToggle('foodieqr')}
+              className={`px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                activeToggle === 'foodieqr' ? 'bg-[#FFA500] text-white shadow-sm' : 'text-slate-500 hover:text-slate-850'
+              }`}
+            >
+              FoodieQR
+            </button>
+          </div>
+
+          <button
+            onClick={() => setFilterOpen(true)}
+            className="lg:hidden inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 shadow-sm cursor-pointer"
+            type="button"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path>
+            </svg>
+            Filter
+          </button>
+        </div>
       </div>
       
       {/* Mobile Filter Drawer (Slide-in from right) */}

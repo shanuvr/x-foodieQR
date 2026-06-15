@@ -23,6 +23,8 @@ import Reviews from './pages/admin/Reviews'
 import Settings from './pages/admin/Settings'
 import Template from './pages/admin/Template'
 import Profile from './pages/admin/Profile'
+import MyPlan from './pages/admin/MyPlan'
+import Upgrade from './pages/admin/Upgrade'
 
 // Super Admin Pages
 import SuperAdminLogin from './pages/superAdmin/Login'
@@ -74,6 +76,8 @@ function App() {
       <Route path="/admin/reviews" element={<Reviews />} />
       <Route path="/admin/settings" element={<Settings />} />
       <Route path="/admin/profile" element={<Profile />} />
+      <Route path="/admin/my-plan" element={<MyPlan />} />
+      <Route path="/admin/upgrade" element={<Upgrade />} />
 
       {/* Super Admin Routes */}
       <Route path="/super-admin/login" element={<SuperAdminLogin />} />
