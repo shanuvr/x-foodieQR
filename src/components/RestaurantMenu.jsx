@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 
-export default function RestaurantMenu({ onAddItem }) {
+export default function RestaurantMenu({ onAddItem, onDownloadRegister }) {
   const [activeTab, setActiveTab] = useState('main-course');
   const [selectedRecipeItem, setSelectedRecipeItem] = useState(null);
-
   const mainCourses = [
     {
       id: 'truffle-burrata',
@@ -12,7 +11,7 @@ export default function RestaurantMenu({ onAddItem }) {
       kcal: '320 kcal',
       price: '₹850',
       description: 'Creamy burrata, heirloom tomatoes, basil pesto, and shaved black truffle.',
-      img: 'https://lh3.googleusercontent.com/aida/AP1WRLtt37hoKaXq4KAzkPM3qWw5ReyBx_d-BxhJluuB5JN1XhNg14aZoXkIpPONzBAc16ZgxZ_VqazxEuLByPdYY9WyBpwHkLhKu8vonAeqJ96yxuJXvBltJ8LuU0_6sJeBY-TwlohpX0dfcVd4FEUsYCAvQUrhV-gUvXEnj9L_hwsmzHYHwvn7F9d3W_jOgDGyeH3SObvBQZcM6oCUJLqOvEe9dokars_nEALIA82tYYWDfNoGTK7i5CVD0tll',
+      img: 'https://images.unsplash.com/photo-1631452180519-c014fe946bc7?auto=format&fit=crop&w=600&q=80',
       ingredients: 'Fresh Burrata, heirloom tomatoes, basil pesto, shaved black truffle, balsamic glaze, extra virgin olive oil, pine nuts, parmesan, sea salt',
       recipe: 'Place heirloom tomatoes on a serving plate. Rest fresh Burrata cheese directly in the center. Drizzle with premium basil pesto and aged sweet balsamic glaze. Finish with shaved black truffle, sea salt flakes, and cold-pressed extra virgin olive oil.'
     },
@@ -24,7 +23,7 @@ export default function RestaurantMenu({ onAddItem }) {
       spice: '🌶️',
       price: '₹1,850',
       description: 'Atlantic salmon, asparagus spears, saffron risotto, and lemon butter sauce.',
-      img: 'https://lh3.googleusercontent.com/aida/AP1WRLttvmillzjiktR7oBvnPhJ0caFebD-1TXCHiqSZwZc4goxLDGnCEdOMn_5jVFb6LBGcSbhZnjUiq2SmoTLSrZJTt0Fj0-aPBzQHHxP-fomFl-Mu0FiOnVwV88sKEQLXkvZkuaVSOBqqztsITakqBY0VexAHmNq62lwICytnSLr4VzskFfRx1LX2p71cKQruamspzyb9jTtxR02IA6b18yXENxoF_hUs1hKUtKX4HgvaIZB2E_m2-wcUblGG',
+      img: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=600&q=80',
       ingredients: 'Atlantic salmon, asparagus, Arborio rice, vegetable broth, saffron, butter, lemon, olive oil, dry white wine, pepper, sea salt',
       recipe: 'Season salmon fillet with sea salt, black pepper, and lemon zest. Sear skin-side down in a hot pan for 4 minutes until crispy, then flip and cook for 2 more minutes. Serve over a bed of warm saffron Arborio risotto and grilled asparagus spears. Drizzle with creamy lemon butter emulsion.'
     },
@@ -83,7 +82,7 @@ export default function RestaurantMenu({ onAddItem }) {
       spice: '🌶️🌶️🌶️',
       price: '₹1,450',
       description: 'Slow-cooked tender lamb in a rich aromatic Kashmiri gravy with saffron rice.',
-      img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDNYXHjq9CCgqOG45Ixfk0UyX04pE8PAKXT7cgV9zfA0jtU9WjRxD6z3VoVTwjECmAnSvSEgKixTGSog9rgkToBd5fzKK4Is-WvRQPiY68na-mK_DNlfhImykTlD3ZAFp3C9ywmPwrD-8Oj0H-y-qabRDwRkVBKQcEBEhZFX5l1mRsYqXR3rR3MigxP85y58uYucmIYljyND70nqVR6XxfPeapXAdBOjN1ocyrghLF_mSchZdAf9oUkkU5QVINEMBxmRAXqSAnMoJQM',
+      img: 'https://images.unsplash.com/photo-1545247181-516773cae72d?auto=format&fit=crop&w=600&q=80',
       ingredients: 'Lamb shoulder, mustard oil, Kashmiri chili powder, yogurt, fennel powder, ginger powder, cardamom, cloves, cinnamon, bay leaves, saffron',
       recipe: 'Sear lamb chunks in mustard oil with whole Kashmiri spices. Stir in yogurt, Kashmiri red chili paste, fennel seed powder, and dry ginger powder. Pour in a little water, seal the pot, and cook slowly on low heat for 90 minutes until the meat is fork-tender and the gravy is oil-separated. Serve hot over saffron rice.'
     }
@@ -97,7 +96,7 @@ export default function RestaurantMenu({ onAddItem }) {
       kcal: '180 kcal',
       price: '₹950',
       description: 'A craft blend of premium spirits, botanical bitters, and fresh seasonal citrus.',
-      img: 'https://lh3.googleusercontent.com/aida/AP1WRLsIfEvr0qi9LK7m5xOXnWfAhZoOCSnBMBX5pQz8zvl-pnTcmdFXGR5HSmN9OD9yC7mTcIn03R6eS7nATEisR0LlbT2J__79_wOPHwoJijmI8F3-igNUhrPROrg-Q4x3Q62H0sD35uwsMMUeAyzjISJiOy6cz-rmMDbOP1CGLGf468Il7Mw0KmiKz19HM14_oJfdVh0TD6vPVDfKLkxCzAkS8Ln87tORDcEsnvZvEv9icH_ktg1UsqcUqP4',
+      img: 'https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&w=600&q=80',
       ingredients: 'Premium dry gin, elderflower liqueur, lemon juice, simple syrup, orange bitters, fresh rosemary, fresh thyme, ice, orange peel',
       recipe: 'Combine fresh botanicals and citrus zests in a cocktail shaker and muddle gently. Add premium dry gin, elderflower liqueur, and botanical bitters with plenty of ice. Shake vigorously for 15 seconds. Double strain into a chilled coupe glass and garnish with an express orange peel.'
     },
@@ -119,7 +118,7 @@ export default function RestaurantMenu({ onAddItem }) {
       kcal: '125 kcal',
       price: '₹1,200',
       description: 'A robust Cabernet Sauvignon with notes of dark berries and oak finish.',
-      img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCdZpxumZhZbIDDyYUprxQ6o-JcvDAzIzXQUlAythF6IC1lx9I_4ABGRHu9e6lLsBCmpcOObccKLeJp3ouNyauS7OcyMjqrnAsJ66a31OtusNujQU_94XYG1Zf9BQhnBWxupVhWZ2firieCFIMlpiNVUt-UuMymtnfC738zfSbR1S0rQiixHsUlxlTeI1pZpp1f0-cP-YvhFnemgHraAI0V9R7KQUimaQoBQH0vRGkRKkjGlXHKGszV_O_OxfCoXt3rIYklXngKPiHb',
+      img: 'https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&w=600&q=80',
       ingredients: 'Cabernet Sauvignon grapes (oak-aged reserve), sulfur dioxide',
       recipe: 'Store bottle horizontally at 16°C. Carefully uncork the bottle and decant for 30 minutes before serving to aerate. Pour gently into a large Cabernet glass to let the aromas of black currant, cedar wood, and oak unfold. Serve at room temperature.'
     },
@@ -152,11 +151,374 @@ export default function RestaurantMenu({ onAddItem }) {
       kcal: '0 kcal',
       price: '₹350',
       description: 'Crisp, naturally carbonated mineral water served chilled with lemon.',
-      img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCdZpxumZhZbIDDyYUprxQ6o-JcvDAzIzXQUlAythF6IC1lx9I_4ABGRHu9e6lLsBCmpcOObccKLeJp3ouNyauS7OcyMjqrnAsJ66a31OtusNujQU_94XYG1Zf9BQhnBWxupVhWZ2firieCFIMlpiNVUt-UuMymtnfC738zfSbR1S0rQiixHsUlxlTeI1pZpp1f0-cP-YvhFnemgHraAI0V9R7KQUimaQoBQH0vRGkRKkjGlXHKGszV_O_OxfCoXt3rIYklXngKPiHb',
+      img: 'https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=600&q=80',
       ingredients: 'Natural spring sparkling mineral water, fresh Meyer lemon',
       recipe: 'Chill natural spring sparkling mineral water to 4°C. Pour into a clean, dry highball glass to preserve carbonation. Garnish with a fresh thin slice of Meyer lemon and serve immediately.'
     }
   ];
+
+  const handleDownloadMenu = () => {
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) {
+      alert('Please allow popups to download/print the menu.');
+      return;
+    }
+
+    const mainCoursesHtml = mainCourses.map(item => `
+      <div class="menu-card">
+        <img class="menu-img" src="${item.img}" alt="${item.name}" />
+        <div class="menu-details">
+          <div>
+            <div class="menu-header">
+              <span class="menu-name">
+                <span class="veg-badge ${item.veg ? 'veg' : 'non-veg'}"></span>
+                ${item.name}
+              </span>
+              <span class="menu-price">${item.price}</span>
+            </div>
+            <div class="menu-badges">
+              <span class="badge badge-kcal">${item.kcal}</span>
+              <span class="badge ${item.spice ? 'badge-spice' : 'badge-mild'}">${item.spice ? item.spice + ' Spice' : 'Mild'}</span>
+            </div>
+          </div>
+          <p class="menu-desc">${item.description}</p>
+        </div>
+      </div>
+    `).join('');
+
+    const drinksHtml = drinks.map(item => `
+      <div class="menu-card">
+        <img class="menu-img" src="${item.img}" alt="${item.name}" />
+        <div class="menu-details">
+          <div>
+            <div class="menu-header">
+              <span class="menu-name">
+                <span class="veg-badge veg"></span>
+                ${item.name}
+              </span>
+              <span class="menu-price">${item.price}</span>
+            </div>
+            <div class="menu-badges">
+              <span class="badge badge-kcal">${item.kcal}</span>
+              <span class="badge badge-mild">Mild</span>
+            </div>
+          </div>
+          <p class="menu-desc">${item.description}</p>
+        </div>
+      </div>
+    `).join('');
+
+    printWindow.document.write(`
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>Novotel Signature Restaurant Menu</title>
+        <style>
+          @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap');
+          
+          /* Set print page dimension rules */
+          @page {
+            size: A4 portrait;
+            margin: 12mm 15mm;
+          }
+
+          /* Force colors & backgrounds in print */
+          * {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+            box-sizing: border-box;
+          }
+
+          body {
+            font-family: 'Outfit', sans-serif;
+            color: #212529;
+            background-color: #faf8f5;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 800px;
+            min-height: 100vh;
+            width: 100%;
+          }
+
+          .menu-border-frame {
+            border: 4px double #d9c3ac;
+            padding: 24px;
+            border-radius: 16px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            width: 100%;
+          }
+
+          .header {
+            text-align: center;
+            border-bottom: 2px solid #ffa500;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+            position: relative;
+          }
+
+          .header h1 {
+            font-size: 34px;
+            font-weight: 800;
+            color: #855400;
+            margin: 0 0 6px 0;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+          }
+
+          .header p {
+            color: #534433;
+            font-weight: 600;
+            font-size: 13px;
+            margin: 0;
+            letter-spacing: 0.5px;
+          }
+
+          .section-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #855400;
+            border-bottom: 2px solid #fff8ed;
+            padding-bottom: 8px;
+            margin: 30px 0 20px 0;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+          }
+
+          .section-title::after {
+            content: '';
+            flex-grow: 1;
+            height: 1.5px;
+            background: linear-gradient(to right, #d9c3ac, transparent);
+          }
+
+          .grid {
+            display: grid !important;
+            grid-template-cols: repeat(2, 1fr) !important;
+            gap: 20px !important;
+            width: 100% !important;
+          }
+
+          .menu-card {
+            display: flex !important;
+            gap: 12px !important;
+            background-color: #fff8ed !important;
+            border: 1px solid #ebd9c3 !important;
+            border-radius: 12px !important;
+            padding: 12px !important;
+            box-shadow: 0 4px 12px rgba(133, 84, 0, 0.03) !important;
+            page-break-inside: avoid !important;
+            height: 120px !important;
+            width: 100% !important;
+          }
+
+          .menu-img {
+            width: 90px !important;
+            height: 90px !important;
+            object-fit: cover !important;
+            border-radius: 8px !important;
+            flex-shrink: 0 !important;
+            border: 1px solid #ebd9c3 !important;
+            background-color: #f7f5f2 !important;
+          }
+
+          .menu-details {
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: space-between !important;
+            flex-grow: 1 !important;
+            min-width: 0 !important;
+          }
+
+          .menu-header {
+            display: flex !important;
+            justify-content: space-between !important;
+            align-items: flex-start !important;
+            gap: 8px !important;
+          }
+
+          .menu-name {
+            font-weight: 700 !important;
+            font-size: 14px !important;
+            color: #212529 !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+            line-height: 1.2 !important;
+          }
+
+          .veg-badge {
+            width: 13px !important;
+            height: 13px !important;
+            border: 2px solid #28a745 !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            border-radius: 3px !important;
+            flex-shrink: 0 !important;
+          }
+
+          .veg-badge::after {
+            content: '' !important;
+            width: 5px !important;
+            height: 5px !important;
+            border-radius: 50% !important;
+            background-color: #28a745 !important;
+          }
+
+          .veg-badge.non-veg {
+            border-color: #dc3545 !important;
+          }
+
+          .veg-badge.non-veg::after {
+            background-color: #dc3545 !important;
+          }
+
+          .menu-price {
+            font-weight: 800 !important;
+            color: #855400 !important;
+            font-size: 14px !important;
+            flex-shrink: 0 !important;
+          }
+
+          .menu-badges {
+            display: flex !important;
+            gap: 5px !important;
+            margin-top: 4px !important;
+          }
+
+          .badge {
+            font-size: 8px !important;
+            font-weight: 700 !important;
+            padding: 2px 6px !important;
+            border-radius: 4px !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.5px !important;
+          }
+
+          .badge-kcal {
+            background-color: #f1f3f5 !important;
+            border: 1px solid #dee2e6 !important;
+            color: #495057 !important;
+          }
+
+          .badge-spice {
+            background-color: #fff0f6 !important;
+            border: 1px solid #ffdeeb !important;
+            color: #d6336c !important;
+          }
+
+          .badge-mild {
+            background-color: #e6f7ff !important;
+            border: 1px solid #bae7ff !important;
+            color: #096dd9 !important;
+          }
+
+          .menu-desc {
+            font-size: 10px !important;
+            color: #534433 !important;
+            margin: 4px 0 0 0 !important;
+            line-height: 1.3 !important;
+            display: -webkit-box !important;
+            -webkit-line-clamp: 2 !important;
+            -webkit-box-orient: vertical !important;
+            overflow: hidden !important;
+          }
+
+          @media print {
+            body {
+              padding: 0 !important;
+              background-color: #ffffff !important;
+              margin: 0 auto !important;
+            }
+            .menu-border-frame {
+              box-shadow: none !important;
+              border-color: #ebd9c3 !important;
+              padding: 20px !important;
+            }
+            .grid {
+              display: grid !important;
+              grid-template-cols: repeat(2, 1fr) !important;
+              gap: 20px !important;
+              width: 100% !important;
+            }
+          }
+        </style>
+      </head>
+      <body>
+        <div class="menu-border-frame">
+          <div class="header">
+            <h1>NOVOTEL SIGNATURE RESTAURANT</h1>
+            <p>HITEC City, Kondapur, Hyderabad, India</p>
+          </div>
+
+          <div class="section-title">Main Courses</div>
+          <div class="grid">
+            ${mainCoursesHtml}
+          </div>
+
+          <div class="section-title">Drinks</div>
+          <div class="grid">
+            ${drinksHtml}
+          </div>
+        </div>
+
+        <script>
+          window.onload = function() {
+            const images = Array.from(document.querySelectorAll('img'));
+            let loadedCount = 0;
+            let printTriggered = false;
+
+            function triggerPrint() {
+              if (printTriggered) return;
+              printTriggered = true;
+              window.print();
+            }
+
+            // Fallback timeout of 3.5 seconds
+            const timeoutId = setTimeout(triggerPrint, 3500);
+
+            function checkAllLoaded() {
+              loadedCount++;
+              if (loadedCount === images.length) {
+                clearTimeout(timeoutId);
+                setTimeout(triggerPrint, 500);
+              }
+            }
+
+            if (images.length === 0) {
+              triggerPrint();
+            } else {
+              images.forEach(img => {
+                if (img.complete) {
+                  checkAllLoaded();
+                } else {
+                  img.addEventListener('load', checkAllLoaded);
+                  img.addEventListener('error', checkAllLoaded);
+                }
+              });
+            }
+          };
+        </script>
+      </body>
+      </html>
+    `);
+    printWindow.document.close();
+  };
+
+  React.useEffect(() => {
+    if (onDownloadRegister) {
+      onDownloadRegister(() => handleDownloadMenu);
+    }
+    return () => {
+      if (onDownloadRegister) {
+        onDownloadRegister(null);
+      }
+    };
+  }, [onDownloadRegister]);
 
   const renderItemCard = (item) => (
     <div key={item.id} className="w-full flex items-center gap-3 sm:gap-6 bg-white p-3 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow group min-w-0 h-[115px] sm:h-[135px]">
@@ -226,16 +588,6 @@ export default function RestaurantMenu({ onAddItem }) {
 
   return (
     <>
-      <div className="flex flex-col gap-2 mb-6">
-        <h1 className="font-bold text-[32px] md:text-[48px] text-[#212529] leading-tight">Novotel Signature Restaurant</h1>
-        <p className="flex items-center gap-2 text-[#534433] text-sm sm:text-base">
-          <svg className="w-4 h-4 text-[#855400] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-          </svg>
-          P.O Bag 1101, HITEC City, Kondapur, Hyderabad, 500081, India
-        </p>
-      </div>
-
       {/* Category Navigation Tabs */}
       <div className="flex border-b border-gray-200 mb-6 overflow-x-auto scrollbar-none" id="menu">
         <button 

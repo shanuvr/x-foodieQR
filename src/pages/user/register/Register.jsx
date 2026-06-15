@@ -9,11 +9,12 @@ export default function Register() {
     ownerName: '',
     ownerMobile: '',
     ownerEmail: '',
-    ownerAddress: '',
-    ownerDistrict: '',
-    ownerState: '',
-    ownerCountry: 'India'
+    otp: '',
+    password: '',
+    confirmPassword: ''
   });
+
+  const [showOtpModal, setShowOtpModal] = useState(false);
 
   useEffect(() => {
     // Load existing form data from localStorage if available
@@ -26,10 +27,9 @@ export default function Register() {
           ownerName: parsed.ownerName || '',
           ownerMobile: parsed.ownerMobile || '',
           ownerEmail: parsed.ownerEmail || '',
-          ownerAddress: parsed.ownerAddress || '',
-          ownerDistrict: parsed.ownerDistrict || '',
-          ownerState: parsed.ownerState || '',
-          ownerCountry: parsed.ownerCountry || 'India'
+          otp: parsed.otp || '',
+          password: parsed.password || '',
+          confirmPassword: parsed.confirmPassword || ''
         }));
       } catch (e) {
         console.error(e);
@@ -55,10 +55,9 @@ export default function Register() {
       formData.ownerName.trim() !== '' &&
       formData.ownerMobile.trim() !== '' &&
       formData.ownerEmail.trim() !== '' &&
-      formData.ownerAddress.trim() !== '' &&
-      formData.ownerDistrict.trim() !== '' &&
-      formData.ownerState.trim() !== '' &&
-      formData.ownerCountry.trim() !== ''
+      formData.otp.trim() !== '' &&
+      formData.password.trim() !== '' &&
+      formData.password === formData.confirmPassword
     );
   };
 
@@ -81,6 +80,14 @@ export default function Register() {
 
     // Route to Step 2: Packages
     navigate('/packages');
+  };
+
+  const handleSendOtp = () => {
+    if (!formData.ownerEmail.trim()) {
+      alert('Please enter your email address first.');
+      return;
+    }
+    setShowOtpModal(true);
   };
 
   // Stepper Header for Mobile view
@@ -237,60 +244,59 @@ export default function Register() {
 
                 <div className="flex flex-col">
                   <label className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Email Address *</label>
-                  <input 
-                    type="email" 
-                    name="ownerEmail"
-                    value={formData.ownerEmail}
-                    onChange={handleInputChange}
-                    required
-                    className="border border-gray-200 rounded-lg p-2.5 text-xs sm:text-sm font-semibold text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-[#FFA500] bg-white transition-all shadow-sm"
-                  />
+                  <div className="flex gap-2">
+                    <input 
+                      type="email" 
+                      name="ownerEmail"
+                      value={formData.ownerEmail}
+                      onChange={handleInputChange}
+                      required
+                      className="flex-grow border border-gray-200 rounded-lg p-2.5 text-xs sm:text-sm font-semibold text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-[#FFA500] bg-white transition-all shadow-sm"
+                    />
+                    <button 
+                      type="button" 
+                      onClick={handleSendOtp}
+                      className="px-4 py-2.5 bg-slate-800 text-white rounded-lg text-xs font-bold transition-all shadow-sm hover:bg-slate-900 cursor-pointer flex-shrink-0"
+                    >
+                      Send OTP
+                    </button>
+                  </div>
                 </div>
 
                 <div className="flex flex-col">
-                  <label className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Street Address *</label>
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Enter OTP *</label>
                   <input 
                     type="text" 
-                    name="ownerAddress"
-                    value={formData.ownerAddress}
+                    name="otp"
+                    value={formData.otp}
                     onChange={handleInputChange}
                     required
+                    placeholder="Enter the code sent to your email"
                     className="border border-gray-200 rounded-lg p-2.5 text-xs sm:text-sm font-semibold text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-[#FFA500] bg-white transition-all shadow-sm"
                   />
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="flex flex-col">
-                    <label className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">District *</label>
+                    <label className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Password *</label>
                     <input 
-                      type="text" 
-                      name="ownerDistrict"
-                      value={formData.ownerDistrict}
+                      type="password" 
+                      name="password"
+                      value={formData.password}
                       onChange={handleInputChange}
                       required
                       className="border border-gray-200 rounded-lg p-2.5 text-xs sm:text-sm font-semibold text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-[#FFA500] bg-white transition-all shadow-sm"
                     />
                   </div>
                   <div className="flex flex-col">
-                    <label className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">State *</label>
+                    <label className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Confirm Password *</label>
                     <input 
-                      type="text" 
-                      name="ownerState"
-                      value={formData.ownerState}
+                      type="password" 
+                      name="confirmPassword"
+                      value={formData.confirmPassword}
                       onChange={handleInputChange}
                       required
                       className="border border-gray-200 rounded-lg p-2.5 text-xs sm:text-sm font-semibold text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-[#FFA500] bg-white transition-all shadow-sm"
-                    />
-                  </div>
-                  <div className="flex flex-col">
-                    <label className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Country *</label>
-                    <input 
-                      type="text" 
-                      name="ownerCountry"
-                      value={formData.ownerCountry}
-                      onChange={handleInputChange}
-                      required
-                      className="border border-gray-200 rounded-lg p-2.5 text-xs sm:text-sm font-semibold text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-[#FFA500] bg-gray-50 transition-all shadow-sm"
                     />
                   </div>
                 </div>
@@ -312,6 +318,32 @@ export default function Register() {
         </div>
 
       </div>
+
+      {/* OTP Sent Modal */}
+      {showOtpModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl w-full max-w-sm shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-200">
+            <div className="p-6 text-center">
+              <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-extrabold text-gray-900 mb-2">OTP Sent!</h3>
+              <p className="text-sm font-semibold text-gray-500 mb-6">
+                A verification code has been sent to <br/><span className="text-gray-900 font-bold">{formData.ownerEmail}</span>
+              </p>
+              <button
+                onClick={() => setShowOtpModal(false)}
+                className="w-full py-3 bg-[#FFA500] hover:bg-orange-600 text-white rounded-xl text-sm font-bold shadow-sm transition-colors cursor-pointer"
+              >
+                Got it
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </UserLayout>
   );
 }

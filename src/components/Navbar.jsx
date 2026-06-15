@@ -85,19 +85,6 @@ export default function Navbar() {
               <Link className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors" to="/contact">Contact Us</Link>
             </div>
             
-            {/* Cart Button (Always visible) */}
-            <Link to="/cart" className="p-2 text-gray-400 hover:text-gray-600 transition-colors relative cursor-pointer">
-              <span className="sr-only">View cart</span>
-              <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path>
-              </svg>
-              {cartCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 bg-orange-500 text-white rounded-full text-[9px] w-4.5 h-4.5 flex items-center justify-center font-extrabold shadow shadow-orange-500/20">
-                  {cartCount}
-                </span>
-              )}
-            </Link>
-            
             {/* Partner Button (Desktop) */}
             <Link 
               to="/register"
@@ -218,18 +205,6 @@ export default function Navbar() {
             onClick={() => setIsOpen(false)}
           >
             Contact Us
-          </Link>
-          <Link 
-            className="block px-3 py-1.5 rounded-md text-sm font-semibold text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors flex items-center justify-between" 
-            to="/cart"
-            onClick={() => setIsOpen(false)}
-          >
-            <span>Cart</span>
-            {cartCount > 0 && (
-              <span className="bg-orange-500 text-white rounded-full text-[9px] px-2 py-0.5 font-extrabold shadow-sm shadow-orange-500/10">
-                {cartCount}
-              </span>
-            )}
           </Link>
           
           <div className="pt-3 pb-1 border-t border-gray-100 space-y-1.5">
