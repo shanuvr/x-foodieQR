@@ -472,19 +472,104 @@ export default function DetailedView() {
         {/* Sticky Header Wrapper */}
         <div className="sticky top-20 z-45 bg-white/95 backdrop-blur-md -mx-4 sm:-mx-6 px-4 sm:px-6 border-b border-gray-150 shadow-sm mb-6">
           {/* Restaurant Header Info */}
-          <div className="flex flex-row items-center justify-between gap-2.5 pb-2 pt-2.5 text-left">
-            <div className="min-w-0 flex-grow">
-              <div className="flex flex-row items-center gap-2 flex-wrap min-w-0">
-                <h1 className="font-extrabold text-base sm:text-xl md:text-[30px] text-[#212529] leading-tight truncate max-w-[160px] xs:max-w-[200px] sm:max-w-none">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-1.5 pb-1.5 pt-1.5 md:pb-3 md:pt-2.5 text-left">
+            <div className="min-w-0 flex-grow space-y-1">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 flex-wrap min-w-0">
+                <h1 className="font-extrabold text-base sm:text-xl md:text-[30px] text-[#212529] leading-tight">
                   {profile.kitchenName || 'Novotel Signature Restaurant'}
                 </h1>
-                <div className="flex items-center gap-0.5 select-none shrink-0">
-                  {[...Array(5)].map((_, i) => (
-                    <svg key={i} className="w-3.5 h-3.5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                <div className="relative group flex items-center gap-1 sm:gap-2 select-none shrink-0 flex-wrap text-[9px] sm:text-xs font-bold text-slate-500 cursor-pointer">
+                  <div className="flex items-center gap-0.5">
+                    {[...Array(4)].map((_, i) => (
+                      <svg key={i} className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    ))}
+                    <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-300" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                     </svg>
-                  ))}
-                  <span className="text-[10px] sm:text-xs font-bold text-amber-600 ml-1">4.7</span>
+                    <span className="text-amber-600 ml-0.5">4.0</span>
+                  </div>
+
+                  <span className="text-gray-300">|</span>
+
+                  <div className="flex items-center gap-0.5">
+                    <span className="bg-orange-500 text-white text-[8px] sm:text-[10px] font-black px-1 py-0.5 rounded leading-none">8.3</span>
+                    <span className="text-slate-800 font-extrabold">Excellent</span>
+                    <span className="text-slate-400 font-semibold">(240 reviews)</span>
+                  </div>
+
+                  <span className="text-gray-300">|</span>
+
+                  <div className="flex items-center gap-0.5">
+                    <span className="text-slate-500 font-semibold">Location score</span>
+                    <span className="text-slate-800 font-extrabold">8.0</span>
+                  </div>
+
+                  {/* Rating Breakdown Hover Tooltip */}
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 hidden group-hover:flex flex-col bg-white border border-slate-200 rounded-xl shadow-xl p-4 w-72 z-50 pointer-events-none text-xs text-slate-700 font-medium animate-fade-in">
+                    <div className="grid grid-cols-2 gap-x-4 gap-y-3 pb-3 border-b border-slate-100 text-left">
+                      <div className="space-y-1">
+                        <div className="flex justify-between items-center text-[10px]">
+                          <span className="text-slate-400 font-bold uppercase">Cleanliness</span>
+                          <span className="font-extrabold text-slate-700">8.9</span>
+                        </div>
+                        <div className="relative w-full h-1 bg-slate-100 rounded-full overflow-hidden">
+                          <div className="absolute top-0 left-0 h-full bg-orange-500 rounded-full" style={{ width: '89%' }}></div>
+                        </div>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex justify-between items-center text-[10px]">
+                          <span className="text-slate-400 font-bold uppercase">Facilities</span>
+                          <span className="font-extrabold text-slate-700">8.6</span>
+                        </div>
+                        <div className="relative w-full h-1 bg-slate-100 rounded-full overflow-hidden">
+                          <div className="absolute top-0 left-0 h-full bg-orange-500 rounded-full" style={{ width: '86%' }}></div>
+                        </div>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex justify-between items-center text-[10px]">
+                          <span className="text-slate-400 font-bold uppercase">Location</span>
+                          <span className="font-extrabold text-slate-700">8.4</span>
+                        </div>
+                        <div className="relative w-full h-1 bg-slate-100 rounded-full overflow-hidden">
+                          <div className="absolute top-0 left-0 h-full bg-orange-500 rounded-full" style={{ width: '84%' }}></div>
+                        </div>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex justify-between items-center text-[10px]">
+                          <span className="text-slate-400 font-bold uppercase">Food Quality</span>
+                          <span className="font-extrabold text-slate-700">8.7</span>
+                        </div>
+                        <div className="relative w-full h-1 bg-slate-100 rounded-full overflow-hidden">
+                          <div className="absolute top-0 left-0 h-full bg-orange-500 rounded-full" style={{ width: '87%' }}></div>
+                        </div>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex justify-between items-center text-[10px]">
+                          <span className="text-slate-400 font-bold uppercase">Service</span>
+                          <span className="font-extrabold text-slate-700">8.6</span>
+                        </div>
+                        <div className="relative w-full h-1 bg-slate-100 rounded-full overflow-hidden">
+                          <div className="absolute top-0 left-0 h-full bg-orange-500 rounded-full" style={{ width: '86%' }}></div>
+                        </div>
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex justify-between items-center text-[10px]">
+                          <span className="text-slate-400 font-bold uppercase">Value</span>
+                          <span className="font-extrabold text-slate-700">8.3</span>
+                        </div>
+                        <div className="relative w-full h-1 bg-slate-100 rounded-full overflow-hidden">
+                          <div className="absolute top-0 left-0 h-full bg-orange-500 rounded-full" style={{ width: '83%' }}></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="pt-2 text-[9px] text-slate-400 font-bold flex items-center gap-1 leading-normal text-left">
+                      <span>▲</span>
+                      <span>Average rating for premium dining in Hyderabad</span>
+                    </div>
+                    <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-white border-l border-t border-slate-200 rotate-45"></div>
+                  </div>
                 </div>
               </div>
               <p className="hidden sm:flex items-center gap-1.5 text-[#534433] text-xs font-semibold mt-0.5">
@@ -494,19 +579,19 @@ export default function DetailedView() {
                 P.O Bag 1101, HITEC City, Kondapur, Hyderabad, 500081, India
               </p>
             </div>
-            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0 justify-start md:justify-end mt-0.5 md:mt-0">
               {downloadMenu && (
                 <button
                   onClick={downloadMenu}
-                  className="px-3 py-1.5 sm:px-4 sm:py-2 bg-[#fff8ed] hover:bg-[#855400] text-[#855400] hover:text-white border border-[#d9c3ac] rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-1.5 sm:gap-2 cursor-pointer shadow-md shrink-0 active:scale-95"
+                  className="px-2 py-0.5 sm:px-4 sm:py-2 bg-[#fff8ed] hover:bg-[#855400] text-[#855400] hover:text-white border border-[#d9c3ac] rounded-lg sm:rounded-xl text-[10px] sm:text-sm font-bold transition-all flex items-center gap-1 sm:gap-2 cursor-pointer shadow-sm shrink-0 active:scale-95"
                 >
                   {/* Menu Icon */}
-                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                  <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                   </svg>
                   <span>Menu</span>
                   {/* Download Icon */}
-                  <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                  <svg className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
                   </svg>
                 </button>
@@ -514,34 +599,30 @@ export default function DetailedView() {
               <button
                 type="button"
                 onClick={() => setShowShareModal(true)}
-                className="px-3 py-1.5 sm:px-4 sm:py-2 bg-slate-100 hover:bg-slate-200 border border-slate-200 hover:border-slate-300 text-slate-700 text-xs sm:text-sm font-bold rounded-xl transition-all cursor-pointer flex items-center gap-1.5 sm:gap-2 shadow-md shrink-0 active:scale-95"
+                className="px-2 py-0.5 sm:px-4 sm:py-2 bg-slate-100 hover:bg-slate-200 border border-slate-200 hover:border-slate-300 text-slate-700 text-[10px] sm:text-sm font-bold rounded-lg sm:rounded-xl transition-all cursor-pointer flex items-center gap-1 sm:gap-2 shadow-sm shrink-0 active:scale-95"
               >
                 {/* QR Icon */}
-                <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#855400]" fill="currentColor" viewBox="0 0 24 24">
+                <svg className="w-3 h-3 sm:w-4 sm:h-4 text-[#855400]" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm13-2h3v2h-3v-2zm-3 3h3v3h-3v-3zm3 3h3v2h-3v-2zm-3-6h3v3h-3v-3zm6 3h2v2h-2v-2zm0-3h2v2h-2v-2zm-3 6h2v2h-2v-2z"/>
                 </svg>
                 <span>QR</span>
-                {/* Share Icon */}
-                <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-400" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186l.09-.034a1.885 1.885 0 001.077-1.18l.024-.074a2.25 2.25 0 10-3.81-2.12l-.03.064a1.885 1.885 0 00.316 2.007l.07.074m0 0l-.09.034a1.885 1.885 0 00-1.077 1.18l-.024.074a2.25 2.25 0 103.81 2.12l.03-.064a1.885 1.885 0 00-.316-2.007l-.07-.074" />
-                </svg>
               </button>
             </div>
           </div>
 
           {/* Sticky Sub-Navbar */}
           <nav className="flex items-center gap-4 sm:gap-8 overflow-x-auto whitespace-nowrap shadow-none border-t border-gray-100 scrollbar-none pt-1">
-            <a className="py-2.5 sm:py-3.5 font-bold text-xs sm:text-sm text-[#855400] border-b-2 border-[#ffa500] transition-all" href="#overview">Overview</a>
-            <a className="py-2.5 sm:py-3.5 font-bold text-xs sm:text-sm text-gray-500 hover:text-[#855400] transition-all" href="#menu">Menu</a>
+            <a className="py-1.5 sm:py-3.5 font-bold text-xs sm:text-sm text-[#855400] border-b-2 border-[#ffa500] transition-all" href="#overview">Overview</a>
+            <a className="py-1.5 sm:py-3.5 font-bold text-xs sm:text-sm text-gray-500 hover:text-[#855400] transition-all" href="#menu">Menu</a>
             <button 
               onClick={() => setShowReviewsModal(true)}
-              className="py-2.5 sm:py-3.5 font-bold text-xs sm:text-sm text-gray-500 hover:text-[#855400] transition-all cursor-pointer"
+              className="py-1.5 sm:py-3.5 font-bold text-xs sm:text-sm text-gray-500 hover:text-[#855400] transition-all cursor-pointer"
             >
               Reviews
             </button>
             <button 
               onClick={() => setShowAmenitiesModal(true)}
-              className="py-2.5 sm:py-3.5 font-bold text-xs sm:text-sm text-gray-500 hover:text-[#855400] transition-all cursor-pointer"
+              className="py-1.5 sm:py-3.5 font-bold text-xs sm:text-sm text-gray-500 hover:text-[#855400] transition-all cursor-pointer"
             >
               Amenities
             </button>
@@ -549,7 +630,7 @@ export default function DetailedView() {
               href="https://www.google.com/maps/dir/?api=1&destination=17.456,78.375" 
               target="_blank" 
               rel="noreferrer"
-              className="py-2.5 sm:py-3.5 font-bold text-xs sm:text-sm text-gray-500 hover:text-[#855400] transition-all cursor-pointer inline-flex items-center gap-1 sm:gap-1.5"
+              className="py-1.5 sm:py-3.5 font-bold text-xs sm:text-sm text-gray-500 hover:text-[#855400] transition-all cursor-pointer inline-flex items-center gap-1 sm:gap-1.5"
             >
               <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498-4.835-2.255a1 1 0 00-.836 0l-4.835 2.255A1 1 0 013 15.75V4.5a1 1 0 011.352-.925l4.835 2.072a1 1 0 00.836 0l4.835-2.072A1 1 0 0119.5 4.5v11.25a1 1 0 01-1.147.983L13.5 14.5" />
@@ -558,7 +639,7 @@ export default function DetailedView() {
             </a>
             <button 
               onClick={() => setShowLocationModal(true)}
-              className="py-2.5 sm:py-3.5 font-bold text-xs sm:text-sm text-gray-500 hover:text-[#855400] transition-all cursor-pointer"
+              className="py-1.5 sm:py-3.5 font-bold text-xs sm:text-sm text-gray-500 hover:text-[#855400] transition-all cursor-pointer"
             >
               Location
             </button>
