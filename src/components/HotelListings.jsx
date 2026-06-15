@@ -149,43 +149,43 @@ export default function HotelListings({ onlyShowFavorites = false }) {
     switch (amenity) {
       case 'WiFi':
         return (
-          <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-gray-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+          <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-gray-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071a9.5 9.5 0 0114.142 0M6.228 6.228a14.5 14.5 0 0120.544 0" />
           </svg>
         );
       case 'Parking':
         return (
-          <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-gray-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+          <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-gray-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
           </svg>
         );
       case 'AC':
         return (
-          <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-gray-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+          <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-gray-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
           </svg>
         );
       case 'Pure Veg':
         return (
-          <span className="w-3 h-3 sm:w-3.5 sm:h-3.5 border border-green-600 flex items-center justify-center p-0.5" title="Pure Veg">
-            <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-green-600 rounded-full"></span>
+          <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 border border-green-600 flex items-center justify-center p-0.5" title="Pure Veg">
+            <span className="w-1 h-1 bg-green-600 rounded-full"></span>
           </span>
         );
       case 'Non Veg':
         return (
-          <span className="w-3 h-3 sm:w-3.5 sm:h-3.5 border border-[#e12d5b] flex items-center justify-center p-0.5" title="Non Veg">
-            <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-[#e12d5b] rounded-full"></span>
+          <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 border border-[#e12d5b] flex items-center justify-center p-0.5" title="Non Veg">
+            <span className="w-1 h-1 bg-[#e12d5b] rounded-full"></span>
           </span>
         );
       case 'Bar':
         return (
-          <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-gray-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+          <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-gray-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
           </svg>
         );
       default:
         return (
-          <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-gray-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+          <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-gray-500" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
         );
@@ -196,14 +196,14 @@ export default function HotelListings({ onlyShowFavorites = false }) {
   const filterContent = (
     <>
       {/* Rating */}
-      <div className="mb-5">
-        <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2.5">Rating</h4>
-        <div className="space-y-1.5">
+      <div className="mb-4">
+        <h4 className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Rating</h4>
+        <div className="space-y-1">
           {["4.5+", "4.0+", "3.5+", "3.0+"].map((rating) => (
-            <label key={rating} className="flex items-center gap-2.5 cursor-pointer group">
-              <input className="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary accent-primary cursor-pointer" type="checkbox" />
-              <span className="text-sm text-gray-600 group-hover:text-gray-900 flex items-center gap-1">
-                <svg className="w-3.5 h-3.5 text-gray-400 group-hover:text-primary transition-colors" fill="currentColor" viewBox="0 0 20 20">
+            <label key={rating} className="flex items-center gap-2 cursor-pointer group">
+              <input className="w-3.5 h-3.5 rounded border-gray-300 text-primary focus:ring-primary accent-primary cursor-pointer" type="checkbox" />
+              <span className="text-[13px] text-gray-600 group-hover:text-gray-900 flex items-center gap-1">
+                <svg className="w-3 h-3 text-gray-400 group-hover:text-primary transition-colors" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                 </svg>
                 {rating}
@@ -214,13 +214,13 @@ export default function HotelListings({ onlyShowFavorites = false }) {
       </div>
       
       {/* Food Preference */}
-      <div className="mb-5">
-        <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2.5">Food Preference</h4>
-        <div className="space-y-1.5">
+      <div className="mb-4">
+        <h4 className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Food Preference</h4>
+        <div className="space-y-1">
           {["Pure Veg", "Non Veg"].map((pref) => (
-            <label key={pref} className="flex items-center gap-2.5 cursor-pointer group">
-              <input className="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary accent-primary cursor-pointer" type="checkbox" />
-              <span className="text-sm text-gray-600 group-hover:text-gray-900">{pref}</span>
+            <label key={pref} className="flex items-center gap-2 cursor-pointer group">
+              <input className="w-3.5 h-3.5 rounded border-gray-300 text-primary focus:ring-primary accent-primary cursor-pointer" type="checkbox" />
+              <span className="text-[13px] text-gray-600 group-hover:text-gray-900">{pref}</span>
             </label>
           ))}
         </div>
@@ -228,12 +228,12 @@ export default function HotelListings({ onlyShowFavorites = false }) {
       
       {/* Amenities */}
       <div>
-        <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2.5">Amenities</h4>
-        <div className="space-y-1.5">
+        <h4 className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Amenities</h4>
+        <div className="space-y-1">
           {["Parking", "WiFi", "AC", "Bar"].map((amenity) => (
-            <label key={amenity} className="flex items-center gap-2.5 cursor-pointer group">
-              <input className="w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary accent-primary cursor-pointer" type="checkbox" />
-              <span className="text-sm text-gray-600 group-hover:text-gray-900">{amenity}</span>
+            <label key={amenity} className="flex items-center gap-2 cursor-pointer group">
+              <input className="w-3.5 h-3.5 rounded border-gray-300 text-primary focus:ring-primary accent-primary cursor-pointer" type="checkbox" />
+              <span className="text-[13px] text-gray-600 group-hover:text-gray-900">{amenity}</span>
             </label>
           ))}
         </div>
@@ -364,10 +364,10 @@ export default function HotelListings({ onlyShowFavorites = false }) {
         
         {/* Desktop Sidebar (Hidden on mobile) */}
         {!onlyShowFavorites && (
-          <aside className="hidden lg:block w-64 flex-shrink-0 sticky top-24 self-start">
-            <div className="bg-white border border-gray-100 rounded-xl p-6 shadow-sm space-y-8">
+          <aside className="hidden lg:block w-56 flex-shrink-0 sticky top-24 self-start">
+            <div className="bg-white border border-gray-100 rounded-xl p-4 shadow-sm space-y-5">
               <div>
-                <h3 className="text-lg font-bold text-gray-900 mb-4">Filters</h3>
+                <h3 className="text-base font-bold text-gray-900 mb-3">Filters</h3>
                 {filterContent}
               </div>
             </div>
@@ -382,7 +382,7 @@ export default function HotelListings({ onlyShowFavorites = false }) {
               <div 
                 key={restaurant.id} 
                 onClick={() => navigate(`/restaurant/${restaurant.id}`)}
-                className="bg-white rounded-md shadow-[0_2px_8px_rgba(0,0,0,0.1)] border border-gray-200 overflow-hidden flex flex-row font-sans h-[150px] sm:h-[270px] cursor-pointer hover:-translate-y-1.5 hover:shadow-xl hover:border-primary/30 transition-all duration-300 ease-out animate-fade-in-up"
+                className="bg-white rounded-md shadow-[0_2px_8px_rgba(0,0,0,0.1)] border border-gray-200 overflow-hidden flex flex-row font-sans h-[135px] sm:h-[220px] cursor-pointer hover:-translate-y-1.5 hover:shadow-xl hover:border-primary/30 transition-all duration-300 ease-out animate-fade-in-up"
                 style={{ animationDelay: `${index * 150}ms`, animationFillMode: 'both' }}
               >
                 
@@ -391,7 +391,7 @@ export default function HotelListings({ onlyShowFavorites = false }) {
                 <div className="flex flex-row h-full w-full">
                   
                   {/* Left: Image (Agoda style large image) */}
-                  <div className="relative w-[115px] sm:w-[260px] md:w-[280px] flex-shrink-0 h-full group cursor-pointer overflow-hidden">
+                  <div className="relative w-[105px] sm:w-[200px] md:w-[220px] flex-shrink-0 h-full group cursor-pointer overflow-hidden">
                     
                     {/* Sliding Image Track */}
                     <div 
@@ -411,8 +411,8 @@ export default function HotelListings({ onlyShowFavorites = false }) {
                     
                     {/* Award Badge Absolute */}
                     {restaurant.awardBadge && (
-                      <div className="absolute top-1.5 left-1.5 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-[7px] sm:text-[10px] font-extrabold uppercase tracking-wider px-1.5 py-0.5 sm:px-2.5 sm:py-1 rounded-full flex items-center gap-1 shadow-md border border-white/25">
-                        <svg className="w-2 h-2 sm:w-3 sm:h-3 text-amber-100" fill="currentColor" viewBox="0 0 20 20">
+                      <div className="absolute top-1.5 left-1.5 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-[7px] sm:text-[9px] font-extrabold uppercase tracking-wider px-1 py-0.5 sm:px-2 sm:py-0.5 rounded-full flex items-center gap-1 shadow-md border border-white/25">
+                        <svg className="w-2 h-2 sm:w-2.5 sm:h-2.5 text-amber-100" fill="currentColor" viewBox="0 0 20 20">
                           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                         </svg>
                         {restaurant.awardBadge}
@@ -422,22 +422,22 @@ export default function HotelListings({ onlyShowFavorites = false }) {
                     {/* Favorite Icon */}
                     <button 
                       onClick={(e) => toggleFavorite(e, restaurant.id)}
-                      className={`absolute bottom-2 right-2 sm:bottom-auto sm:top-2.5 sm:right-2.5 w-7 h-7 sm:w-8 sm:h-8 bg-white rounded-full flex items-center justify-center shadow-sm transition-colors z-10 cursor-pointer ${
+                      className={`absolute bottom-2 right-2 sm:bottom-auto sm:top-2 sm:right-2 w-6 h-6 sm:w-7.5 sm:h-7.5 bg-white rounded-full flex items-center justify-center shadow-sm transition-colors z-10 cursor-pointer ${
                         favorites.includes(restaurant.id) ? 'text-red-500 shadow-md scale-105' : 'text-gray-400 hover:text-red-500'
                       }`}
                     >
-                      <svg className="w-5 h-5" fill={favorites.includes(restaurant.id) ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                      <svg className="w-4 h-4 sm:w-4.5 sm:h-4.5" fill={favorites.includes(restaurant.id) ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
                     </button>
 
                     {/* Carousel Navigation - Left Arrow */}
                     <div className="absolute inset-y-0 left-2 hidden sm:flex items-center opacity-0 group-hover:opacity-100 transition-opacity">
                       <button 
                         onClick={(e) => handlePrevImage(e, restaurant.id, restaurant.images.length)}
-                        className="w-8 h-8 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-md text-gray-700 cursor-pointer"
+                        className="w-7 h-7 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-md text-gray-700 cursor-pointer"
                         type="button"
                         aria-label="Previous Image"
                       >
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" /></svg>
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" /></svg>
                       </button>
                     </div>
 
@@ -445,29 +445,29 @@ export default function HotelListings({ onlyShowFavorites = false }) {
                     <div className="absolute inset-y-0 right-2 hidden sm:flex items-center opacity-0 group-hover:opacity-100 transition-opacity">
                       <button 
                         onClick={(e) => handleNextImage(e, restaurant.id, restaurant.images.length)}
-                        className="w-8 h-8 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-md text-gray-700 cursor-pointer"
+                        className="w-7 h-7 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-md text-gray-700 cursor-pointer"
                         type="button"
                         aria-label="Next Image"
                       >
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>
                       </button>
                     </div>
 
                     {/* Image Count Bottom Left */}
-                    <div className="absolute bottom-2 left-2 sm:bottom-3 sm:left-3 bg-black/60 text-white text-[9px] sm:text-[11px] px-1.5 py-0.5 rounded font-medium tracking-wide">
+                    <div className="absolute bottom-1.5 left-1.5 sm:bottom-2 sm:left-2 bg-black/60 text-white text-[8px] sm:text-[10px] px-1.5 py-0.5 rounded font-medium tracking-wide">
                       {activeImageIndex + 1}/{restaurant.images.length}
                     </div>
                   </div>
                   
                   {/* Middle & Right Content Wrapper */}
-                  <div className="flex-grow flex flex-row p-2 sm:p-4 gap-2 sm:gap-4 h-full min-w-0">
+                  <div className="flex-grow flex flex-row p-2 sm:p-3 gap-2 sm:gap-3.5 h-full min-w-0">
                     
                     {/* Middle: Info */}
                     <div className="flex-grow min-w-0 flex flex-col justify-between">
                       <div>
                         {/* Title & Mobile Rating Pill Row */}
                         <div className="flex items-start justify-between gap-1.5 mb-0.5 sm:mb-1">
-                          <h3 className="text-xs sm:text-[21px] font-bold text-gray-900 leading-tight cursor-pointer hover:text-[#2b6be3] transition-colors line-clamp-2">{restaurant.name}</h3>
+                          <h3 className="text-xs sm:text-[16px] md:text-[18px] font-bold text-gray-900 leading-snug cursor-pointer hover:text-[#2b6be3] transition-colors line-clamp-1 sm:line-clamp-2">{restaurant.name}</h3>
                           
                           {/* Mobile Rating Badge */}
                           <div className="sm:hidden flex items-center gap-0.5 bg-[#e9f0fa] text-[#2b6be3] px-1.5 py-0.5 rounded shrink-0">
@@ -477,11 +477,11 @@ export default function HotelListings({ onlyShowFavorites = false }) {
                         </div>
                         
                         {/* Stars & Reviews Count Row */}
-                        <div className="flex items-center gap-1.5 mb-1 sm:mb-2 flex-wrap">
+                        <div className="flex items-center gap-1.5 mb-1 sm:mb-1 flex-wrap">
                           {/* Stars */}
                           <div className="flex text-[#f5a623] shrink-0">
                             {[...Array(restaurant.stars)].map((_, i) => (
-                              <svg key={i} className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                              <svg key={i} className="w-2.5 h-2.5 sm:w-3 sm:h-3" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                               </svg>
                             ))}
@@ -493,18 +493,18 @@ export default function HotelListings({ onlyShowFavorites = false }) {
                         </div>
 
                         {/* Location Data */}
-                        <div className="flex items-start gap-1 mb-1 sm:mb-2.5 text-[9px] sm:text-[13px] min-w-0">
+                        <div className="flex items-start gap-1 mb-1 sm:mb-1.5 text-[9px] sm:text-[12px] min-w-0">
                           <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#2b6be3] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                           </svg>
                           <div className="leading-tight min-w-0 flex-grow">
                             <div className="text-[#2b6be3] font-semibold hover:underline cursor-pointer truncate">{restaurant.location.split(' - ')[0]}</div>
-                            <div className="text-gray-400 text-[8px] sm:text-[12px] sm:text-gray-500 truncate mt-0.5">{restaurant.subLocation}</div>
+                            <div className="text-gray-400 text-[8px] sm:text-[11px] sm:text-gray-500 truncate mt-0.5">{restaurant.subLocation}</div>
                           </div>
                         </div>
 
                         {/* Amenities Row */}
-                        <div className="flex flex-wrap gap-1 sm:gap-2.5 mb-1.5 sm:mb-2.5 text-[8px] sm:text-[12px] text-gray-500">
+                        <div className="flex flex-wrap gap-1 sm:gap-1.5 mb-1.5 sm:mb-1.5 text-[8px] sm:text-[10px] md:text-[11px] text-gray-500">
                           {restaurant.amenities.map((amenity) => (
                             <div key={amenity} className="flex items-center gap-0.5 bg-gray-50 px-1 py-0.5 rounded border border-gray-100">
                               {renderAmenityIcon(amenity)}
@@ -514,7 +514,7 @@ export default function HotelListings({ onlyShowFavorites = false }) {
                         </div>
 
                         {/* Badges */}
-                        <div className="hidden sm:flex flex-wrap gap-1 mt-1 sm:mt-1.5 text-[9px] sm:text-[11px]">
+                        <div className="hidden sm:flex flex-wrap gap-1 mt-0.5 sm:mt-1 text-[9px] sm:text-[10px]">
                           {restaurant.badges.map((badge, idx) => (
                             <div key={idx} className={`px-1 py-0.5 rounded-sm flex items-center gap-0.5 ${
                               badge.type === 'outline' ? 'border border-gray-300 text-gray-600' :
@@ -532,10 +532,10 @@ export default function HotelListings({ onlyShowFavorites = false }) {
                         </div>
 
                         {/* Description Features */}
-                        <div className="hidden sm:block mt-2 space-y-0.5">
+                        <div className="hidden sm:block mt-1 space-y-0.5">
                           {restaurant.features.map((feat, idx) => (
-                            <div key={idx} className="flex items-start gap-1.5 text-[12px] text-gray-600 leading-snug">
-                              <div className="text-[#2b6be3] mt-0.5 text-[10px]">✦</div>
+                            <div key={idx} className="flex items-start gap-1.5 text-[11px] text-gray-600 leading-snug">
+                              <div className="text-[#2b6be3] mt-0.5 text-[9px]">✦</div>
                               {feat}
                             </div>
                           ))}
@@ -543,9 +543,9 @@ export default function HotelListings({ onlyShowFavorites = false }) {
                       </div>
 
                       {/* Promo Tags Bottom Left */}
-                      <div className="hidden sm:flex flex-wrap gap-1 mt-1.5 sm:mt-2.5">
+                      <div className="hidden sm:flex flex-wrap gap-1 mt-1 sm:mt-1.5">
                         {restaurant.promoTags.map((tag, idx) => (
-                          <span key={idx} className="bg-[#e9f0fa] text-[#2b6be3] text-[9px] sm:text-[12px] px-1.5 py-0.5 rounded-sm font-medium">
+                          <span key={idx} className="bg-[#e9f0fa] text-[#2b6be3] text-[9px] sm:text-[11px] px-1.5 py-0.5 rounded-sm font-medium">
                             {tag}
                           </span>
                         ))}
@@ -553,15 +553,15 @@ export default function HotelListings({ onlyShowFavorites = false }) {
                     </div>
 
                     {/* Right: Rating & Pricing (Hidden on Mobile) */}
-                    <div className="hidden sm:flex w-[210px] flex-col justify-between items-end border-l border-gray-100 pl-3 text-right shrink-0">
+                    <div className="hidden sm:flex w-[150px] md:w-[170px] flex-col justify-between items-end border-l border-gray-100 pl-2 sm:pl-3 text-right shrink-0">
                       
                       {/* Ratings Top Right */}
                       <div className="flex flex-col items-end w-full cursor-pointer group">
                         <div className="flex items-center justify-end mb-0.5">
-                          <span className="text-[#2b6be3] font-bold text-[17px] group-hover:underline">{restaurant.ratingScore} {restaurant.ratingText}</span>
+                          <span className="text-[#2b6be3] font-bold text-[14px] md:text-[16px] group-hover:underline">{restaurant.ratingScore} {restaurant.ratingText}</span>
                         </div>
-                        <div className="text-gray-500 text-[11px] mb-0.5 group-hover:underline">{restaurant.reviews}</div>
-                        <div className="text-gray-900 font-bold text-[12px]">{restaurant.locationScore}</div>
+                        <div className="text-gray-500 text-[10px] mb-0.5 group-hover:underline">{restaurant.reviews}</div>
+                        <div className="text-gray-900 font-bold text-[11px] md:text-[12px]">{restaurant.locationScore}</div>
                       </div>
 
                       {/* Pricing Bottom Right (Commented Out) */}
