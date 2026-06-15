@@ -38,7 +38,7 @@ export default function Register() {
   }, []);
 
   const stepsList = [
-    { number: 1, label: 'Your Details', desc: 'Owner information', active: true },
+    { number: 1, label: 'Business Details', desc: 'Owner information', active: true },
     { number: 2, label: 'Select Package', desc: 'Choose pricing plan' },
     { number: 3, label: 'Outlet Type', desc: 'Category of restaurant' },
     { number: 4, label: 'Outlet Details', desc: 'Menu and operations' },
@@ -123,7 +123,7 @@ export default function Register() {
       </div>
       <div className="text-center mt-3">
         <p className="text-xs text-gray-400 uppercase tracking-widest font-bold">Step 1 of 5</p>
-        <h4 className="text-white text-sm font-bold mt-0.5">Your Details</h4>
+        <h4 className="text-white text-sm font-bold mt-0.5">Business Details</h4>
       </div>
     </div>
   );
@@ -213,8 +213,9 @@ export default function Register() {
             <div className="flex-grow">
               <div className="space-y-6">
                 <div>
-                  <h2 className="text-xl sm:text-2xl font-extrabold text-gray-900 tracking-tight">Your Details</h2>
-                  <p className="text-xs sm:text-sm text-gray-500 font-semibold mt-1">Enter your business owner contact details</p>
+                  <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight">Register</h2>
+                  <p className="text-xs sm:text-sm font-bold text-[#FFA500] uppercase tracking-wider mt-1">Your Business Details</p>
+                  <p className="text-[11px] sm:text-xs text-gray-400 font-semibold mt-1">Enter your business owner contact details</p>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

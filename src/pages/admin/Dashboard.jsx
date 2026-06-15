@@ -2,13 +2,34 @@ import React from 'react';
 import AdminLayout from '../../layouts/AdminLayout';
 
 export default function Dashboard() {
+  const [ownerName, setOwnerName] = React.useState('John');
+  const [restaurantName, setRestaurantName] = React.useState('Restaurant');
+
+  React.useEffect(() => {
+    const saved = localStorage.getItem('register_formData');
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (parsed.ownerName) {
+          setOwnerName(parsed.ownerName);
+        }
+        if (parsed.outletDetails && parsed.outletDetails.kitchenName) {
+          setRestaurantName(parsed.outletDetails.kitchenName);
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  }, []);
+
   return (
     <AdminLayout>
       <div className="flex flex-col gap-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">Dashboard</h1>
-            <p className="text-sm text-slate-500 mt-1">Welcome back, John! Here's what's happening today.</p>
+            <span className="text-xs font-extrabold text-orange-500 uppercase tracking-widest block mb-1">Admin Dashboard</span>
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">{restaurantName}</h1>
+            <p className="text-sm sm:text-base text-slate-500 mt-1">Welcome back, {ownerName}! Here's what's happening today.</p>
           </div>
           <button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-lg shadow-orange-500/20 transition-all">
             Download Report
