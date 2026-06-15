@@ -329,8 +329,8 @@ export default function HotelListings() {
                     
                     {/* Award Badge Absolute */}
                     {restaurant.awardBadge && (
-                      <div className="absolute top-1.5 left-1.5 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-[8px] sm:text-[10px] font-extrabold uppercase tracking-wider px-1.5 py-0.5 sm:px-2.5 sm:py-1 rounded-full flex items-center gap-1 shadow-md border border-white/25">
-                        <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-amber-100" fill="currentColor" viewBox="0 0 20 20">
+                      <div className="absolute top-1.5 left-1.5 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-[7px] sm:text-[10px] font-extrabold uppercase tracking-wider px-1.5 py-0.5 sm:px-2.5 sm:py-1 rounded-full flex items-center gap-1 shadow-md border border-white/25">
+                        <svg className="w-2 h-2 sm:w-3 sm:h-3 text-amber-100" fill="currentColor" viewBox="0 0 20 20">
                           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                         </svg>
                         {restaurant.awardBadge}
@@ -340,7 +340,7 @@ export default function HotelListings() {
                     {/* Favorite Icon */}
                     <button 
                       onClick={(e) => e.stopPropagation()}
-                      className="absolute top-2 right-2 sm:top-2.5 sm:right-2.5 w-7 h-7 sm:w-8 sm:h-8 bg-white rounded-full flex items-center justify-center shadow-sm text-gray-400 hover:text-red-500 transition-colors z-10"
+                      className="absolute bottom-2 right-2 sm:bottom-auto sm:top-2.5 sm:right-2.5 w-7 h-7 sm:w-8 sm:h-8 bg-white rounded-full flex items-center justify-center shadow-sm text-gray-400 hover:text-red-500 transition-colors z-10"
                     >
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
                     </button>
@@ -376,38 +376,53 @@ export default function HotelListings() {
                   </div>
                   
                   {/* Middle & Right Content Wrapper */}
-                  <div className="flex-1 flex flex-row p-2 sm:p-4 gap-2 sm:gap-4 h-full min-w-0">
+                  <div className="flex-grow flex flex-row p-2 sm:p-4 gap-2 sm:gap-4 h-full min-w-0">
                     
                     {/* Middle: Info */}
-                    <div className="flex-1 min-w-0 flex flex-col justify-between">
+                    <div className="flex-grow min-w-0 flex flex-col justify-between">
                       <div>
-                        {/* Title */}
-                        <h3 className="text-sm sm:text-[21px] font-bold text-gray-900 leading-tight mb-1 cursor-pointer hover:text-[#2b6be3] transition-colors line-clamp-2">{restaurant.name}</h3>
+                        {/* Title & Mobile Rating Pill Row */}
+                        <div className="flex items-start justify-between gap-1.5 mb-0.5 sm:mb-1">
+                          <h3 className="text-xs sm:text-[21px] font-bold text-gray-900 leading-tight cursor-pointer hover:text-[#2b6be3] transition-colors line-clamp-2">{restaurant.name}</h3>
+                          
+                          {/* Mobile Rating Badge */}
+                          <div className="sm:hidden flex items-center gap-0.5 bg-[#e9f0fa] text-[#2b6be3] px-1.5 py-0.5 rounded shrink-0">
+                            <span className="font-extrabold text-[9px]">{restaurant.ratingScore}</span>
+                            <span className="text-[8px] font-semibold">★</span>
+                          </div>
+                        </div>
                         
-                        {/* Stars */}
-                        <div className="flex text-[#f5a623] mb-1">
-                          {[...Array(restaurant.stars)].map((_, i) => (
-                            <svg key={i} className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
-                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                            </svg>
-                          ))}
+                        {/* Stars & Reviews Count Row */}
+                        <div className="flex items-center gap-1.5 mb-1 sm:mb-2 flex-wrap">
+                          {/* Stars */}
+                          <div className="flex text-[#f5a623] shrink-0">
+                            {[...Array(restaurant.stars)].map((_, i) => (
+                              <svg key={i} className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                              </svg>
+                            ))}
+                          </div>
+                          {/* Mobile Review Count */}
+                          <span className="text-gray-400 text-[8px] font-semibold sm:hidden truncate">
+                            ({restaurant.reviews.split(' ')[0]} reviews)
+                          </span>
                         </div>
 
                         {/* Location Data */}
-                        <div className="flex items-start gap-1 mb-1 sm:mb-2 text-[11px] sm:text-[13px] min-w-0">
-                          <svg className="w-3.5 h-3.5 text-[#2b6be3] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                        <div className="flex items-start gap-1 mb-1 sm:mb-2.5 text-[9px] sm:text-[13px] min-w-0">
+                          <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#2b6be3] flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                           </svg>
-                          <div className="leading-tight min-w-0 flex-1">
-                            <div className="text-[#2b6be3] font-medium hover:underline cursor-pointer mb-0.5 truncate">{restaurant.location}</div>
-                            <div className="text-gray-400 text-[10px] sm:text-[12px] sm:text-gray-500 truncate">{restaurant.subLocation}</div>
+                          <div className="leading-tight min-w-0 flex-grow">
+                            <div className="text-[#2b6be3] font-semibold hover:underline cursor-pointer truncate">{restaurant.location.split(' - ')[0]}</div>
+                            <div className="text-gray-400 text-[8px] sm:text-[12px] sm:text-gray-500 truncate mt-0.5">{restaurant.subLocation}</div>
                           </div>
                         </div>
 
                         {/* Amenities Row */}
-                        <div className="flex flex-wrap gap-1 sm:gap-2.5 mb-1.5 sm:mb-2.5 text-[9px] sm:text-[12px] text-gray-500">
+                        <div className="flex flex-wrap gap-1 sm:gap-2.5 mb-1.5 sm:mb-2.5 text-[8px] sm:text-[12px] text-gray-500">
                           {restaurant.amenities.map((amenity) => (
-                            <div key={amenity} className="flex items-center gap-1 bg-gray-50 px-1 py-0.5 rounded border border-gray-100">
+                            <div key={amenity} className="flex items-center gap-0.5 bg-gray-50 px-1 py-0.5 rounded border border-gray-100">
                               {renderAmenityIcon(amenity)}
                               <span>{amenity}</span>
                             </div>
@@ -453,24 +468,20 @@ export default function HotelListings() {
                       </div>
                     </div>
 
-                    {/* Right: Rating & Pricing (Fixed Width) */}
-                    <div className="w-[110px] sm:w-[210px] flex flex-col justify-between items-end border-l border-gray-100 pl-2 sm:pl-3 text-right shrink-0">
+                    {/* Right: Rating & Pricing (Hidden on Mobile) */}
+                    <div className="hidden sm:flex w-[210px] flex-col justify-between items-end border-l border-gray-100 pl-3 text-right shrink-0">
                       
                       {/* Ratings Top Right */}
                       <div className="flex flex-col items-end w-full cursor-pointer group">
                         <div className="flex items-center justify-end mb-0.5">
-                          <span className="text-[#2b6be3] font-bold text-xs sm:text-[17px] group-hover:underline">{restaurant.ratingScore} {restaurant.ratingText}</span>
+                          <span className="text-[#2b6be3] font-bold text-[17px] group-hover:underline">{restaurant.ratingScore} {restaurant.ratingText}</span>
                         </div>
-                        <div className="text-gray-500 text-[10px] sm:text-[11px] mb-0.5 group-hover:underline">{restaurant.reviews}</div>
-                        <div className="text-gray-900 font-bold text-[10px] sm:text-[12px] hidden sm:block">{restaurant.locationScore}</div>
+                        <div className="text-gray-500 text-[11px] mb-0.5 group-hover:underline">{restaurant.reviews}</div>
+                        <div className="text-gray-900 font-bold text-[12px]">{restaurant.locationScore}</div>
                       </div>
 
-                      {/* Pricing Bottom Right */}
+                      {/* Pricing Bottom Right (Commented Out) */}
                       {/* 
-                        PRICING & DISCOUNT PANEL
-                        Commented out for now to hide price rendering on listing cards.
-                        Can be uncommented later to show pricing, discounts, coupons, and tax labels.
-                      
                       <div className="flex flex-col items-end w-full mt-1.5">
                         {restaurant.appliedCoupons && restaurant.appliedCoupons.map((coupon, idx) => (
                           <div key={idx} className={`text-[9px] sm:text-[11px] px-1 py-0.5 rounded-sm mb-0.5 ${
@@ -498,7 +509,6 @@ export default function HotelListings() {
                         </div>
                       </div>
                       */}
-                      
                     </div>
                   </div>
                 </div>

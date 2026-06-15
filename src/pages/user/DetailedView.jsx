@@ -29,8 +29,20 @@ export default function DetailedView() {
   const [activePhotoIndex, setActivePhotoIndex] = useState(null);
   const [showReviewsModal, setShowReviewsModal] = useState(false);
   const [showLocationModal, setShowLocationModal] = useState(false);
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(() => {
+    try {
+      const saved = localStorage.getItem('foodieqr_cart');
+      return saved ? JSON.parse(saved) : [];
+    } catch (e) {
+      return [];
+    }
+  });
   const [showOrderSuccessModal, setShowOrderSuccessModal] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem('foodieqr_cart', JSON.stringify(cartItems));
+    window.dispatchEvent(new Event('cart-update'));
+  }, [cartItems]);
 
   const handleAddItem = (item) => {
     const priceValue = parseInt(item.price.replace(/[^\d]/g, ''), 10) || 0;
@@ -270,20 +282,23 @@ export default function DetailedView() {
           >
             Reviews
           </button>
+          <a 
+            href="https://www.google.com/maps/dir/?api=1&destination=17.456,78.375" 
+            target="_blank" 
+            rel="noreferrer"
+            className="py-4 font-bold text-sm text-gray-500 hover:text-[#855400] transition-all cursor-pointer inline-flex items-center gap-1.5"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498-4.835-2.255a1 1 0 00-.836 0l-4.835 2.255A1 1 0 013 15.75V4.5a1 1 0 011.352-.925l4.835 2.072a1 1 0 00.836 0l4.835-2.072A1 1 0 0119.5 4.5v11.25a1 1 0 01-1.147.983L13.5 14.5" />
+            </svg>
+            Maps
+          </a>
           <button 
             onClick={() => setShowLocationModal(true)}
             className="py-4 font-bold text-sm text-gray-500 hover:text-[#855400] transition-all cursor-pointer"
           >
             Location
           </button>
-          <a 
-            href="https://www.google.com/maps/dir/?api=1&destination=17.456,78.375" 
-            target="_blank" 
-            rel="noreferrer"
-            className="py-4 font-bold text-sm text-gray-500 hover:text-[#855400] transition-all cursor-pointer"
-          >
-            Get Directions
-          </a>
         </nav>
 
         {/* Mobile Swipeable Gallery (Agoda style responsive slider) */}

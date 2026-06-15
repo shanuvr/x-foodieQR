@@ -6,6 +6,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
 
   // Load user from localStorage
   const checkUser = () => {
@@ -17,13 +18,29 @@ export default function Navbar() {
     }
   };
 
+  const updateCartCount = () => {
+    try {
+      const saved = localStorage.getItem('foodieqr_cart');
+      const items = saved ? JSON.parse(saved) : [];
+      const count = items.reduce((acc, item) => acc + item.qty, 0);
+      setCartCount(count);
+    } catch (e) {
+      setCartCount(0);
+    }
+  };
+
   useEffect(() => {
     checkUser();
+    updateCartCount();
 
     // Listen to custom storage event to update instantly when logged in/out
     window.addEventListener('storage', checkUser);
+    window.addEventListener('storage', updateCartCount);
+    window.addEventListener('cart-update', updateCartCount);
     return () => {
       window.removeEventListener('storage', checkUser);
+      window.removeEventListener('storage', updateCartCount);
+      window.removeEventListener('cart-update', updateCartCount);
     };
   }, []);
 
@@ -69,12 +86,17 @@ export default function Navbar() {
             </div>
             
             {/* Cart Button (Always visible) */}
-            <button className="p-2 text-gray-400 hover:text-gray-600 transition-colors relative cursor-pointer" type="button">
+            <Link to="/cart" className="p-2 text-gray-400 hover:text-gray-600 transition-colors relative cursor-pointer">
               <span className="sr-only">View cart</span>
               <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path>
               </svg>
-            </button>
+              {cartCount > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 bg-orange-500 text-white rounded-full text-[9px] w-4.5 h-4.5 flex items-center justify-center font-extrabold shadow shadow-orange-500/20">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
             
             {/* Partner Button (Desktop) */}
             <Link 
@@ -171,72 +193,84 @@ export default function Navbar() {
 
       {/* Mobile Menu Panel with Slide-Down Transition */}
       <div 
-        className={`md:hidden border-t border-gray-100 bg-white transition-all duration-300 ease-in-out overflow-hidden ${
-          isOpen ? 'max-h-[350px] opacity-100 shadow-lg' : 'max-h-0 opacity-0 pointer-events-none'
+        className={`md:hidden border-t border-gray-100 bg-white transition-all duration-300 ease-in-out ${
+          isOpen ? 'max-h-[calc(100vh-80px)] opacity-100 shadow-lg overflow-y-auto' : 'max-h-0 opacity-0 pointer-events-none overflow-hidden'
         }`}
       >
-        <div className="px-4 pt-2 pb-6 space-y-1">
+        <div className="px-4 pt-2 pb-6 space-y-0.5">
           <Link 
-            className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors" 
+            className="block px-3 py-1.5 rounded-md text-sm font-semibold text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors" 
             to="/"
             onClick={() => setIsOpen(false)}
           >
             Home
           </Link>
           <Link 
-            className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors" 
+            className="block px-3 py-1.5 rounded-md text-sm font-semibold text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors" 
             to="/about"
             onClick={() => setIsOpen(false)}
           >
             About
           </Link>
           <Link 
-            className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors" 
+            className="block px-3 py-1.5 rounded-md text-sm font-semibold text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors" 
             to="/contact"
             onClick={() => setIsOpen(false)}
           >
             Contact Us
           </Link>
+          <Link 
+            className="block px-3 py-1.5 rounded-md text-sm font-semibold text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors flex items-center justify-between" 
+            to="/cart"
+            onClick={() => setIsOpen(false)}
+          >
+            <span>Cart</span>
+            {cartCount > 0 && (
+              <span className="bg-orange-500 text-white rounded-full text-[9px] px-2 py-0.5 font-extrabold shadow-sm shadow-orange-500/10">
+                {cartCount}
+              </span>
+            )}
+          </Link>
           
-          <div className="pt-4 pb-2 border-t border-gray-100 space-y-2">
+          <div className="pt-3 pb-1 border-t border-gray-100 space-y-1.5">
             <Link 
               to="/register"
               onClick={() => setIsOpen(false)}
-              className="w-full inline-flex justify-center items-center px-4 py-2.5 border border-primary text-base font-medium rounded-md text-primary bg-white hover:bg-orange-50 focus:outline-none transition-colors cursor-pointer"
+              className="w-full inline-flex justify-center items-center px-4 py-2 border border-primary text-sm font-bold rounded-md text-primary bg-white hover:bg-orange-50 focus:outline-none transition-colors cursor-pointer"
             >
               Partner With Us
             </Link>
             
             {currentUser ? (
-              <div className="space-y-1.5 pt-2 border-t border-gray-100">
-                <div className="px-3 py-2 bg-slate-50 border border-slate-100 rounded-xl mb-2 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center text-white font-extrabold text-sm border-2 border-white shadow shadow-orange-500/10">
+              <div className="space-y-1 pt-2 border-t border-gray-100">
+                <div className="px-3 py-1.5 bg-slate-50 border border-slate-100 rounded-xl mb-1.5 flex items-center gap-2.5">
+                  <div className="w-8 h-8 rounded-full bg-orange-500 flex items-center justify-center text-white font-extrabold text-xs border border-white shadow shadow-orange-500/10">
                     {currentUser.initials || 'US'}
                   </div>
                   <div className="min-w-0">
-                    <p className="text-xs font-bold text-slate-800 truncate">{currentUser.name}</p>
-                    <p className="text-[9px] text-slate-400 font-semibold truncate mt-0.5">{currentUser.email}</p>
+                    <p className="text-[11px] font-bold text-slate-800 truncate">{currentUser.name}</p>
+                    <p className="text-[9px] text-slate-400 font-semibold truncate mt-0.2">{currentUser.email}</p>
                   </div>
                 </div>
                 
                 <Link
                   to="/"
                   onClick={() => setIsOpen(false)}
-                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+                  className="block px-3 py-1.5 rounded-md text-sm font-semibold text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors"
                 >
                   My Orders
                 </Link>
                 <Link
                   to="/"
                   onClick={() => setIsOpen(false)}
-                  className="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors"
+                  className="block px-3 py-1.5 rounded-md text-sm font-semibold text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors"
                 >
                   Favorite Outlets
                 </Link>
                 <button
                   type="button"
                   onClick={handleLogout}
-                  className="w-full inline-flex justify-center items-center px-4 py-2.5 bg-rose-50 hover:bg-rose-100 border border-rose-100 text-base font-medium rounded-md text-rose-600 focus:outline-none transition-colors cursor-pointer"
+                  className="w-full inline-flex justify-center items-center px-4 py-2 bg-rose-50 hover:bg-rose-100 border border-rose-100 text-sm font-bold rounded-md text-rose-600 focus:outline-none transition-colors cursor-pointer"
                 >
                   Logout
                 </button>
@@ -245,7 +279,7 @@ export default function Navbar() {
               <Link
                 to="/login"
                 onClick={() => setIsOpen(false)}
-                className="w-full inline-flex justify-center items-center px-4 py-2.5 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none transition-colors cursor-pointer"
+                className="w-full inline-flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-bold rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none transition-colors cursor-pointer"
               >
                 Sign In
               </Link>

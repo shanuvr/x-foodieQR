@@ -4,6 +4,7 @@ import Home from './pages/user/Home'
 import DetailedView from './pages/user/DetailedView'
 import About from './pages/user/About'
 import Contact from './pages/user/Contact'
+import Cart from './pages/user/Cart'
 import Register from './pages/user/register/Register'
 import Packages from './pages/user/register/Packages'
 import Outlet from './pages/user/register/Outlet'
@@ -54,6 +55,7 @@ function App() {
       <Route path="/restaurant/:id" element={<DetailedView />} />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
+      <Route path="/cart" element={<Cart />} />
       <Route path="/register" element={<Register />} />
       <Route path="/packages" element={<Packages />} />
       <Route path="/outlet" element={<Outlet />} />
