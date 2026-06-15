@@ -8,7 +8,9 @@ export default function DetailedView() {
   const [profile, setProfile] = useState({
     website: 'www.google.com',
     instagram: 'https://instagram.com/',
-    kitchenName: 'Novotel Signature Restaurant'
+    kitchenName: 'Novotel Signature Restaurant',
+    reviewScore: '8.3',
+    locationScore: '8.0'
   });
 
   useEffect(() => {
@@ -20,7 +22,9 @@ export default function DetailedView() {
           ...prev,
           website: parsed.website || prev.website,
           instagram: parsed.instagram || prev.instagram,
-          kitchenName: parsed.kitchenName || prev.kitchenName
+          kitchenName: parsed.kitchenName || prev.kitchenName,
+          reviewScore: parsed.reviewScore || prev.reviewScore,
+          locationScore: parsed.locationScore || prev.locationScore
         }));
       } catch (e) {
         console.error('Failed to load profile in DetailedView', e);
@@ -494,7 +498,7 @@ export default function DetailedView() {
                   <span className="text-gray-300">|</span>
 
                   <div className="flex items-center gap-0.5">
-                    <span className="bg-orange-500 text-white text-[8px] sm:text-[10px] font-black px-1 py-0.5 rounded leading-none">8.3</span>
+                    <span className="bg-orange-500 text-white text-[8px] sm:text-[10px] font-black px-1 py-0.5 rounded leading-none">{profile.reviewScore || '8.3'}</span>
                     <span className="text-slate-800 font-extrabold">Excellent</span>
                     <span className="text-slate-400 font-semibold">(240 reviews)</span>
                   </div>
@@ -503,12 +507,12 @@ export default function DetailedView() {
 
                   <div className="flex items-center gap-0.5">
                     <span className="text-slate-500 font-semibold">Location score</span>
-                    <span className="text-slate-800 font-extrabold">8.0</span>
+                    <span className="text-slate-800 font-extrabold">{profile.locationScore || '8.0'}</span>
                   </div>
 
                   {/* Rating Breakdown Hover Tooltip */}
                   <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 hidden group-hover:flex flex-col bg-white border border-slate-200 rounded-xl shadow-xl p-4 w-72 z-50 pointer-events-none text-xs text-slate-700 font-medium animate-fade-in">
-                    <div className="grid grid-cols-2 gap-x-4 gap-y-3 pb-3 border-b border-slate-100 text-left">
+                    <div className="grid grid-cols-2 gap-x-4 gap-y-3 text-left">
                       <div className="space-y-1">
                         <div className="flex justify-between items-center text-[10px]">
                           <span className="text-slate-400 font-bold uppercase">Cleanliness</span>
@@ -530,10 +534,10 @@ export default function DetailedView() {
                       <div className="space-y-1">
                         <div className="flex justify-between items-center text-[10px]">
                           <span className="text-slate-400 font-bold uppercase">Location</span>
-                          <span className="font-extrabold text-slate-700">8.4</span>
+                          <span className="font-extrabold text-slate-700">{profile.locationScore || '8.4'}</span>
                         </div>
                         <div className="relative w-full h-1 bg-slate-100 rounded-full overflow-hidden">
-                          <div className="absolute top-0 left-0 h-full bg-orange-500 rounded-full" style={{ width: '84%' }}></div>
+                          <div className="absolute top-0 left-0 h-full bg-orange-500 rounded-full" style={{ width: `${parseFloat(profile.locationScore || 8.4) * 10}%` }}></div>
                         </div>
                       </div>
                       <div className="space-y-1">
@@ -563,10 +567,6 @@ export default function DetailedView() {
                           <div className="absolute top-0 left-0 h-full bg-orange-500 rounded-full" style={{ width: '83%' }}></div>
                         </div>
                       </div>
-                    </div>
-                    <div className="pt-2 text-[9px] text-slate-400 font-bold flex items-center gap-1 leading-normal text-left">
-                      <span>▲</span>
-                      <span>Average rating for premium dining in Hyderabad</span>
                     </div>
                     <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 bg-white border-l border-t border-slate-200 rotate-45"></div>
                   </div>

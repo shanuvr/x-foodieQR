@@ -153,6 +153,8 @@ export default function Profile() {
     promoTagline: 'Flat 20% Off on First Dine-in',
     discount: '20',
     coupons: ['WELCOME20', 'GOURMETFEST'],
+    reviewScore: '8.3',
+    locationScore: '8.0',
     logo: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=150',
     coverPhoto: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=800',
     gallery: [
@@ -594,6 +596,23 @@ export default function Profile() {
                       <div className="sm:col-span-2">
                         <label className={labelCls}>Secondary Tagline</label>
                         <input name="tagline2" value={form.tagline2 || ''} onChange={handleChange} className={inputCls} placeholder="e.g. Highly recommended for families and groups" disabled={!isEditing} />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="pt-6 border-t border-slate-100 space-y-4">
+                    <div>
+                      <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Restaurant Ratings Scores</h3>
+                      <p className="text-slate-500 text-xs mb-4">Set the custom scores that display next to the star ratings in the detailed customer view.</p>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                      <div>
+                        <label className={labelCls}>Review Score</label>
+                        <input name="reviewScore" value={form.reviewScore || ''} onChange={handleChange} className={inputCls} placeholder="e.g. 8.3" disabled={!isEditing} />
+                      </div>
+                      <div>
+                        <label className={labelCls}>Location Score</label>
+                        <input name="locationScore" value={form.locationScore || ''} onChange={handleChange} className={inputCls} placeholder="e.g. 8.0" disabled={!isEditing} />
                       </div>
                     </div>
                   </div>
