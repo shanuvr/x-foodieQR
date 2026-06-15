@@ -1,11 +1,33 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function HotelListings() {
+export default function HotelListings({ onlyShowFavorites = false }) {
   const navigate = useNavigate();
   const [filterOpen, setFilterOpen] = useState(false);
   const [activeImageIndices, setActiveImageIndices] = useState({});
   const [activeToggle, setActiveToggle] = useState('general');
+  const [favorites, setFavorites] = useState(() => {
+    try {
+      const saved = localStorage.getItem('foodieqr_favorites');
+      return saved ? JSON.parse(saved) : [];
+    } catch (e) {
+      return [];
+    }
+  });
+
+  const toggleFavorite = (e, id) => {
+    e.stopPropagation();
+    let updated;
+    if (favorites.includes(id)) {
+      updated = favorites.filter(favId => favId !== id);
+    } else {
+      updated = [...favorites, id];
+    }
+    setFavorites(updated);
+    localStorage.setItem('foodieqr_favorites', JSON.stringify(updated));
+    // Dispatch custom event to let navbar know favorites updated if needed
+    window.dispatchEvent(new Event('favorites-update'));
+  };
 
   const restaurants = [
     {
@@ -101,6 +123,10 @@ export default function HotelListings() {
       awardBadge: "Legendary Outlet"
     }
   ];
+
+  const displayedRestaurants = onlyShowFavorites
+    ? restaurants.filter(r => favorites.includes(r.id))
+    : restaurants;
 
   const handleNextImage = (e, restaurantId, imagesLength) => {
     e.stopPropagation();
@@ -215,47 +241,75 @@ export default function HotelListings() {
     </>
   );
 
+  if (onlyShowFavorites && displayedRestaurants.length === 0) {
+    return (
+      <div className="max-w-[1320px] mx-auto px-2 sm:px-4 mt-16 md:mt-32 pb-16 text-center">
+        <div className="bg-white rounded-2xl border border-[#d9c3ac]/40 p-8 sm:p-12 shadow-sm max-w-md mx-auto flex flex-col items-center">
+          <div className="w-16 h-16 rounded-full bg-rose-50 text-rose-500 flex items-center justify-center mb-4 border border-rose-100">
+            <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+            </svg>
+          </div>
+          <h3 className="text-xl font-bold text-slate-800">No Favorite Outlets Yet</h3>
+          <p className="text-xs text-slate-400 font-semibold mt-2 max-w-[240px] leading-relaxed">
+            Explore our curated list of restaurants and tap the heart icon on your favorite spots to save them here!
+          </p>
+          <button
+            onClick={() => navigate('/')}
+            className="mt-6 px-6 py-2.5 bg-[#FFA500] hover:bg-orange-600 text-white rounded-xl text-xs font-bold transition-all shadow-md shadow-orange-500/10 cursor-pointer active:scale-95"
+          >
+            Explore Outlets
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <section className="max-w-[1320px] mx-auto px-2 sm:px-4 mt-16 md:mt-32 pb-16">
       
       {/* Section Header with Filter Button on Mobile */}
       <div className="sticky top-20 lg:relative lg:top-0 bg-white z-30 py-4 mb-6 flex flex-wrap gap-3 justify-between items-center text-left border-b border-gray-100 lg:border-none -mx-2 px-4 sm:mx-0 sm:px-0">
-        <h2 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">Popular Restaurants Near You</h2>
+        <h2 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">
+          {onlyShowFavorites ? "My Favorite Outlets" : "Popular Restaurants Near You"}
+        </h2>
         
-        <div className="flex items-center gap-3">
-          {/* Static Toggle Button */}
-          <div className="bg-slate-100 p-0.5 sm:p-1 rounded-xl flex items-center border border-slate-200/50 shadow-inner">
-            <button 
-              type="button" 
-              onClick={() => setActiveToggle('general')}
-              className={`px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                activeToggle === 'general' ? 'bg-[#FFA500] text-white shadow-sm' : 'text-slate-500 hover:text-slate-850'
-              }`}
+        {!onlyShowFavorites && (
+          <div className="flex items-center gap-3">
+            {/* Static Toggle Button */}
+            <div className="bg-slate-100 p-0.5 sm:p-1 rounded-xl flex items-center border border-slate-200/50 shadow-inner">
+              <button 
+                type="button" 
+                onClick={() => setActiveToggle('general')}
+                className={`px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                  activeToggle === 'general' ? 'bg-[#FFA500] text-white shadow-sm' : 'text-slate-500 hover:text-slate-850'
+                }`}
+              >
+                General
+              </button>
+              <button 
+                type="button" 
+                onClick={() => setActiveToggle('foodieqr')}
+                className={`px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                  activeToggle === 'foodieqr' ? 'bg-[#FFA500] text-white shadow-sm' : 'text-slate-500 hover:text-slate-850'
+                }`}
+              >
+                FoodieQR
+              </button>
+            </div>
+
+            <button
+              onClick={() => setFilterOpen(true)}
+              className="lg:hidden inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 shadow-sm cursor-pointer"
+              type="button"
             >
-              General
-            </button>
-            <button 
-              type="button" 
-              onClick={() => setActiveToggle('foodieqr')}
-              className={`px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                activeToggle === 'foodieqr' ? 'bg-[#FFA500] text-white shadow-sm' : 'text-slate-500 hover:text-slate-850'
-              }`}
-            >
-              FoodieQR
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path>
+              </svg>
+              Filter
             </button>
           </div>
-
-          <button
-            onClick={() => setFilterOpen(true)}
-            className="lg:hidden inline-flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 shadow-sm cursor-pointer"
-            type="button"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path>
-            </svg>
-            Filter
-          </button>
-        </div>
+        )}
       </div>
       
       {/* Mobile Filter Drawer (Slide-in from right) */}
@@ -309,18 +363,20 @@ export default function HotelListings() {
       <div className="flex flex-col lg:flex-row gap-4 text-left">
         
         {/* Desktop Sidebar (Hidden on mobile) */}
-        <aside className="hidden lg:block w-64 flex-shrink-0 sticky top-24 self-start">
-          <div className="bg-white border border-gray-100 rounded-xl p-6 shadow-sm space-y-8">
-            <div>
-              <h3 className="text-lg font-bold text-gray-900 mb-4">Filters</h3>
-              {filterContent}
+        {!onlyShowFavorites && (
+          <aside className="hidden lg:block w-64 flex-shrink-0 sticky top-24 self-start">
+            <div className="bg-white border border-gray-100 rounded-xl p-6 shadow-sm space-y-8">
+              <div>
+                <h3 className="text-lg font-bold text-gray-900 mb-4">Filters</h3>
+                {filterContent}
+              </div>
             </div>
-          </div>
-        </aside>
+          </aside>
+        )}
         
         {/* Cards Area */}
         <div className="flex-1 min-w-0 space-y-4">
-          {restaurants.map((restaurant, index) => {
+          {displayedRestaurants.map((restaurant, index) => {
             const activeImageIndex = activeImageIndices[restaurant.id] || 0;
             return (
               <div 
@@ -365,10 +421,12 @@ export default function HotelListings() {
 
                     {/* Favorite Icon */}
                     <button 
-                      onClick={(e) => e.stopPropagation()}
-                      className="absolute bottom-2 right-2 sm:bottom-auto sm:top-2.5 sm:right-2.5 w-7 h-7 sm:w-8 sm:h-8 bg-white rounded-full flex items-center justify-center shadow-sm text-gray-400 hover:text-red-500 transition-colors z-10"
+                      onClick={(e) => toggleFavorite(e, restaurant.id)}
+                      className={`absolute bottom-2 right-2 sm:bottom-auto sm:top-2.5 sm:right-2.5 w-7 h-7 sm:w-8 sm:h-8 bg-white rounded-full flex items-center justify-center shadow-sm transition-colors z-10 cursor-pointer ${
+                        favorites.includes(restaurant.id) ? 'text-red-500 shadow-md scale-105' : 'text-gray-400 hover:text-red-500'
+                      }`}
                     >
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                      <svg className="w-5 h-5" fill={favorites.includes(restaurant.id) ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
                     </button>
 
                     {/* Carousel Navigation - Left Arrow */}

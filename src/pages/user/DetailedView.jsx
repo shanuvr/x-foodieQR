@@ -30,6 +30,7 @@ export default function DetailedView() {
   const [activePhotoIndex, setActivePhotoIndex] = useState(null);
   const [showReviewsModal, setShowReviewsModal] = useState(false);
   const [showLocationModal, setShowLocationModal] = useState(false);
+  const [showAmenitiesModal, setShowAmenitiesModal] = useState(false);
   const [cartItems, setCartItems] = useState(() => {
     try {
       const saved = localStorage.getItem('foodieqr_cart');
@@ -151,6 +152,28 @@ export default function DetailedView() {
 
   const handlePlaceOrder = () => {
     if (!checkLogin()) return;
+
+    try {
+      const savedOrders = localStorage.getItem('foodieqr_orders');
+      const orders = savedOrders ? JSON.parse(savedOrders) : [];
+      const newOrder = {
+        id: Date.now(),
+        date: new Date().toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+        restaurantName: profile.kitchenName || 'Novotel Signature Restaurant',
+        items: cartItems.map(item => ({ name: item.name, qty: item.qty, priceValue: item.priceValue })),
+        diningOption: diningOption,
+        grandTotal: grandTotal,
+        tableNumber: diningOption === 'dine-in' ? tableNumber : null,
+        arrivalTime: arrivalTime,
+        status: 'Preparing'
+      };
+      orders.unshift(newOrder);
+      localStorage.setItem('foodieqr_orders', JSON.stringify(orders));
+      window.dispatchEvent(new Event('orders-update'));
+    } catch (e) {
+      console.error(e);
+    }
+
     setShowOrderSuccessModal(true);
   };
 
@@ -254,7 +277,6 @@ export default function DetailedView() {
                   </span>
                   <p className="font-bold text-gray-800 text-xs sm:text-sm truncate leading-tight">{item.name}</p>
                 </div>
-                <p className="text-[10px] text-[#855400] font-bold mt-0.5">{item.price}</p>
               </div>
 
               {/* Quantity Controls */}
@@ -328,6 +350,27 @@ export default function DetailedView() {
               <span className="text-[#855400]">Total Bill</span>
               <span className="text-orange-600">₹{grandTotal.toLocaleString()}</span>
             </div>
+            <hr className="my-3 border-gray-100" />
+            <button
+              onClick={handlePlaceOrder}
+              className="w-full py-2.5 sm:py-3 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-xl font-bold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all active:scale-[0.98] cursor-pointer flex items-center justify-center gap-2"
+            >
+              {diningOption === 'dine-in' ? (
+                <>
+                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z" />
+                  </svg>
+                  <span>Book Table & Order</span>
+                </>
+              ) : (
+                <>
+                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9a2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
+                  </svg>
+                  <span>Place Order</span>
+                </>
+              )}
+            </button>
           </div>
         </>
       )}
@@ -339,9 +382,9 @@ export default function DetailedView() {
     const hasItems = cartItems.length > 0;
     
     return (
-      <div className="bg-white p-3 sm:p-4 rounded-xl border border-[#d9c3ac] shadow-md flex flex-row items-center justify-center gap-3 sm:gap-8 text-left mb-4 overflow-hidden">
+      <div className="bg-white p-2 sm:p-4 rounded-xl border border-[#d9c3ac] shadow-md flex flex-row items-center justify-center gap-2 sm:gap-8 text-left mb-4 overflow-hidden">
         {/* Left Side: Short Info Label & Icon */}
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="hidden sm:flex items-center gap-2 shrink-0">
           <div className="p-1.5 rounded bg-orange-50 text-orange-500 flex-shrink-0">
             {isDineIn ? (
               <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
@@ -353,21 +396,21 @@ export default function DetailedView() {
               </svg>
             )}
           </div>
-          <span className="hidden sm:inline font-extrabold text-gray-800 text-xs sm:text-sm tracking-tight">
+          <span className="font-extrabold text-gray-800 text-xs sm:text-sm tracking-tight">
             {isDineIn ? 'Reservation' : 'Takeaway'}
           </span>
         </div>
-
+ 
         {/* Center: Form Fields & Button */}
-        <div className="flex flex-row items-center gap-2 sm:gap-3 justify-center min-w-0">
+        <div className="flex flex-row items-center gap-1.5 sm:gap-3 justify-center min-w-0">
           {/* Guest Selection */}
           {isDineIn && (
-            <div className="flex items-center gap-1.5 bg-slate-50 border border-slate-200 rounded-lg px-2 py-1.5 sm:px-2.5 sm:py-2 flex-shrink-0">
-              <span className="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase">Guests</span>
+            <div className="flex items-center gap-1 bg-slate-50 border border-slate-200 rounded-lg px-1.5 py-1 sm:px-2.5 sm:py-2 flex-shrink-0">
+              <span className="text-[9px] sm:text-[11px] font-bold text-slate-400 uppercase">Guests</span>
               <select
                 value={numPersons}
                 onChange={(e) => setNumPersons(e.target.value)}
-                className="bg-transparent text-xs sm:text-sm font-bold text-slate-700 focus:outline-none cursor-pointer py-0 border-0"
+                className="bg-transparent text-[11px] sm:text-sm font-bold text-slate-700 focus:outline-none cursor-pointer py-0 border-0"
               >
                 {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
                   <option key={num} value={num}>{num}</option>
@@ -375,25 +418,25 @@ export default function DetailedView() {
               </select>
             </div>
           )}
-
+ 
           {/* Time Input */}
-          <div className="flex items-center gap-1.5 bg-slate-50 border border-slate-200 rounded-lg px-2 py-1.5 sm:px-2.5 sm:py-2 flex-shrink-0">
-            <span className="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase">
+          <div className="flex items-center gap-1 bg-slate-50 border border-slate-200 rounded-lg px-1.5 py-1 sm:px-2.5 sm:py-2 flex-shrink-0">
+            <span className="text-[9px] sm:text-[11px] font-bold text-slate-400 uppercase">
               {isDineIn ? 'Time' : 'Pickup'}
             </span>
             <input
               type="time"
               value={arrivalTime}
               onChange={(e) => setArrivalTime(e.target.value)}
-              className="bg-transparent text-xs sm:text-sm font-bold text-slate-700 focus:outline-none cursor-pointer w-[64px] sm:w-[76px] p-0 border-0"
+              className="bg-transparent text-[11px] sm:text-sm font-bold text-slate-700 focus:outline-none cursor-pointer w-[50px] sm:w-[76px] p-0 border-0"
             />
           </div>
-
+ 
           {/* Action Button */}
           <button
             onClick={handlePlaceOrder}
             disabled={!isDineIn && !hasItems}
-            className={`py-1.5 px-3.5 sm:py-2 sm:px-5 rounded-lg font-bold text-xs sm:text-sm transition-all shadow-sm active:scale-[0.99] cursor-pointer flex items-center gap-1.5 sm:gap-2 shrink-0 ${
+            className={`py-1 px-3 sm:py-2 sm:px-5 rounded-lg font-bold text-[11px] sm:text-sm transition-all shadow-sm active:scale-[0.99] cursor-pointer flex items-center gap-1 sm:gap-2 shrink-0 ${
               (!isDineIn && !hasItems)
                 ? 'bg-slate-100 border border-slate-200 text-slate-400 cursor-not-allowed shadow-none active:scale-100'
                 : 'bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white'
@@ -401,15 +444,15 @@ export default function DetailedView() {
           >
             {isDineIn ? (
               <>
-                <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                <svg className="w-3 h-3 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z" />
                 </svg>
                 <span>Book Table</span>
               </>
             ) : (
               <>
-                <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
+                <svg className="w-3 h-3 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9a2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
                 </svg>
                 <span>Place Order</span>
               </>
@@ -420,121 +463,108 @@ export default function DetailedView() {
     );
   };
 
-  const renderAmenitiesCard = () => (
-    <div className="bg-white p-4 sm:p-5 rounded-xl border border-[#d9c3ac] shadow-md">
-      <h3 className="font-bold text-[14px] sm:text-[16px] text-gray-900 mb-3 sm:mb-4 pb-2 border-b border-gray-100">Amenities</h3>
-      <div className="grid grid-cols-3 sm:grid-cols-2 gap-y-3 gap-x-2">
-        <div className="flex items-center gap-1.5 sm:gap-2 text-gray-700">
-          <svg className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-[#855400] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 16.25a6 6 0 017.5 0m-9.75-2.25a9.75 9.75 0 0112 0m-14.25-2.25a13.5 13.5 0 0116.5 0M12 18.75h.007v.008H12v-.008z" />
-          </svg>
-          <span className="text-[11px] sm:text-xs font-semibold text-gray-600">Free WiFi</span>
-        </div>
-        <div className="flex items-center gap-1.5 sm:gap-2 text-gray-700">
-          <svg className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-[#855400] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.5 5.25h3a2.25 2.25 0 010 4.5h-3V7.5zm0 9V7.5H9v9h1.5z" />
-          </svg>
-          <span className="text-[11px] sm:text-xs font-semibold text-gray-600">Valet Parking</span>
-        </div>
-        <div className="flex items-center gap-1.5 sm:gap-2 text-gray-700">
-          <svg className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-[#855400] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-            <circle cx="12" cy="5" r="2" />
-            <path d="M5 14a6 6 0 008.5 5.5m.5 1.5v-7M9 9h6v3" />
-          </svg>
-          <span className="text-[11px] sm:text-xs font-semibold text-gray-600">Accessible</span>
-        </div>
-        <div className="flex items-center gap-1.5 sm:gap-2 text-gray-700">
-          <svg className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-[#855400] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v18M3 12h18m-3-6L6 18M6 6l12 12" />
-          </svg>
-          <span className="text-[11px] sm:text-xs font-semibold text-gray-600">Air Conditioned</span>
-        </div>
-        <div className="flex items-center gap-1.5 sm:gap-2 text-gray-700">
-          <svg className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-[#855400] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-          </svg>
-          <span className="text-[11px] sm:text-xs font-semibold text-gray-600">Bar</span>
-        </div>
-        <div className="flex items-center gap-1.5 sm:gap-2 text-gray-700">
-          <svg className="w-4 h-4 sm:w-[18px] sm:h-[18px] text-[#855400] flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9 19V6l12-3v13M9 10l12-3M9 19a3 3 0 11-6 0 3 3 0 016 0zm12-3a3 3 0 11-6 0 3 3 0 016 0z" />
-          </svg>
-          <span className="text-[11px] sm:text-xs font-semibold text-gray-600">Live Music</span>
-        </div>
-      </div>
-    </div>
-  );
+
 
   return (
     <UserLayout>
       <div className="max-w-[1240px] mx-auto px-4 sm:px-6 py-6 font-sans">
         
-        {/* Restaurant Header Info (Above photo gallery) */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 text-left">
-          <div>
-            <h1 className="font-extrabold text-[32px] md:text-[48px] text-[#212529] leading-tight">
-              {profile.kitchenName || 'Novotel Signature Restaurant'}
-            </h1>
-            <p className="flex items-center gap-2 text-[#534433] text-sm sm:text-base font-semibold mt-2">
-              <svg className="w-4 h-4 text-[#855400] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-              </svg>
-              P.O Bag 1101, HITEC City, Kondapur, Hyderabad, 500081, India
-            </p>
-          </div>
-          <div className="flex items-center gap-2 shrink-0 self-start sm:self-center">
-            {downloadMenu && (
-              <button
-                onClick={downloadMenu}
-                className="px-4 py-2 bg-[#fff8ed] hover:bg-[#855400] text-[#855400] hover:text-white border border-[#d9c3ac] rounded-xl text-sm font-bold transition-all flex items-center gap-2 cursor-pointer shadow-md shrink-0 active:scale-95"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+        {/* Sticky Header Wrapper */}
+        <div className="sticky top-20 z-45 bg-white/95 backdrop-blur-md -mx-4 sm:-mx-6 px-4 sm:px-6 border-b border-gray-150 shadow-sm mb-6">
+          {/* Restaurant Header Info */}
+          <div className="flex flex-row items-center justify-between gap-2.5 pb-2 pt-2.5 text-left">
+            <div className="min-w-0 flex-grow">
+              <div className="flex flex-row items-center gap-2 flex-wrap min-w-0">
+                <h1 className="font-extrabold text-base sm:text-xl md:text-[30px] text-[#212529] leading-tight truncate max-w-[160px] xs:max-w-[200px] sm:max-w-none">
+                  {profile.kitchenName || 'Novotel Signature Restaurant'}
+                </h1>
+                <div className="flex items-center gap-0.5 select-none shrink-0">
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} className="w-3.5 h-3.5 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                  <span className="text-[10px] sm:text-xs font-bold text-amber-600 ml-1">4.7</span>
+                </div>
+              </div>
+              <p className="hidden sm:flex items-center gap-1.5 text-[#534433] text-xs font-semibold mt-0.5">
+                <svg className="w-3.5 h-3.5 text-[#855400] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                 </svg>
-                <span>Download Menu</span>
+                P.O Bag 1101, HITEC City, Kondapur, Hyderabad, 500081, India
+              </p>
+            </div>
+            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+              {downloadMenu && (
+                <button
+                  onClick={downloadMenu}
+                  className="px-3 py-1.5 sm:px-4 sm:py-2 bg-[#fff8ed] hover:bg-[#855400] text-[#855400] hover:text-white border border-[#d9c3ac] rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-1.5 sm:gap-2 cursor-pointer shadow-md shrink-0 active:scale-95"
+                >
+                  {/* Menu Icon */}
+                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                  </svg>
+                  <span>Menu</span>
+                  {/* Download Icon */}
+                  <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                  </svg>
+                </button>
+              )}
+              <button
+                type="button"
+                onClick={() => setShowShareModal(true)}
+                className="px-3 py-1.5 sm:px-4 sm:py-2 bg-slate-100 hover:bg-slate-200 border border-slate-200 hover:border-slate-300 text-slate-700 text-xs sm:text-sm font-bold rounded-xl transition-all cursor-pointer flex items-center gap-1.5 sm:gap-2 shadow-md shrink-0 active:scale-95"
+              >
+                {/* QR Icon */}
+                <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#855400]" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm13-2h3v2h-3v-2zm-3 3h3v3h-3v-3zm3 3h3v2h-3v-2zm-3-6h3v3h-3v-3zm6 3h2v2h-2v-2zm0-3h2v2h-2v-2zm-3 6h2v2h-2v-2z"/>
+                </svg>
+                <span>QR</span>
+                {/* Share Icon */}
+                <svg className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-slate-400" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186l.09-.034a1.885 1.885 0 001.077-1.18l.024-.074a2.25 2.25 0 10-3.81-2.12l-.03.064a1.885 1.885 0 00.316 2.007l.07.074m0 0l-.09.034a1.885 1.885 0 00-1.077 1.18l-.024.074a2.25 2.25 0 103.81 2.12l.03-.064a1.885 1.885 0 00-.316-2.007l-.07-.074" />
+                </svg>
               </button>
-            )}
-            <button
-              type="button"
-              onClick={() => setShowShareModal(true)}
-              className="px-4 py-2 bg-slate-100 hover:bg-slate-200 border border-slate-200 hover:border-slate-300 text-slate-700 text-sm font-bold rounded-xl transition-all cursor-pointer flex items-center gap-2 shadow-md shrink-0 active:scale-95"
-            >
-              <svg className="w-4 h-4 text-[#855400]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186l.09-.034a1.885 1.885 0 001.077-1.18l.024-.074a2.25 2.25 0 10-3.81-2.12l-.03.064a1.885 1.885 0 00.316 2.007l.07.074m0 0l-.09.034a1.885 1.885 0 00-1.077 1.18l-.024.074a2.25 2.25 0 103.81 2.12l.03-.064a1.885 1.885 0 00-.316-2.007l-.07-.074" />
-              </svg>
-              <span>Share</span>
-            </button>
+            </div>
           </div>
+
+          {/* Sticky Sub-Navbar */}
+          <nav className="flex items-center gap-4 sm:gap-8 overflow-x-auto whitespace-nowrap shadow-none border-t border-gray-100 scrollbar-none pt-1">
+            <a className="py-2.5 sm:py-3.5 font-bold text-xs sm:text-sm text-[#855400] border-b-2 border-[#ffa500] transition-all" href="#overview">Overview</a>
+            <a className="py-2.5 sm:py-3.5 font-bold text-xs sm:text-sm text-gray-500 hover:text-[#855400] transition-all" href="#menu">Menu</a>
+            <button 
+              onClick={() => setShowReviewsModal(true)}
+              className="py-2.5 sm:py-3.5 font-bold text-xs sm:text-sm text-gray-500 hover:text-[#855400] transition-all cursor-pointer"
+            >
+              Reviews
+            </button>
+            <button 
+              onClick={() => setShowAmenitiesModal(true)}
+              className="py-2.5 sm:py-3.5 font-bold text-xs sm:text-sm text-gray-500 hover:text-[#855400] transition-all cursor-pointer"
+            >
+              Amenities
+            </button>
+            <a 
+              href="https://www.google.com/maps/dir/?api=1&destination=17.456,78.375" 
+              target="_blank" 
+              rel="noreferrer"
+              className="py-2.5 sm:py-3.5 font-bold text-xs sm:text-sm text-gray-500 hover:text-[#855400] transition-all cursor-pointer inline-flex items-center gap-1 sm:gap-1.5"
+            >
+              <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498-4.835-2.255a1 1 0 00-.836 0l-4.835 2.255A1 1 0 013 15.75V4.5a1 1 0 011.352-.925l4.835 2.072a1 1 0 00.836 0l4.835-2.072A1 1 0 0119.5 4.5v11.25a1 1 0 01-1.147.983L13.5 14.5" />
+              </svg>
+              <span>Maps</span>
+            </a>
+            <button 
+              onClick={() => setShowLocationModal(true)}
+              className="py-2.5 sm:py-3.5 font-bold text-xs sm:text-sm text-gray-500 hover:text-[#855400] transition-all cursor-pointer"
+            >
+              Location
+            </button>
+          </nav>
         </div>
 
-        {/* Sticky Sub-Navbar */}
-        <nav className="sticky top-20 z-40 bg-white border-b border-gray-200 flex items-center gap-4 sm:gap-8 px-3 sm:px-4 mb-4 sm:mb-6 overflow-x-auto whitespace-nowrap shadow-sm scrollbar-none">
-          <a className="py-2.5 sm:py-4 font-bold text-xs sm:text-sm text-[#855400] border-b-2 border-[#ffa500] transition-all" href="#overview">Overview</a>
-          <a className="py-2.5 sm:py-4 font-bold text-xs sm:text-sm text-gray-500 hover:text-[#855400] transition-all" href="#menu">Menu</a>
-          <button 
-            onClick={() => setShowReviewsModal(true)}
-            className="py-2.5 sm:py-4 font-bold text-xs sm:text-sm text-gray-500 hover:text-[#855400] transition-all cursor-pointer"
-          >
-            Reviews
-          </button>
-          <a 
-            href="https://www.google.com/maps/dir/?api=1&destination=17.456,78.375" 
-            target="_blank" 
-            rel="noreferrer"
-            className="py-2.5 sm:py-4 font-bold text-xs sm:text-sm text-gray-500 hover:text-[#855400] transition-all cursor-pointer inline-flex items-center gap-1 sm:gap-1.5"
-          >
-            <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498-4.835-2.255a1 1 0 00-.836 0l-4.835 2.255A1 1 0 013 15.75V4.5a1 1 0 011.352-.925l4.835 2.072a1 1 0 00.836 0l4.835-2.072A1 1 0 0119.5 4.5v11.25a1 1 0 01-1.147.983L13.5 14.5" />
-            </svg>
-            <span>Maps</span>
-          </a>
-          <button 
-            onClick={() => setShowLocationModal(true)}
-            className="py-2.5 sm:py-4 font-bold text-xs sm:text-sm text-gray-500 hover:text-[#855400] transition-all cursor-pointer"
-          >
-            Location
-          </button>
-        </nav>
 
         {/* Mobile Swipeable Gallery (Agoda style responsive slider) */}
         <div className="md:hidden relative w-full mb-8 z-20">
@@ -675,7 +705,7 @@ export default function DetailedView() {
         </div>
 
         {/* Dining Preferences Selector (Dine In / Takeaway) */}
-        <div className="sticky top-[120px] md:top-[136px] z-30 bg-white/95 backdrop-blur-md border border-[#d9c3ac] shadow-md rounded-xl sm:rounded-2xl py-1.5 px-3 sm:py-3.5 sm:px-6 md:px-8 text-left mb-2 flex flex-row items-center justify-between gap-3 relative overflow-hidden">
+        <div className="sticky top-[188px] md:top-[216px] z-30 bg-white/95 backdrop-blur-md border border-[#d9c3ac] shadow-md rounded-xl sm:rounded-2xl py-1.5 px-3 sm:py-3.5 sm:px-6 md:px-8 text-left mb-2 flex flex-row items-center justify-between gap-3 relative overflow-hidden">
           <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-orange-500 to-amber-500" />
           
           <div className="hidden md:flex flex-col pl-2">
@@ -754,10 +784,7 @@ export default function DetailedView() {
               {renderLiveBillCard()}
             </div>
 
-            {/* Mobile/Tablet Amenities (hidden on desktop) */}
-            <div className="lg:hidden mt-6">
-              {renderAmenitiesCard()}
-            </div>
+
 
             <section className="py-12 border-t border-[#d9c3ac] mt-12" id="overview">
               <h2 className="font-bold text-[24px] text-[#212529] mb-6">About Us</h2>
@@ -802,11 +829,7 @@ export default function DetailedView() {
               {renderCartButton()}
               {renderLiveBillCard()}
             </div>
-            
-            {/* Desktop Amenities Card (hidden on mobile/tablet) */}
-            <div className="hidden lg:block">
-              {renderAmenitiesCard()}
-            </div>
+
           </aside>
         </div>
 
@@ -1077,6 +1100,111 @@ export default function DetailedView() {
                 className="px-5 py-2.5 bg-[#FFA500] hover:bg-orange-600 text-white rounded-lg text-xs font-bold shadow-sm transition-colors cursor-pointer"
               >
                 Close Location
+              </button>
+            </div>
+
+          </div>
+        </div>
+      )}
+      {/* Amenities Modal */}
+      {showAmenitiesModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl w-full max-w-[500px] overflow-hidden border border-[#d9c3ac] shadow-2xl flex flex-col max-h-[90vh]">
+            
+            {/* Header */}
+            <div className="p-5 border-b border-gray-100 flex items-center justify-between flex-shrink-0 bg-gray-50">
+              <div className="text-left">
+                <h3 className="font-bold text-[#212529] text-[20px] sm:text-[22px] leading-tight">Restaurant Amenities</h3>
+                <p className="text-xs text-gray-500 font-semibold mt-1">Services & facilities available for our guests</p>
+              </div>
+              <button 
+                onClick={() => setShowAmenitiesModal(false)}
+                className="bg-gray-100 hover:bg-gray-200 text-gray-500 hover:text-gray-700 w-8 h-8 rounded-full flex items-center justify-center transition-colors cursor-pointer border border-gray-200"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Content */}
+            <div className="p-6 overflow-y-auto flex-grow text-left">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {[
+                  {
+                    title: "Free WiFi",
+                    desc: "High-speed wireless internet connection throughout the premises.",
+                    icon: (
+                      <svg className="w-5 h-5 text-[#855400]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 16.25a6 6 0 017.5 0m-9.75-2.25a9.75 9.75 0 0112 0m-14.25-2.25a13.5 13.5 0 0116.5 0M12 18.75h.007v.008H12v-.008z" />
+                      </svg>
+                    )
+                  },
+                  {
+                    title: "Valet Parking",
+                    desc: "Complementary professional valet parking for all dine-in guests.",
+                    icon: (
+                      <svg className="w-5 h-5 text-[#855400]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.5 5.25h3a2.25 2.25 0 010 4.5h-3V7.5zm0 9V7.5H9v9h1.5z" />
+                      </svg>
+                    )
+                  },
+                  {
+                    title: "Wheelchair Accessible",
+                    desc: "Fully accessible entrance, seating areas, and restrooms.",
+                    icon: (
+                      <svg className="w-5 h-5 text-[#855400]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                        <circle cx="12" cy="5" r="2" />
+                        <path d="M5 14a6 6 0 008.5 5.5m.5 1.5v-7M9 9h6v3" />
+                      </svg>
+                    )
+                  },
+                  {
+                    title: "Air Conditioned",
+                    desc: "Climate-controlled indoor spaces for dining comfort.",
+                    icon: (
+                      <svg className="w-5 h-5 text-[#855400]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v18M3 12h18m-3-6L6 18M6 6l12 12" />
+                      </svg>
+                    )
+                  },
+                  {
+                    title: "Full Bar",
+                    desc: "Exquisite selection of wines, signature cocktails, and craft beers.",
+                    icon: (
+                      <svg className="w-5 h-5 text-[#855400]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                    )
+                  },
+                  {
+                    title: "Live Music",
+                    desc: "Live acoustic sessions and jazz bands on select evenings.",
+                    icon: (
+                      <svg className="w-5 h-5 text-[#855400]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 19V6l12-3v13M9 10l12-3M9 19a3 3 0 11-6 0 3 3 0 016 0zm12-3a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    )
+                  }
+                ].map((amenity, idx) => (
+                  <div key={idx} className="flex gap-3.5 p-3 rounded-xl border border-gray-100 hover:border-[#d9c3ac]/60 hover:bg-[#fff8ed]/20 transition-all">
+                    <div className="w-9 h-9 rounded-full bg-[#fff8ed] flex items-center justify-center shrink-0 border border-[#d9c3ac]/40">
+                      {amenity.icon}
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-gray-800 text-sm leading-tight">{amenity.title}</h4>
+                      <p className="text-xs text-gray-500 mt-1 font-medium leading-relaxed">{amenity.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="p-4 bg-gray-50 border-t border-gray-100 flex justify-end flex-shrink-0">
+              <button 
+                onClick={() => setShowAmenitiesModal(false)}
+                className="px-5 py-2.5 bg-[#FFA500] hover:bg-orange-600 text-white rounded-lg text-xs font-bold shadow-sm transition-colors cursor-pointer"
+              >
+                Close Amenities
               </button>
             </div>
 

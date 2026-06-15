@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import AdminLayout from '../../layouts/AdminLayout';
 
 const PLANS = [
-  { id: 'standard', name: 'STANDARD', price: 200, discount: 20, billing: 'Monthly', features: { digitalMenu: true, qrOrdering: true, tableBooking: false, billing: false, analytics: false, reviews: false } },
-  { id: 'premium', name: 'PREMIUM', price: 400, discount: 20, billing: 'Monthly', features: { digitalMenu: true, qrOrdering: true, tableBooking: false, billing: false, analytics: false, reviews: false } },
-  { id: 'gold', name: 'GOLD', price: 600, discount: 15, billing: 'Monthly', features: { digitalMenu: true, qrOrdering: true, tableBooking: true, billing: false, analytics: true, reviews: false } },
-  { id: 'platinum', name: 'PLATINUM', price: 800, discount: 10, billing: 'Monthly', features: { digitalMenu: true, qrOrdering: true, tableBooking: true, billing: true, analytics: true, reviews: true } }
+  { id: 'standard', name: 'STANDARD', price: 0, discount: 0, billing: 'Free Plan', features: { listing: true, scanQr: false, ordering: false, billing: false, payment: false } },
+  { id: 'silver', name: 'SILVER', price: 400, discount: 20, billing: 'Monthly', features: { listing: true, scanQr: true, ordering: false, billing: false, payment: false } },
+  { id: 'gold', name: 'GOLD', price: 600, discount: 15, billing: 'Monthly', features: { listing: true, scanQr: true, ordering: true, billing: false, payment: false } },
+  { id: 'platinum', name: 'PLATINAM', price: 800, discount: 10, billing: 'Monthly', features: { listing: true, scanQr: true, ordering: true, billing: true, payment: false } },
+  { id: 'diamond', name: 'DIAMOND', price: 1000, discount: 5, billing: 'Monthly', features: { listing: true, scanQr: true, ordering: true, billing: true, payment: true } }
 ];
 
 export default function Upgrade() {
@@ -61,11 +62,12 @@ export default function Upgrade() {
         <div className="border border-slate-200 rounded-2xl overflow-hidden shadow-sm bg-white">
           <table className="w-full text-left border-collapse" style={{ tableLayout: 'fixed' }}>
             <colgroup>
-              <col style={{ width: '22%' }} />
-              <col style={{ width: '19.5%' }} />
-              <col style={{ width: '19.5%' }} />
-              <col style={{ width: '19.5%' }} />
-              <col style={{ width: '19.5%' }} />
+              <col style={{ width: '19%' }} />
+              <col style={{ width: '16.2%' }} />
+              <col style={{ width: '16.2%' }} />
+              <col style={{ width: '16.2%' }} />
+              <col style={{ width: '16.2%' }} />
+              <col style={{ width: '16.2%' }} />
             </colgroup>
             <thead>
               <tr className="bg-slate-50 border-b border-slate-200">
@@ -76,8 +78,12 @@ export default function Upgrade() {
                     <th key={pkg.id} className="p-4 text-center border-l border-slate-100">
                       <div className="flex flex-col items-center gap-1">
                         <span className="text-[10px] font-extrabold text-slate-900 tracking-tight uppercase">{pkg.name}</span>
-                        <span className="text-2xl font-black text-orange-500">₹{pkg.price}</span>
-                        <span className="text-[9px] font-bold text-emerald-600 uppercase tracking-wider">{pkg.discount}% OFF</span>
+                        <span className="text-2xl font-black text-orange-500">{pkg.price > 0 ? `₹${pkg.price}` : 'Free'}</span>
+                        {pkg.price > 0 ? (
+                          <span className="text-[9px] font-bold text-emerald-600 uppercase tracking-wider">{pkg.discount}% OFF</span>
+                        ) : (
+                          <span className="text-[9px] font-extrabold text-emerald-600 uppercase tracking-wider">LIFETIME</span>
+                        )}
                         <span className="text-[8px] text-slate-400 font-semibold uppercase">{pkg.billing}</span>
                         {isCurrent && (
                           <span className="text-[8px] font-extrabold px-2 py-0.5 bg-orange-100 text-orange-600 rounded-full uppercase tracking-wider mt-1">
@@ -91,12 +97,12 @@ export default function Upgrade() {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 text-xs">
-              {/* Digital Menu */}
+              {/* Listing */}
               <tr className="hover:bg-slate-50/50">
-                <td className="p-4 font-bold text-slate-700">Digital Menu</td>
+                <td className="p-4 font-bold text-slate-700">Listing</td>
                 {PLANS.map(pkg => (
                   <td key={pkg.id} className="p-4 text-center border-l border-slate-100">
-                    {pkg.features.digitalMenu ? (
+                    {pkg.features.listing ? (
                       <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-emerald-50 text-emerald-600">✓</span>
                     ) : (
                       <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-rose-50 text-rose-500 font-extrabold text-[10px]">✕</span>
@@ -105,12 +111,12 @@ export default function Upgrade() {
                 ))}
               </tr>
 
-              {/* QR Ordering */}
+              {/* Scan & QR */}
               <tr className="hover:bg-slate-50/50">
-                <td className="p-4 font-bold text-slate-700">QR Ordering</td>
+                <td className="p-4 font-bold text-slate-700">Scan & QR</td>
                 {PLANS.map(pkg => (
                   <td key={pkg.id} className="p-4 text-center border-l border-slate-100">
-                    {pkg.features.qrOrdering ? (
+                    {pkg.features.scanQr ? (
                       <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-emerald-50 text-emerald-600">✓</span>
                     ) : (
                       <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-rose-50 text-rose-500 font-extrabold text-[10px]">✕</span>
@@ -119,12 +125,12 @@ export default function Upgrade() {
                 ))}
               </tr>
 
-              {/* Table Booking */}
+              {/* Ordering */}
               <tr className="hover:bg-slate-50/50">
-                <td className="p-4 font-bold text-slate-700">Table Booking</td>
+                <td className="p-4 font-bold text-slate-700">Ordering</td>
                 {PLANS.map(pkg => (
                   <td key={pkg.id} className="p-4 text-center border-l border-slate-100">
-                    {pkg.features.tableBooking ? (
+                    {pkg.features.ordering ? (
                       <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-emerald-50 text-emerald-600">✓</span>
                     ) : (
                       <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-rose-50 text-rose-500 font-extrabold text-[10px]">✕</span>
@@ -135,7 +141,7 @@ export default function Upgrade() {
 
               {/* Billing */}
               <tr className="hover:bg-slate-50/50">
-                <td className="p-4 font-bold text-slate-700">Billing System</td>
+                <td className="p-4 font-bold text-slate-700">Billing</td>
                 {PLANS.map(pkg => (
                   <td key={pkg.id} className="p-4 text-center border-l border-slate-100">
                     {pkg.features.billing ? (
@@ -147,26 +153,12 @@ export default function Upgrade() {
                 ))}
               </tr>
 
-              {/* Analytics */}
+              {/* Online Payment */}
               <tr className="hover:bg-slate-50/50">
-                <td className="p-4 font-bold text-slate-700">Analytics Dashboard</td>
+                <td className="p-4 font-bold text-slate-700">Online Payment</td>
                 {PLANS.map(pkg => (
                   <td key={pkg.id} className="p-4 text-center border-l border-slate-100">
-                    {pkg.features.analytics ? (
-                      <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-emerald-50 text-emerald-600">✓</span>
-                    ) : (
-                      <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-rose-50 text-rose-500 font-extrabold text-[10px]">✕</span>
-                    )}
-                  </td>
-                ))}
-              </tr>
-
-              {/* Reviews */}
-              <tr className="hover:bg-slate-50/50">
-                <td className="p-4 font-bold text-slate-700">Review Management</td>
-                {PLANS.map(pkg => (
-                  <td key={pkg.id} className="p-4 text-center border-l border-slate-100">
-                    {pkg.features.reviews ? (
+                    {pkg.features.payment ? (
                       <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-emerald-50 text-emerald-600">✓</span>
                     ) : (
                       <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-rose-50 text-rose-500 font-extrabold text-[10px]">✕</span>
@@ -180,6 +172,9 @@ export default function Upgrade() {
                 <td className="p-4 font-bold text-slate-400 text-xs">Action</td>
                 {PLANS.map(pkg => {
                   const isCurrent = selectedPlan === pkg.id;
+                  const currentPlanObj = PLANS.find(p => p.id === selectedPlan) || PLANS[0];
+                  const isUpgrade = pkg.price > currentPlanObj.price;
+                  const buttonLabel = isUpgrade ? 'Upgrade Now' : 'Downgrade';
                   return (
                     <td key={pkg.id} className="p-4 text-center border-l border-slate-100">
                       {isCurrent ? (
@@ -196,7 +191,7 @@ export default function Upgrade() {
                           onClick={() => handlePlanSelect(pkg.id)}
                           className="w-full py-2 bg-[#FFA500] hover:bg-orange-600 text-white rounded-lg text-xs font-bold transition-all cursor-pointer shadow-sm active:scale-[0.98]"
                         >
-                          Upgrade Now
+                          {buttonLabel}
                         </button>
                       )}
                     </td>

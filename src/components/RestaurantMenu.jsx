@@ -591,13 +591,13 @@ export default function RestaurantMenu({ onAddItem, onDownloadRegister }) {
       {/* Category Navigation Tabs */}
       <div className="flex border-b border-gray-200 mb-6 overflow-x-auto scrollbar-none" id="menu">
         <button 
-          className={`px-6 sm:px-12 py-3 font-bold text-[14px] transition-all whitespace-nowrap cursor-pointer border-b-2 ${activeTab === 'main-course' ? 'text-[#855400] border-[#ffa500] bg-[#fff8ed]' : 'text-[#534433] border-transparent hover:text-[#855400]'}`} 
+          className={`px-4 sm:px-12 py-2 sm:py-3 font-bold text-xs sm:text-[14px] transition-all whitespace-nowrap cursor-pointer border-b-2 ${activeTab === 'main-course' ? 'text-[#855400] border-[#ffa500] bg-[#fff8ed]' : 'text-[#534433] border-transparent hover:text-[#855400]'}`} 
           onClick={() => setActiveTab('main-course')}
         >
           Main Course
         </button>
         <button 
-          className={`px-6 sm:px-12 py-3 font-bold text-[14px] transition-all whitespace-nowrap cursor-pointer border-b-2 ${activeTab === 'drinks' ? 'text-[#855400] border-[#ffa500] bg-[#fff8ed]' : 'text-[#534433] border-transparent hover:text-[#855400]'}`} 
+          className={`px-4 sm:px-12 py-2 sm:py-3 font-bold text-xs sm:text-[14px] transition-all whitespace-nowrap cursor-pointer border-b-2 ${activeTab === 'drinks' ? 'text-[#855400] border-[#ffa500] bg-[#fff8ed]' : 'text-[#534433] border-transparent hover:text-[#855400]'}`} 
           onClick={() => setActiveTab('drinks')}
         >
           Drinks

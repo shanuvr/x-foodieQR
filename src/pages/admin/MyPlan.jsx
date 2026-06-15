@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import AdminLayout from '../../layouts/AdminLayout';
 
 const PLANS = [
-  { id: 'standard', name: 'Standard Plan', price: 200, billing: 'Monthly', features: ['Digital Menu', 'QR Ordering'] },
-  { id: 'premium', name: 'Premium Plan', price: 400, billing: 'Monthly', features: ['Digital Menu', 'QR Ordering', 'Analytics Dashboard'] },
-  { id: 'gold', name: 'Gold Plan', price: 600, billing: 'Monthly', features: ['Digital Menu', 'QR Ordering', 'Table Booking', 'Analytics Dashboard'] },
-  { id: 'platinum', name: 'Platinum Plan', price: 800, billing: 'Monthly', features: ['Digital Menu', 'QR Ordering', 'Table Booking', 'Billing System', 'Analytics Dashboard', 'Review Management'] }
+  { id: 'standard', name: 'Standard Plan', price: 0, billing: 'Free Plan', features: ['Listing'] },
+  { id: 'silver', name: 'Silver Plan', price: 400, billing: 'Monthly', features: ['Listing', 'Scan & QR'] },
+  { id: 'gold', name: 'Gold Plan', price: 600, billing: 'Monthly', features: ['Listing', 'Scan & QR', 'Ordering'] },
+  { id: 'platinum', name: 'Platinam Plan', price: 800, billing: 'Monthly', features: ['Listing', 'Scan & QR', 'Ordering', 'Billing'] },
+  { id: 'diamond', name: 'Diamond Plan', price: 1000, billing: 'Monthly', features: ['Listing', 'Scan & QR', 'Ordering', 'Billing', 'Online Payment'] }
 ];
 
 export default function MyPlan() {
@@ -60,16 +61,25 @@ export default function MyPlan() {
                 )}
               </div>
               <h2 className="text-2xl font-black text-slate-900 leading-tight">{activePlan.name}</h2>
-              <p className="text-sm text-slate-400 font-semibold mt-1">Next renewal date: July 15, 2026</p>
+              <p className="text-sm text-slate-400 font-semibold mt-1">
+                {activePlan.id === 'standard' ? 'Lifetime free access' : 'Next renewal date: July 15, 2026'}
+              </p>
               
               <div className="grid grid-cols-2 gap-4 mt-6">
                 <div>
                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Price</span>
-                  <p className="text-xl font-extrabold text-slate-800 mt-0.5">₹{activePlan.price} <span className="text-xs font-semibold text-slate-400">/{activePlan.billing.toLowerCase()}</span></p>
+                  <p className="text-xl font-extrabold text-slate-800 mt-0.5">
+                    {activePlan.id === 'standard' ? 'Free' : `₹${activePlan.price}`} 
+                    {activePlan.id !== 'standard' && (
+                      <span className="text-xs font-semibold text-slate-400"> /{activePlan.billing.toLowerCase()}</span>
+                    )}
+                  </p>
                 </div>
                 <div>
                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Remaining Days</span>
-                  <p className="text-xl font-extrabold text-slate-800 mt-0.5">{isTrial ? '14 Days' : '29 Days'}</p>
+                  <p className="text-xl font-extrabold text-slate-800 mt-0.5">
+                    {activePlan.id === 'standard' ? 'Lifetime' : (isTrial ? '14 Days' : '29 Days')}
+                  </p>
                 </div>
               </div>
             </div>

@@ -113,7 +113,7 @@ export default function Navbar() {
                       </div>
                       
                       <Link
-                        to="/"
+                        to="/my-orders"
                         onClick={() => setIsDropdownOpen(false)}
                         className="flex items-center gap-2.5 px-4 py-2 text-xs font-bold text-slate-600 hover:text-slate-800 hover:bg-slate-50 transition-colors"
                       >
@@ -124,7 +124,7 @@ export default function Navbar() {
                       </Link>
                       
                       <Link
-                        to="/"
+                        to="/favorites"
                         onClick={() => setIsDropdownOpen(false)}
                         className="flex items-center gap-2.5 px-4 py-2 text-xs font-bold text-slate-600 hover:text-slate-800 hover:bg-slate-50 transition-colors"
                       >
@@ -229,14 +229,14 @@ export default function Navbar() {
                 </div>
                 
                 <Link
-                  to="/"
+                  to="/my-orders"
                   onClick={() => setIsOpen(false)}
                   className="block px-3 py-1.5 rounded-md text-sm font-semibold text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors"
                 >
                   My Orders
                 </Link>
                 <Link
-                  to="/"
+                  to="/favorites"
                   onClick={() => setIsOpen(false)}
                   className="block px-3 py-1.5 rounded-md text-sm font-semibold text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors"
                 >

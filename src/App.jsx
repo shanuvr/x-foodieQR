@@ -5,6 +5,8 @@ import DetailedView from './pages/user/DetailedView'
 import About from './pages/user/About'
 import Contact from './pages/user/Contact'
 import Cart from './pages/user/Cart'
+import Favorites from './pages/user/Favorites'
+import MyOrders from './pages/user/MyOrders'
 import Register from './pages/user/register/Register'
 import Packages from './pages/user/register/Packages'
 import Outlet from './pages/user/register/Outlet'
@@ -58,6 +60,8 @@ function App() {
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/cart" element={<Cart />} />
+      <Route path="/favorites" element={<Favorites />} />
+      <Route path="/my-orders" element={<MyOrders />} />
       <Route path="/register" element={<Register />} />
       <Route path="/packages" element={<Packages />} />
       <Route path="/outlet" element={<Outlet />} />

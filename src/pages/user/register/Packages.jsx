@@ -3,10 +3,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import UserLayout from '../../../layouts/UserLayout';
 
 const PLANS = [
-  { id: 'standard', name: 'STANDARD', price: 200, discount: 20, billing: 'Monthly', features: { digitalMenu: true, qrOrdering: true, tableBooking: false, billing: false, analytics: false, reviews: false } },
-  { id: 'premium', name: 'PREMIUM', price: 400, discount: 20, billing: 'Monthly', features: { digitalMenu: true, qrOrdering: true, tableBooking: false, billing: false, analytics: false, reviews: false } },
-  { id: 'gold', name: 'GOLD', price: 600, discount: 15, billing: 'Monthly', features: { digitalMenu: true, qrOrdering: true, tableBooking: true, billing: false, analytics: true, reviews: false } },
-  { id: 'platinum', name: 'PLATINUM', price: 800, discount: 10, billing: 'Monthly', features: { digitalMenu: true, qrOrdering: true, tableBooking: true, billing: true, analytics: true, reviews: true } }
+  { id: 'standard', name: 'STANDARD', price: 0, discount: 0, billing: 'Free Plan', features: { listing: true, scanQr: false, ordering: false, billing: false, payment: false } },
+  { id: 'silver', name: 'SILVER', price: 400, discount: 20, billing: 'Monthly', features: { listing: true, scanQr: true, ordering: false, billing: false, payment: false } },
+  { id: 'gold', name: 'GOLD', price: 600, discount: 15, billing: 'Monthly', features: { listing: true, scanQr: true, ordering: true, billing: false, payment: false } },
+  { id: 'platinum', name: 'PLATINAM', price: 800, discount: 10, billing: 'Monthly', features: { listing: true, scanQr: true, ordering: true, billing: true, payment: false } },
+  { id: 'diamond', name: 'DIAMOND', price: 1000, discount: 5, billing: 'Monthly', features: { listing: true, scanQr: true, ordering: true, billing: true, payment: true } }
 ];
 
 export default function Packages() {
@@ -203,11 +204,12 @@ export default function Packages() {
               <div className="border border-[#d9c3ac]/40 rounded-xl overflow-hidden shadow-sm bg-white mb-6">
                 <table className="w-full text-left border-collapse" style={{tableLayout: 'fixed'}}>
                   <colgroup>
-                    <col style={{width: '22%'}} />
-                    <col style={{width: '19.5%'}} />
-                    <col style={{width: '19.5%'}} />
-                    <col style={{width: '19.5%'}} />
-                    <col style={{width: '19.5%'}} />
+                    <col style={{width: '19%'}} />
+                    <col style={{width: '16.2%'}} />
+                    <col style={{width: '16.2%'}} />
+                    <col style={{width: '16.2%'}} />
+                    <col style={{width: '16.2%'}} />
+                    <col style={{width: '16.2%'}} />
                   </colgroup>
                   <thead>
                     <tr className="bg-[#fffcf5] border-b border-[#d9c3ac]/35">
@@ -216,8 +218,12 @@ export default function Packages() {
                         <th key={pkg.id} className="p-3 text-center border-l border-[#d9c3ac]/20">
                           <div className="flex flex-col items-center gap-0.5">
                             <span className="text-[10px] font-extrabold text-gray-900 tracking-tight uppercase">{pkg.name}</span>
-                            <span className="text-xl font-black text-orange-500">₹{pkg.price}</span>
-                            <span className="text-[9px] font-bold text-emerald-600 uppercase tracking-wider">{pkg.discount}% OFF</span>
+                            <span className="text-xl font-black text-orange-500">{pkg.price > 0 ? `₹${pkg.price}` : 'Free'}</span>
+                            {pkg.price > 0 ? (
+                              <span className="text-[9px] font-bold text-emerald-600 uppercase tracking-wider">{pkg.discount}% OFF</span>
+                            ) : (
+                              <span className="text-[9px] font-extrabold text-emerald-600 uppercase tracking-wider">LIFETIME</span>
+                            )}
                             <span className="text-[8px] text-gray-400 font-semibold uppercase">{pkg.billing}</span>
                           </div>
                         </th>
@@ -225,12 +231,12 @@ export default function Packages() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100 text-xs">
-                    {/* Digital Menu */}
+                    {/* Listing */}
                     <tr className="hover:bg-gray-50/50">
-                      <td className="p-3 font-bold text-gray-700">Digital Menu</td>
+                      <td className="p-3 font-bold text-gray-700">Listing</td>
                       {PLANS.map(pkg => (
                         <td key={pkg.id} className="p-3 text-center border-l border-[#d9c3ac]/20">
-                          {pkg.features.digitalMenu ? (
+                          {pkg.features.listing ? (
                             <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-green-50 text-green-600">✓</span>
                           ) : (
                             <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-50 text-red-500 font-extrabold text-[10px]">✕</span>
@@ -239,12 +245,12 @@ export default function Packages() {
                       ))}
                     </tr>
 
-                    {/* QR Ordering */}
+                    {/* Scan & QR */}
                     <tr className="hover:bg-gray-50/50">
-                      <td className="p-3 font-bold text-gray-700">QR Ordering</td>
+                      <td className="p-3 font-bold text-gray-700">Scan & QR</td>
                       {PLANS.map(pkg => (
                         <td key={pkg.id} className="p-3 text-center border-l border-[#d9c3ac]/20">
-                          {pkg.features.qrOrdering ? (
+                          {pkg.features.scanQr ? (
                             <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-green-50 text-green-600">✓</span>
                           ) : (
                             <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-50 text-red-500 font-extrabold text-[10px]">✕</span>
@@ -253,12 +259,12 @@ export default function Packages() {
                       ))}
                     </tr>
 
-                    {/* Table Booking */}
+                    {/* Ordering */}
                     <tr className="hover:bg-gray-50/50">
-                      <td className="p-3 font-bold text-gray-700">Table Booking</td>
+                      <td className="p-3 font-bold text-gray-700">Ordering</td>
                       {PLANS.map(pkg => (
                         <td key={pkg.id} className="p-3 text-center border-l border-[#d9c3ac]/20">
-                          {pkg.features.tableBooking ? (
+                          {pkg.features.ordering ? (
                             <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-green-50 text-green-600">✓</span>
                           ) : (
                             <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-50 text-red-500 font-extrabold text-[10px]">✕</span>
@@ -281,26 +287,12 @@ export default function Packages() {
                       ))}
                     </tr>
 
-                    {/* Analytics */}
+                    {/* Online Payment */}
                     <tr className="hover:bg-gray-50/50">
-                      <td className="p-3 font-bold text-gray-700">Analytics</td>
+                      <td className="p-3 font-bold text-gray-700">Online Payment</td>
                       {PLANS.map(pkg => (
                         <td key={pkg.id} className="p-3 text-center border-l border-[#d9c3ac]/20">
-                          {pkg.features.analytics ? (
-                            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-green-50 text-green-600">✓</span>
-                          ) : (
-                            <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-50 text-red-500 font-extrabold text-[10px]">✕</span>
-                          )}
-                        </td>
-                      ))}
-                    </tr>
-
-                    {/* Reviews */}
-                    <tr className="hover:bg-gray-50/50">
-                      <td className="p-3 font-bold text-gray-700">Reviews</td>
-                      {PLANS.map(pkg => (
-                        <td key={pkg.id} className="p-3 text-center border-l border-[#d9c3ac]/20">
-                          {pkg.features.reviews ? (
+                          {pkg.features.payment ? (
                             <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-green-50 text-green-600">✓</span>
                           ) : (
                             <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-red-50 text-red-500 font-extrabold text-[10px]">✕</span>
@@ -315,10 +307,12 @@ export default function Packages() {
                       {PLANS.map(pkg => (
                         <td key={pkg.id} className="p-3 text-center border-l border-[#d9c3ac]/20">
                           <div className="flex flex-col gap-1.5 w-full">
-                            <button type="button" onClick={() => handlePlanSelect(`${pkg.id}-trial`)}
-                              className="w-full inline-flex justify-center items-center gap-1 py-1.5 bg-[#0f172a] text-white rounded text-[10px] font-bold hover:bg-slate-800 transition-all cursor-pointer">
-                              🚀 Trial
-                            </button>
+                            {pkg.id !== 'standard' && (
+                              <button type="button" onClick={() => handlePlanSelect(`${pkg.id}-trial`)}
+                                className="w-full inline-flex justify-center items-center gap-1 py-1.5 bg-[#0f172a] text-white rounded text-[10px] font-bold hover:bg-slate-800 transition-all cursor-pointer">
+                                🚀 Trial
+                              </button>
+                            )}
                             <button type="button" onClick={() => handlePlanSelect(pkg.id)}
                               className="w-full py-1.5 bg-[#FFA500] hover:bg-orange-600 text-white rounded text-[10px] font-bold transition-all cursor-pointer">
                               Register

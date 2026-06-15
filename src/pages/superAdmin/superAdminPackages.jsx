@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import SuperAdminLayout from '../../layouts/SuperAdminLayout';
 
+const FEATURE_LABELS = {
+  listing: 'Listing',
+  scanQr: 'Scan & QR',
+  ordering: 'Ordering',
+  billing: 'Billing',
+  payment: 'Online Payment'
+};
+
 export default function SuperAdminPackages() {
   const [packages, setPackages] = useState([]);
   const [editPkg, setEditPkg] = useState(null); // package currently being edited
@@ -11,13 +19,17 @@ export default function SuperAdminPackages() {
     discount: 10,
     billing: 'Monthly',
     features: {
-      digitalMenu: true,
-      qrOrdering: true,
-      tableBooking: false,
+      listing: true,
+      scanQr: true,
+      ordering: false,
       billing: false,
-      analytics: false,
-      reviews: false
-    }
+      payment: false
+    },
+    enableFreeTrial: false,
+    freeTrialDays: 14,
+    isActive: true,
+    enableReview: true,
+    allowRegistration: true
   });
 
   const [coupons, setCoupons] = useState(['WELCOME20', 'GOURMETFEST', 'FESTIVE50', 'SUPERDEAL']);
@@ -33,32 +45,40 @@ export default function SuperAdminPackages() {
         {
           id: 'standard',
           name: 'Standard',
-          price: 200,
-          discount: 20,
-          billing: 'Monthly',
+          price: 0,
+          discount: 0,
+          billing: 'Free Plan',
           features: {
-            digitalMenu: true,
-            qrOrdering: true,
-            tableBooking: false,
+            listing: true,
+            scanQr: false,
+            ordering: false,
             billing: false,
-            analytics: false,
-            reviews: false
-          }
+            payment: false
+          },
+          enableFreeTrial: false,
+          freeTrialDays: 0,
+          isActive: true,
+          enableReview: false,
+          allowRegistration: true
         },
         {
-          id: 'premium',
-          name: 'Premium',
+          id: 'silver',
+          name: 'Silver',
           price: 400,
           discount: 20,
           billing: 'Monthly',
           features: {
-            digitalMenu: true,
-            qrOrdering: true,
-            tableBooking: false,
+            listing: true,
+            scanQr: true,
+            ordering: false,
             billing: false,
-            analytics: false,
-            reviews: false
-          }
+            payment: false
+          },
+          enableFreeTrial: true,
+          freeTrialDays: 14,
+          isActive: true,
+          enableReview: true,
+          allowRegistration: true
         },
         {
           id: 'gold',
@@ -67,28 +87,55 @@ export default function SuperAdminPackages() {
           discount: 15,
           billing: 'Monthly',
           features: {
-            digitalMenu: true,
-            qrOrdering: true,
-            tableBooking: true,
+            listing: true,
+            scanQr: true,
+            ordering: true,
             billing: false,
-            analytics: true,
-            reviews: false
-          }
+            payment: false
+          },
+          enableFreeTrial: true,
+          freeTrialDays: 14,
+          isActive: true,
+          enableReview: true,
+          allowRegistration: true
         },
         {
           id: 'platinum',
-          name: 'Platinum',
+          name: 'Platinam',
           price: 800,
           discount: 10,
           billing: 'Monthly',
           features: {
-            digitalMenu: true,
-            qrOrdering: true,
-            tableBooking: true,
+            listing: true,
+            scanQr: true,
+            ordering: true,
             billing: true,
-            analytics: true,
-            reviews: true
-          }
+            payment: false
+          },
+          enableFreeTrial: true,
+          freeTrialDays: 14,
+          isActive: true,
+          enableReview: true,
+          allowRegistration: true
+        },
+        {
+          id: 'diamond',
+          name: 'Diamond',
+          price: 1000,
+          discount: 5,
+          billing: 'Monthly',
+          features: {
+            listing: true,
+            scanQr: true,
+            ordering: true,
+            billing: true,
+            payment: true
+          },
+          enableFreeTrial: true,
+          freeTrialDays: 14,
+          isActive: true,
+          enableReview: true,
+          allowRegistration: true
         }
       ];
       localStorage.setItem('super_admin_packages', JSON.stringify(defaultPkg));
@@ -162,13 +209,17 @@ export default function SuperAdminPackages() {
       discount: 10,
       billing: 'Monthly',
       features: {
-        digitalMenu: true,
-        qrOrdering: true,
-        tableBooking: false,
+        listing: true,
+        scanQr: true,
+        ordering: false,
         billing: false,
-        analytics: false,
-        reviews: false
-      }
+        payment: false
+      },
+      enableFreeTrial: false,
+      freeTrialDays: 14,
+      isActive: true,
+      enableReview: true,
+      allowRegistration: true
     });
   };
 
@@ -232,10 +283,10 @@ export default function SuperAdminPackages() {
               </div>
 
               {/* Body features */}
-              <div className="p-6 flex-grow space-y-3.5 text-slate-600 text-xs">
+              <div className="p-6 flex-grow space-y-3.5 text-slate-600 text-xs border-b border-slate-50">
                 {Object.entries(pkg.features).map(([key, val]) => (
                   <div key={key} className="flex items-center justify-between">
-                    <span className="font-semibold text-slate-500 capitalize">{key.replace(/([A-Z])/g, ' $1')}</span>
+                    <span className="font-semibold text-slate-500">{FEATURE_LABELS[key] || key}</span>
                     <span className={`w-5 h-5 rounded-full flex items-center justify-center font-black ${
                       val ? 'bg-green-50 text-green-600' : 'bg-red-50 text-red-400'
                     }`}>
@@ -243,6 +294,34 @@ export default function SuperAdminPackages() {
                     </span>
                   </div>
                 ))}
+              </div>
+
+              {/* System Flags */}
+              <div className="p-6 pt-4 pb-5 space-y-3 text-slate-600 text-xs bg-slate-50/40">
+                <div className="flex items-center justify-between">
+                  <span className="font-semibold text-slate-400 uppercase text-[9px] tracking-wider">Plan Status</span>
+                  <span className={`px-2 py-0.5 rounded font-bold text-[10px] ${pkg.isActive ?? true ? 'bg-green-100 text-green-700' : 'bg-rose-100 text-rose-700'}`}>
+                    {(pkg.isActive ?? true) ? 'Active' : 'Inactive'}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="font-semibold text-slate-400 uppercase text-[9px] tracking-wider">Registration</span>
+                  <span className={`px-2 py-0.5 rounded font-bold text-[10px] ${pkg.allowRegistration ?? true ? 'bg-indigo-100 text-indigo-700' : 'bg-amber-100 text-amber-700'}`}>
+                    {(pkg.allowRegistration ?? true) ? 'Allowed' : 'Disabled'}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="font-semibold text-slate-400 uppercase text-[9px] tracking-wider">Free Trial</span>
+                  <span className="font-bold text-slate-700">
+                    {pkg.enableFreeTrial ? `${pkg.freeTrialDays ?? 14} Days` : 'No Trial'}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="font-semibold text-slate-400 uppercase text-[9px] tracking-wider">Review System</span>
+                  <span className="font-bold text-slate-700">
+                    {(pkg.enableReview ?? true) ? 'Enabled' : 'Disabled'}
+                  </span>
+                </div>
               </div>
 
               {/* Action */}
@@ -346,7 +425,7 @@ export default function SuperAdminPackages() {
                 </button>
               </div>
 
-              <div className="p-6 space-y-4">
+              <div className="p-6 space-y-4 max-h-[60vh] overflow-y-auto">
                 
                 {/* Price and discount */}
                 <div className="grid grid-cols-2 gap-4">
@@ -370,10 +449,38 @@ export default function SuperAdminPackages() {
                   </div>
                 </div>
 
+                {/* Billing Cycle */}
+                <div className="space-y-1">
+                  <label className="text-[10px] font-bold text-slate-500 uppercase">Billing Cycle</label>
+                  <select
+                    value={editPkg.billing ?? 'Monthly'}
+                    onChange={(e) => setEditPkg(prev => ({ ...prev, billing: e.target.value }))}
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-700 focus:outline-none focus:border-orange-500"
+                  >
+                    <option value="Free Plan">Free Plan</option>
+                    <option value="Monthly">Monthly</option>
+                    <option value="Quarterly">Quarterly</option>
+                    <option value="Yearly">Yearly</option>
+                    <option value="Lifetime">Lifetime</option>
+                  </select>
+                </div>
+
+                {/* Free Trial Days input */}
+                <div className="space-y-1">
+                  <label className="text-[10px] font-bold text-slate-500 uppercase">number of days for free trial</label>
+                  <input
+                    type="number"
+                    min="1"
+                    required
+                    value={editPkg.freeTrialDays ?? 14}
+                    onChange={(e) => setEditPkg(prev => ({ ...prev, freeTrialDays: parseInt(e.target.value) || 0 }))}
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs font-bold text-slate-700 focus:outline-none focus:border-orange-500"
+                  />
+                </div>
+
                 {/* Features toggles */}
                 <div className="space-y-3 pt-3 border-t border-slate-100">
                   <label className="text-[10px] font-bold text-slate-500 uppercase block mb-1">Included Platform Features</label>
-                  
                   <div className="grid grid-cols-2 gap-2">
                     {Object.entries(editPkg.features).map(([key, val]) => (
                       <label key={key} className="flex items-center gap-2.5 p-2 bg-slate-50 hover:bg-slate-100 border border-slate-100 rounded-xl cursor-pointer select-none">
@@ -383,13 +490,60 @@ export default function SuperAdminPackages() {
                           onChange={() => handleFeatureToggle(key)}
                           className="w-4 h-4 text-orange-500 accent-orange-500 cursor-pointer"
                         />
-                        <span className="text-[11px] font-bold text-slate-600 capitalize leading-none">
-                          {key.replace(/([A-Z])/g, ' $1')}
+                        <span className="text-[11px] font-bold text-slate-600 leading-none">
+                          {FEATURE_LABELS[key] || key}
                         </span>
                       </label>
                     ))}
                   </div>
                 </div>
+
+                {/* System Config & Flags */}
+                <div className="space-y-3 pt-3 border-t border-slate-100">
+                  <label className="text-[10px] font-bold text-slate-500 uppercase block mb-1">Plan Configuration & Flags</label>
+                  <div className="grid grid-cols-2 gap-2">
+                    <label className="flex items-center gap-2.5 p-2 bg-slate-50 hover:bg-slate-100 border border-slate-100 rounded-xl cursor-pointer select-none">
+                      <input
+                        type="checkbox"
+                        checked={editPkg.isActive ?? true}
+                        onChange={(e) => setEditPkg(prev => ({ ...prev, isActive: e.target.checked }))}
+                        className="w-4 h-4 text-orange-500 accent-orange-500 cursor-pointer"
+                      />
+                      <span className="text-[11px] font-bold text-slate-600 leading-none">Is Active</span>
+                    </label>
+
+                    <label className="flex items-center gap-2.5 p-2 bg-slate-50 hover:bg-slate-100 border border-slate-100 rounded-xl cursor-pointer select-none">
+                      <input
+                        type="checkbox"
+                        checked={editPkg.enableFreeTrial ?? false}
+                        onChange={(e) => setEditPkg(prev => ({ ...prev, enableFreeTrial: e.target.checked }))}
+                        className="w-4 h-4 text-orange-500 accent-orange-500 cursor-pointer"
+                      />
+                      <span className="text-[11px] font-bold text-slate-600 leading-none">Enable Free Trial</span>
+                    </label>
+
+                    <label className="flex items-center gap-2.5 p-2 bg-slate-50 hover:bg-slate-100 border border-slate-100 rounded-xl cursor-pointer select-none">
+                      <input
+                        type="checkbox"
+                        checked={editPkg.enableReview ?? true}
+                        onChange={(e) => setEditPkg(prev => ({ ...prev, enableReview: e.target.checked }))}
+                        className="w-4 h-4 text-orange-500 accent-orange-500 cursor-pointer"
+                      />
+                      <span className="text-[11px] font-bold text-slate-600 leading-none">Enable Review</span>
+                    </label>
+
+                    <label className="flex items-center gap-2.5 p-2 bg-slate-50 hover:bg-slate-100 border border-slate-100 rounded-xl cursor-pointer select-none">
+                      <input
+                        type="checkbox"
+                        checked={editPkg.allowRegistration ?? true}
+                        onChange={(e) => setEditPkg(prev => ({ ...prev, allowRegistration: e.target.checked }))}
+                        className="w-4 h-4 text-orange-500 accent-orange-500 cursor-pointer"
+                      />
+                      <span className="text-[11px] font-bold text-slate-600 leading-none">Allow Registration</span>
+                    </label>
+                  </div>
+                </div>
+
 
               </div>
 
@@ -432,7 +586,7 @@ export default function SuperAdminPackages() {
                 </button>
               </div>
 
-              <div className="p-6 space-y-4 text-left">
+              <div className="p-6 space-y-4 text-left max-h-[60vh] overflow-y-auto">
                 
                 {/* Plan Name */}
                 <div className="space-y-1">
@@ -471,10 +625,38 @@ export default function SuperAdminPackages() {
                   </div>
                 </div>
 
+                {/* Billing Cycle */}
+                <div className="space-y-1">
+                  <label className="text-[10px] font-bold text-slate-500 uppercase">Billing Cycle</label>
+                  <select
+                    value={newPkg.billing}
+                    onChange={(e) => setNewPkg(prev => ({ ...prev, billing: e.target.value }))}
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-700 focus:outline-none focus:border-orange-500"
+                  >
+                    <option value="Free Plan">Free Plan</option>
+                    <option value="Monthly">Monthly</option>
+                    <option value="Quarterly">Quarterly</option>
+                    <option value="Yearly">Yearly</option>
+                    <option value="Lifetime">Lifetime</option>
+                  </select>
+                </div>
+
+                {/* Free Trial Days input */}
+                <div className="space-y-1">
+                  <label className="text-[10px] font-bold text-slate-500 uppercase">number of days for free trial</label>
+                  <input
+                    type="number"
+                    min="1"
+                    required
+                    value={newPkg.freeTrialDays}
+                    onChange={(e) => setNewPkg(prev => ({ ...prev, freeTrialDays: parseInt(e.target.value) || 0 }))}
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-xs font-bold text-slate-700 focus:outline-none focus:border-orange-500"
+                  />
+                </div>
+
                 {/* Features toggles */}
                 <div className="space-y-3 pt-3 border-t border-slate-100">
                   <label className="text-[10px] font-bold text-slate-500 uppercase block mb-1">Select Included Features</label>
-                  
                   <div className="grid grid-cols-2 gap-2">
                     {Object.entries(newPkg.features).map(([key, val]) => (
                       <label key={key} className="flex items-center gap-2.5 p-2 bg-slate-50 hover:bg-slate-100 border border-slate-100 rounded-xl cursor-pointer select-none">
@@ -484,13 +666,60 @@ export default function SuperAdminPackages() {
                           onChange={() => handleNewFeatureToggle(key)}
                           className="w-4 h-4 text-orange-500 accent-orange-500 cursor-pointer"
                         />
-                        <span className="text-[11px] font-bold text-slate-600 capitalize leading-none">
-                          {key.replace(/([A-Z])/g, ' $1')}
+                        <span className="text-[11px] font-bold text-slate-600 leading-none">
+                          {FEATURE_LABELS[key] || key}
                         </span>
                       </label>
                     ))}
                   </div>
                 </div>
+
+                {/* System Config & Flags */}
+                <div className="space-y-3 pt-3 border-t border-slate-100">
+                  <label className="text-[10px] font-bold text-slate-500 uppercase block mb-1">Plan Configuration & Flags</label>
+                  <div className="grid grid-cols-2 gap-2">
+                    <label className="flex items-center gap-2.5 p-2 bg-slate-50 hover:bg-slate-100 border border-slate-100 rounded-xl cursor-pointer select-none">
+                      <input
+                        type="checkbox"
+                        checked={newPkg.isActive}
+                        onChange={(e) => setNewPkg(prev => ({ ...prev, isActive: e.target.checked }))}
+                        className="w-4 h-4 text-orange-500 accent-orange-500 cursor-pointer"
+                      />
+                      <span className="text-[11px] font-bold text-slate-600 leading-none">Is Active</span>
+                    </label>
+
+                    <label className="flex items-center gap-2.5 p-2 bg-slate-50 hover:bg-slate-100 border border-slate-100 rounded-xl cursor-pointer select-none">
+                      <input
+                        type="checkbox"
+                        checked={newPkg.enableFreeTrial}
+                        onChange={(e) => setNewPkg(prev => ({ ...prev, enableFreeTrial: e.target.checked }))}
+                        className="w-4 h-4 text-orange-500 accent-orange-500 cursor-pointer"
+                      />
+                      <span className="text-[11px] font-bold text-slate-600 leading-none">Enable Free Trial</span>
+                    </label>
+
+                    <label className="flex items-center gap-2.5 p-2 bg-slate-50 hover:bg-slate-100 border border-slate-100 rounded-xl cursor-pointer select-none">
+                      <input
+                        type="checkbox"
+                        checked={newPkg.enableReview}
+                        onChange={(e) => setNewPkg(prev => ({ ...prev, enableReview: e.target.checked }))}
+                        className="w-4 h-4 text-orange-500 accent-orange-500 cursor-pointer"
+                      />
+                      <span className="text-[11px] font-bold text-slate-600 leading-none">Enable Review</span>
+                    </label>
+
+                    <label className="flex items-center gap-2.5 p-2 bg-slate-50 hover:bg-slate-100 border border-slate-100 rounded-xl cursor-pointer select-none">
+                      <input
+                        type="checkbox"
+                        checked={newPkg.allowRegistration}
+                        onChange={(e) => setNewPkg(prev => ({ ...prev, allowRegistration: e.target.checked }))}
+                        className="w-4 h-4 text-orange-500 accent-orange-500 cursor-pointer"
+                      />
+                      <span className="text-[11px] font-bold text-slate-600 leading-none">Allow Registration</span>
+                    </label>
+                  </div>
+                </div>
+
 
               </div>
 

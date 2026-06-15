@@ -3,14 +3,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import UserLayout from '../../../layouts/UserLayout';
 
 const PLANS = {
-  'standard-trial': { name: 'Standard',  price: 0,   trial: true  },
-  'standard':       { name: 'Standard',  price: 200,  trial: false },
-  'premium-trial':  { name: 'Premium',   price: 0,   trial: true  },
-  'premium':        { name: 'Premium',   price: 400,  trial: false },
-  'gold-trial':     { name: 'Gold',      price: 0,   trial: true  },
+  'standard':       { name: 'Standard',  price: 0,    trial: false },
+  'silver-trial':   { name: 'Silver',    price: 0,    trial: true  },
+  'silver':         { name: 'Silver',    price: 400,  trial: false },
+  'gold-trial':     { name: 'Gold',      price: 0,    trial: true  },
   'gold':           { name: 'Gold',      price: 600,  trial: false },
-  'platinum-trial': { name: 'Platinum',  price: 0,   trial: true  },
-  'platinum':       { name: 'Platinum',  price: 800,  trial: false },
+  'platinum-trial': { name: 'Platinam',  price: 0,    trial: true  },
+  'platinum':       { name: 'Platinam',  price: 800,  trial: false },
+  'diamond-trial':  { name: 'Diamond',   price: 0,    trial: true  },
+  'diamond':        { name: 'Diamond',   price: 1000, trial: false },
 };
 
 const GST_RATE = 0.18;
@@ -208,7 +209,7 @@ export default function Payment() {
                     </svg>
                     Processing…
                   </>
-                ) : isTrial ? 'Activate Free Trial' : `Pay ₹${total.toLocaleString()}`}
+                ) : isTrial ? 'Activate Free Trial' : (total === 0 ? 'Activate Free Plan' : `Pay ₹${total.toLocaleString()}`)}
               </button>
 
               {/* Security note */}
