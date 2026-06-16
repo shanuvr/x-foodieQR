@@ -15,6 +15,8 @@ export default function Register() {
   });
 
   const [showOtpModal, setShowOtpModal] = useState(false);
+  const [otpSent, setOtpSent] = useState(false);
+  const [countdown, setCountdown] = useState(0);
 
   useEffect(() => {
     // Load existing form data from localStorage if available
@@ -88,7 +90,18 @@ export default function Register() {
       return;
     }
     setShowOtpModal(true);
+    setOtpSent(true);
+    setCountdown(30);
   };
+
+  useEffect(() => {
+    if (countdown > 0) {
+      const timer = setTimeout(() => {
+        setCountdown((prev) => prev - 1);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [countdown]);
 
   // Stepper Header for Mobile view
   const renderMobileSteps = () => (
@@ -220,7 +233,7 @@ export default function Register() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="flex flex-col">
-                    <label className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Your Name *</label>
+                    <label className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Your Name</label>
                     <input 
                       type="text" 
                       name="ownerName"
@@ -231,7 +244,7 @@ export default function Register() {
                     />
                   </div>
                   <div className="flex flex-col">
-                    <label className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Mobile Number *</label>
+                    <label className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Mobile Number</label>
                     <input 
                       type="tel" 
                       name="ownerMobile"
@@ -244,7 +257,7 @@ export default function Register() {
                 </div>
 
                 <div className="flex flex-col">
-                  <label className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Email Address *</label>
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Email Address</label>
                   <div className="flex gap-2">
                     <input 
                       type="email" 
@@ -265,21 +278,37 @@ export default function Register() {
                 </div>
 
                 <div className="flex flex-col">
-                  <label className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Enter OTP *</label>
+                  <label className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Verify OTP</label>
                   <input 
                     type="text" 
                     name="otp"
                     value={formData.otp}
                     onChange={handleInputChange}
                     required
-                    placeholder="Enter the code sent to your email"
                     className="border border-gray-200 rounded-lg p-2.5 text-xs sm:text-sm font-semibold text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-[#FFA500] bg-white transition-all shadow-sm"
                   />
+                  {otpSent && (
+                    <div className="mt-2 text-left">
+                      {countdown > 0 ? (
+                        <span className="text-[11px] font-semibold text-gray-400">
+                          Didn't receive OTP? Resend in <span className="font-bold text-gray-600">{countdown}s</span>
+                        </span>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={handleSendOtp}
+                          className="text-[11px] font-bold text-[#FFA500] hover:text-orange-600 cursor-pointer transition-colors active:scale-95"
+                        >
+                          Didn't receive OTP? Resend OTP
+                        </button>
+                      )}
+                    </div>
+                  )}
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="flex flex-col">
-                    <label className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Password *</label>
+                    <label className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Password</label>
                     <input 
                       type="password" 
                       name="password"
@@ -290,7 +319,7 @@ export default function Register() {
                     />
                   </div>
                   <div className="flex flex-col">
-                    <label className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Confirm Password *</label>
+                    <label className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">Confirm Password</label>
                     <input 
                       type="password" 
                       name="confirmPassword"

@@ -1238,14 +1238,14 @@ export default function DetailedView() {
             </div>
 
             {/* Content */}
-            <div className="p-6 overflow-y-auto flex-grow text-left">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="p-4 sm:p-6 overflow-y-auto flex-grow text-left">
+              <div className="grid grid-cols-2 gap-2.5 sm:gap-4">
                 {[
                   {
                     title: "Free WiFi",
                     desc: "High-speed wireless internet connection throughout the premises.",
                     icon: (
-                      <svg className="w-5 h-5 text-[#855400]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                      <svg className="w-3 h-3 sm:w-5 sm:h-5 text-[#855400]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 16.25a6 6 0 017.5 0m-9.75-2.25a9.75 9.75 0 0112 0m-14.25-2.25a13.5 13.5 0 0116.5 0M12 18.75h.007v.008H12v-.008z" />
                       </svg>
                     )
@@ -1254,7 +1254,7 @@ export default function DetailedView() {
                     title: "Valet Parking",
                     desc: "Complementary professional valet parking for all dine-in guests.",
                     icon: (
-                      <svg className="w-5 h-5 text-[#855400]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                      <svg className="w-3 h-3 sm:w-5 sm:h-5 text-[#855400]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.5 5.25h3a2.25 2.25 0 010 4.5h-3V7.5zm0 9V7.5H9v9h1.5z" />
                       </svg>
                     )
@@ -1263,7 +1263,7 @@ export default function DetailedView() {
                     title: "Wheelchair Accessible",
                     desc: "Fully accessible entrance, seating areas, and restrooms.",
                     icon: (
-                      <svg className="w-5 h-5 text-[#855400]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                      <svg className="w-3 h-3 sm:w-5 sm:h-5 text-[#855400]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                         <circle cx="12" cy="5" r="2" />
                         <path d="M5 14a6 6 0 008.5 5.5m.5 1.5v-7M9 9h6v3" />
                       </svg>
@@ -1273,7 +1273,7 @@ export default function DetailedView() {
                     title: "Air Conditioned",
                     desc: "Climate-controlled indoor spaces for dining comfort.",
                     icon: (
-                      <svg className="w-5 h-5 text-[#855400]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                      <svg className="w-3 h-3 sm:w-5 sm:h-5 text-[#855400]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v18M3 12h18m-3-6L6 18M6 6l12 12" />
                       </svg>
                     )
@@ -1282,7 +1282,7 @@ export default function DetailedView() {
                     title: "Full Bar",
                     desc: "Exquisite selection of wines, signature cocktails, and craft beers.",
                     icon: (
-                      <svg className="w-5 h-5 text-[#855400]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                      <svg className="w-3 h-3 sm:w-5 sm:h-5 text-[#855400]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                       </svg>
                     )
@@ -1291,19 +1291,19 @@ export default function DetailedView() {
                     title: "Live Music",
                     desc: "Live acoustic sessions and jazz bands on select evenings.",
                     icon: (
-                      <svg className="w-5 h-5 text-[#855400]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                      <svg className="w-3 h-3 sm:w-5 sm:h-5 text-[#855400]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M9 19V6l12-3v13M9 10l12-3M9 19a3 3 0 11-6 0 3 3 0 016 0zm12-3a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
                     )
                   }
                 ].map((amenity, idx) => (
-                  <div key={idx} className="flex gap-3.5 p-3 rounded-xl border border-gray-100 hover:border-[#d9c3ac]/60 hover:bg-[#fff8ed]/20 transition-all">
-                    <div className="w-9 h-9 rounded-full bg-[#fff8ed] flex items-center justify-center shrink-0 border border-[#d9c3ac]/40">
+                  <div key={idx} className="flex items-center gap-1.5 sm:gap-3.5 p-1.5 sm:p-3 rounded-lg sm:rounded-xl border border-gray-100 hover:border-[#d9c3ac]/60 hover:bg-[#fff8ed]/20 transition-all min-w-0">
+                    <div className="w-6 h-6 sm:w-9 sm:h-9 rounded-full bg-[#fff8ed] flex items-center justify-center shrink-0 border border-[#d9c3ac]/40">
                       {amenity.icon}
                     </div>
-                    <div>
-                      <h4 className="font-bold text-gray-800 text-sm leading-tight">{amenity.title}</h4>
-                      <p className="text-xs text-gray-500 mt-1 font-medium leading-relaxed">{amenity.desc}</p>
+                    <div className="min-w-0 flex-grow text-left">
+                      <h4 className="font-bold text-gray-800 text-[10px] sm:text-sm leading-tight truncate" title={amenity.title}>{amenity.title}</h4>
+                      <p className="hidden sm:block text-xs text-gray-500 mt-1 font-medium leading-relaxed">{amenity.desc}</p>
                     </div>
                   </div>
                 ))}
