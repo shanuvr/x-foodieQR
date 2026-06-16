@@ -124,7 +124,7 @@ export default function Profile() {
     }
     setIsEditing(false);
   };
-  
+
   // Default and saved State
   const [form, setForm] = useState({
     kitchenName: 'Gourmet Central Kitchen',
@@ -191,7 +191,7 @@ export default function Profile() {
             location: outlet.location || prev.location,
             subLocation: outlet.subLocation || prev.subLocation,
           }));
-        } catch (e) {}
+        } catch (e) { }
       }
     }
   }, []);
@@ -293,12 +293,12 @@ export default function Profile() {
   const handleSave = (e) => {
     e.preventDefault();
     setSaveStatus('saving');
-    
+
     setTimeout(() => {
       localStorage.setItem('admin_profile_data', JSON.stringify(form));
       setSaveStatus('saved');
       setIsEditing(false);
-      
+
       setTimeout(() => {
         setSaveStatus('');
       }, 2500);
@@ -363,490 +363,500 @@ export default function Profile() {
 
         {/* Form Container */}
         <div className="max-w-4xl mx-auto bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden">
-            {/* Tabs Selector */}
-            <div className="flex border-b border-slate-100 overflow-x-auto select-none [&::-webkit-scrollbar]:hidden">
-              {[
-                { id: 'general', label: 'Basic Info', icon: 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z' },
-                { id: 'operations', label: 'Operations & hours', icon: 'M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z' },
-                { id: 'amenities', label: 'Amenities & Offers', icon: 'M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581a1.125 1.125 0 001.591 0l7.25-7.25a1.125 1.125 0 000-1.591L12.75 3.659A2.25 2.25 0 0011.159 3z' },
-                { id: 'media', label: 'Branding & Gallery', icon: 'M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z' }
-              ].map(tab => (
-                <button
-                  key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-2.5 px-6 py-4.5 text-xs font-bold uppercase tracking-wider border-b-2 transition-all cursor-pointer whitespace-nowrap ${
-                    activeTab === tab.id
-                      ? 'border-orange-500 text-orange-500 bg-orange-50/10'
-                      : 'border-transparent text-slate-500 hover:text-slate-800 hover:bg-slate-50/50'
+          {/* Tabs Selector */}
+          <div className="flex border-b border-slate-100 overflow-x-auto select-none [&::-webkit-scrollbar]:hidden">
+            {[
+              { id: 'general', label: 'Basic Info', icon: 'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z' },
+              { id: 'operations', label: 'Operations & hours', icon: 'M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z' },
+              { id: 'amenities', label: 'Amenities & Offers', icon: 'M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581a1.125 1.125 0 001.591 0l7.25-7.25a1.125 1.125 0 000-1.591L12.75 3.659A2.25 2.25 0 0011.159 3z' },
+              { id: 'media', label: 'Branding & Gallery', icon: 'M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z' }
+            ].map(tab => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex items-center gap-2.5 px-6 py-4.5 text-xs font-bold uppercase tracking-wider border-b-2 transition-all cursor-pointer whitespace-nowrap ${activeTab === tab.id
+                    ? 'border-orange-500 text-orange-500 bg-orange-50/10'
+                    : 'border-transparent text-slate-500 hover:text-slate-800 hover:bg-slate-50/50'
                   }`}
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d={tab.icon} />
-                  </svg>
-                  {tab.label}
-                </button>
-              ))}
-            </div>
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d={tab.icon} />
+                </svg>
+                {tab.label}
+              </button>
+            ))}
+          </div>
 
-            {/* Tab Panels */}
-            <div className="p-6 sm:p-8">
-              
-              {/* TAB 1: General Info */}
-              {activeTab === 'general' && (
-                <div className="space-y-6 animate-fade-in">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <div className="sm:col-span-2">
-                      <label className={labelCls}>Restaurant / Kitchen Name</label>
-                      <input name="kitchenName" value={form.kitchenName} onChange={handleChange} className={inputCls} placeholder="e.g. Paradise Biryani" disabled={!isEditing} />
-                    </div>
-                    <div>
-                      <label className={labelCls}>Business Type</label>
-                      <div className="relative">
-                        <select name="businessType" value={form.businessType} onChange={handleChange} className={selectCls} disabled={!isEditing}>
-                          {businessTypes.map(t => <option key={t} value={t}>{t}</option>)}
-                        </select>
-                        <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-slate-400">
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
-                        </div>
+          {/* Tab Panels */}
+          <div className="p-6 sm:p-8">
+
+            {/* TAB 1: General Info */}
+            {activeTab === 'general' && (
+              <div className="space-y-6 animate-fade-in">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div className="sm:col-span-2">
+                    <label className={labelCls}>Restaurant / Kitchen Name</label>
+                    <input name="kitchenName" value={form.kitchenName} onChange={handleChange} className={inputCls} placeholder="e.g. Paradise Biryani" disabled={!isEditing} />
+                  </div>
+                  <div>
+                    <label className={labelCls}>Business Type</label>
+                    <div className="relative">
+                      <select name="businessType" value={form.businessType} onChange={handleChange} className={selectCls} disabled={!isEditing}>
+                        {businessTypes.map(t => <option key={t} value={t}>{t}</option>)}
+                      </select>
+                      <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-slate-400">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
                       </div>
-                    </div>
-                    <div>
-                      <label className={labelCls}>Contact Person</label>
-                      <input name="contactPerson" value={form.contactPerson} onChange={handleChange} className={inputCls} placeholder="Manager or Owner Name" disabled={!isEditing} />
-                    </div>
-                    <div>
-                      <label className={labelCls}>Mobile Number</label>
-                      <input name="mobileNumber" value={form.mobileNumber} onChange={handleChange} className={inputCls} placeholder="+91 XXXXX XXXXX" disabled={!isEditing} />
-                    </div>
-                    <div>
-                      <label className={labelCls}>Location (City / Area)</label>
-                      <input name="location" value={form.location} onChange={handleChange} className={inputCls} placeholder="e.g. Jubilee Hills, Hyderabad" disabled={!isEditing} />
-                    </div>
-                    <div className="sm:col-span-2">
-                      <label className={labelCls}>Sub-location (Landmarks)</label>
-                      <input name="subLocation" value={form.subLocation} onChange={handleChange} className={inputCls} placeholder="e.g. 50 m from Secunderabad Metro Station" disabled={!isEditing} />
                     </div>
                   </div>
+                  <div>
+                    <label className={labelCls}>Contact Person</label>
+                    <input name="contactPerson" value={form.contactPerson} onChange={handleChange} className={inputCls} placeholder="Manager or Owner Name" disabled={!isEditing} />
+                  </div>
+                  <div>
+                    <label className={labelCls}>Mobile Number</label>
+                    <input name="mobileNumber" value={form.mobileNumber} onChange={handleChange} className={inputCls} placeholder="+91 XXXXX XXXXX" disabled={!isEditing} />
+                  </div>
+                  <div>
+                    <label className={labelCls}>Location (City / Area)</label>
+                    <input name="location" value={form.location} onChange={handleChange} className={inputCls} placeholder="e.g. Jubilee Hills, Hyderabad" disabled={!isEditing} />
+                  </div>
+                  <div className="sm:col-span-2">
+                    <label className={labelCls}>Sub-location (Landmarks)</label>
+                    <input name="subLocation" value={form.subLocation} onChange={handleChange} className={inputCls} placeholder="e.g. 50 m from Secunderabad Metro Station" disabled={!isEditing} />
+                  </div>
+                </div>
 
-                  <div className="pt-6 border-t border-slate-100">
-                    <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Compliance Details</h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                      <div>
-                        <label className={labelCls}>GST Number</label>
-                        <input name="gstNumber" value={form.gstNumber} onChange={handleChange} className={inputCls} placeholder="15-digit GSTIN" disabled={!isEditing} />
-                      </div>
-                      <div>
-                        <label className={labelCls}>Food License Number (FSSAI)</label>
-                        <input name="foodLicenseNumber" value={form.foodLicenseNumber} onChange={handleChange} className={inputCls} placeholder="14-digit FSSAI Number" disabled={!isEditing} />
-                      </div>
+                <div className="pt-6 border-t border-slate-100">
+                  <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Compliance Details</h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div>
+                      <label className={labelCls}>GST Number</label>
+                      <input name="gstNumber" value={form.gstNumber} onChange={handleChange} className={inputCls} placeholder="15-digit GSTIN" disabled={!isEditing} />
+                    </div>
+                    <div>
+                      <label className={labelCls}>Food License Number (FSSAI)</label>
+                      <input name="foodLicenseNumber" value={form.foodLicenseNumber} onChange={handleChange} className={inputCls} placeholder="14-digit FSSAI Number" disabled={!isEditing} />
                     </div>
                   </div>
                 </div>
-              )}
+              </div>
+            )}
 
-              {/* TAB 2: Operations & hours */}
-              {activeTab === 'operations' && (
-                <div className="space-y-6 animate-fade-in">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                    <div>
-                      <label className={labelCls}>Opening Time</label>
-                      <input type="time" name="openingTime" value={form.openingTime} onChange={handleChange} className={inputCls} disabled={!isEditing} />
-                    </div>
-                    <div>
-                      <label className={labelCls}>Closing Time</label>
-                      <input type="time" name="closingTime" value={form.closingTime} onChange={handleChange} className={inputCls} disabled={!isEditing} />
-                    </div>
-                    <div>
-                      <label className={labelCls}>Star Category</label>
-                      <div className="relative">
-                        <select name="starCategory" value={form.starCategory} onChange={handleChange} className={selectCls} disabled={!isEditing}>
-                          {starOptions.map(o => <option key={o} value={o}>{o}</option>)}
-                        </select>
-                        <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-slate-400">
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
-                        </div>
+            {/* TAB 2: Operations & hours */}
+            {activeTab === 'operations' && (
+              <div className="space-y-6 animate-fade-in">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div>
+                    <label className={labelCls}>Opening Time</label>
+                    <input type="time" name="openingTime" value={form.openingTime} onChange={handleChange} className={inputCls} disabled={!isEditing} />
+                  </div>
+                  <div>
+                    <label className={labelCls}>Closing Time</label>
+                    <input type="time" name="closingTime" value={form.closingTime} onChange={handleChange} className={inputCls} disabled={!isEditing} />
+                  </div>
+                  <div>
+                    <label className={labelCls}>Star Category</label>
+                    <div className="relative">
+                      <select name="starCategory" value={form.starCategory} onChange={handleChange} className={selectCls} disabled={!isEditing}>
+                        {starOptions.map(o => <option key={o} value={o}>{o}</option>)}
+                      </select>
+                      <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none text-slate-400">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>
                       </div>
                     </div>
-                    <div>
-                      <label className={labelCls}>Average Price For Two (Rs.)</label>
-                      <input type="number" name="averagePrice" value={form.averagePrice} onChange={handleChange} className={inputCls} placeholder="e.g. 800" disabled={!isEditing} />
-                    </div>
-                    <div>
-                      <label className={labelCls}>Website Link</label>
-                      <input name="website" value={form.website} onChange={handleChange} className={inputCls} placeholder="https://example.com" disabled={!isEditing} />
-                    </div>
-                    <div>
-                      <label className={labelCls}>Instagram Link</label>
-                      <input name="instagram" value={form.instagram} onChange={handleChange} className={inputCls} placeholder="https://instagram.com/handle" disabled={!isEditing} />
-                    </div>
                   </div>
-
-                  <div className="pt-6 border-t border-slate-100">
-                    <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Availability & Dining Options</h3>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                      {[
-                        { name: 'onlineOrder', label: 'Online Order Available' },
-                        { name: 'dineIn', label: 'Dine-In Available' },
-                        { name: 'takeAway', label: 'Take Away Available' },
-                        { name: 'parking', label: 'Parking Available' },
-                        { name: 'outdoorSitting', label: 'Outdoor Seating' }
-                      ].map(item => (
-                        <label key={item.name} className="flex items-center gap-3 p-3.5 bg-slate-50 hover:bg-slate-100/80 border border-slate-100 rounded-xl cursor-pointer transition-colors group">
-                          <input
-                            type="checkbox"
-                            name={item.name}
-                            checked={form[item.name]}
-                            onChange={handleChange}
-                            disabled={!isEditing}
-                            className="w-4 h-4 text-orange-500 focus:ring-orange-500/20 border-slate-200 rounded accent-orange-500 cursor-pointer disabled:opacity-50"
-                          />
-                          <span className="text-xs font-bold text-slate-700 select-none group-hover:text-slate-900 transition-colors">{item.label}</span>
-                        </label>
-                      ))}
-                    </div>
+                  <div>
+                    <label className={labelCls}>Average Price For Two (Rs.)</label>
+                    <input type="number" name="averagePrice" value={form.averagePrice} onChange={handleChange} className={inputCls} placeholder="e.g. 800" disabled={!isEditing} />
+                  </div>
+                  <div>
+                    <label className={labelCls}>Website Link</label>
+                    <input name="website" value={form.website} onChange={handleChange} className={inputCls} placeholder="https://example.com" disabled={!isEditing} />
+                  </div>
+                  <div>
+                    <label className={labelCls}>Instagram Link</label>
+                    <input name="instagram" value={form.instagram} onChange={handleChange} className={inputCls} placeholder="https://instagram.com/handle" disabled={!isEditing} />
                   </div>
                 </div>
-              )}
 
-              {/* TAB 3: Amenities & Offers */}
-              {activeTab === 'amenities' && (
-                <div className="space-y-8 animate-fade-in">
-                  {/* Food Preference (Veg/Non-Veg/Both) */}
-                  <div className="space-y-3">
-                    <div>
-                      <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Food Preference</h3>
-                      <p className="text-slate-500 text-xs">Specify the type of food preference served at your outlet.</p>
-                    </div>
-                    <div className="grid grid-cols-3 gap-3">
-                      {['Pure Veg', 'Non Veg', 'Both'].map((pref) => {
-                        const isSelected = form.foodPreference === pref;
-                        return (
-                          <button
-                            key={pref}
-                            type="button"
-                            onClick={() => setForm(prev => ({ ...prev, foodPreference: pref }))}
-                            disabled={!isEditing}
-                            className={`px-4 py-2.5 text-xs font-bold rounded-xl border flex items-center justify-center gap-2 cursor-pointer transition-all disabled:opacity-70 disabled:cursor-not-allowed ${
-                              isSelected
-                                ? 'bg-orange-50 border-orange-200 text-orange-600 shadow-sm shadow-orange-500/5'
-                                : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-800'
-                            }`}
-                          >
-                            {pref === 'Pure Veg' && (
-                              <span className="w-3.5 h-3.5 border border-green-600 flex items-center justify-center p-0.5">
-                                <span className="w-1.5 h-1.5 bg-green-600 rounded-full"></span>
-                              </span>
-                            )}
-                            {pref === 'Non Veg' && (
-                              <span className="w-3.5 h-3.5 border border-[#e12d5b] flex items-center justify-center p-0.5">
-                                <span className="w-1.5 h-1.5 bg-[#e12d5b] rounded-full"></span>
-                              </span>
-                            )}
-                            {pref === 'Both' && (
-                              <div className="flex gap-0.5">
-                                <span className="w-1.5 h-1.5 bg-green-600 rounded-full"></span>
-                                <span className="w-1.5 h-1.5 bg-[#e12d5b] rounded-full"></span>
-                              </div>
-                            )}
-                            {pref}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-
-                  {/* Amenities tags */}
-                  <div className="pt-6 border-t border-slate-100">
-                    <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Amenities tags</h3>
-                    <p className="text-slate-500 text-xs mb-4">Select the amenities that your outlet provides. These will display as icon chips in search cards.</p>
-                    
-                    <div className="flex flex-wrap gap-2.5">
-                      {['WiFi', 'Parking', 'AC', 'Bar', 'Rooftop Seating', 'Live Music', 'Valet Parking', 'Wheelchair Accessible', 'Pet Friendly', 'Smoking Area', 'Kids Play Area', 'Cards Accepted'].map((amenity) => {
-                        const isSelected = form.amenities.includes(amenity);
-                        return (
-                          <button
-                            key={amenity}
-                            type="button"
-                            onClick={() => handleAmenityToggle(amenity)}
-                            disabled={!isEditing}
-                            className={`px-4 py-2 text-xs font-bold rounded-xl border flex items-center gap-2 cursor-pointer transition-all disabled:opacity-70 disabled:cursor-not-allowed ${
-                              isSelected
-                                ? 'bg-orange-50 border-orange-200 text-orange-600 shadow-sm shadow-orange-500/5'
-                                : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-800'
-                            }`}
-                          >
-                            {renderAmenityIcon(amenity)}
-                            {amenity}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-
-                  <div className="pt-6 border-t border-slate-100 space-y-4">
-                    <div>
-                      <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Card Taglines</h3>
-                      <p className="text-slate-500 text-xs mb-4">Highlight special messages on your listing card.</p>
-                    </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                      <div className="sm:col-span-2">
-                        <label className={labelCls}>Primary Tagline</label>
-                        <input name="tagline" value={form.tagline} onChange={handleChange} className={inputCls} placeholder="e.g. Legendary Hyderabadi Dum Biryani since 1953" disabled={!isEditing} />
-                      </div>
-                      <div className="sm:col-span-2">
-                        <label className={labelCls}>Secondary Tagline</label>
-                        <input name="tagline2" value={form.tagline2 || ''} onChange={handleChange} className={inputCls} placeholder="e.g. Highly recommended for families and groups" disabled={!isEditing} />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="pt-6 border-t border-slate-100 space-y-4">
-                    <div>
-                      <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Restaurant Ratings Scores</h3>
-                      <p className="text-slate-500 text-xs mb-4">Set the custom scores that display next to the star ratings in the detailed customer view.</p>
-                    </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                      <div>
-                        <label className={labelCls}>Review Score</label>
-                        <input name="reviewScore" value={form.reviewScore || ''} onChange={handleChange} className={inputCls} placeholder="e.g. 8.3" disabled={!isEditing} />
-                      </div>
-                      <div>
-                        <label className={labelCls}>Location Score</label>
-                        <input name="locationScore" value={form.locationScore || ''} onChange={handleChange} className={inputCls} placeholder="e.g. 8.0" disabled={!isEditing} />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="pt-6 border-t border-slate-100 space-y-6">
-                    <div>
-                      <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Promotional Deals</h3>
-                      <p className="text-slate-500 text-xs mb-4">Display striking tags and discount labels on your listing card.</p>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                      <div>
-                        <label className={labelCls}>Promo Offer Tagline</label>
-                        <input name="promoTagline" value={form.promoTagline} onChange={handleChange} className={inputCls} placeholder="e.g. Flat 20% Off on First Dine-in" disabled={!isEditing} />
-                      </div>
-                      <div>
-                        <label className={labelCls}>Listing Discount (%)</label>
-                        <input type="number" name="discount" value={form.discount} onChange={handleChange} className={inputCls} placeholder="e.g. 20" disabled={!isEditing} />
-                      </div>
-                    </div>
-
-                    <div className="space-y-3">
-                      <label className={labelCls}>Active Coupon Codes</label>
-                      <form onSubmit={addCoupon} className="flex gap-2">
+                <div className="pt-6 border-t border-slate-100">
+                  <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Availability & Dining Options</h3>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                    {[
+                      { name: 'onlineOrder', label: 'Online Order Available' },
+                      { name: 'dineIn', label: 'Dine-In Available' },
+                      { name: 'takeAway', label: 'Take Away Available' },
+                      { name: 'parking', label: 'Parking Available' },
+                      { name: 'outdoorSitting', label: 'Outdoor Seating' }
+                    ].map(item => (
+                      <label key={item.name} className="flex items-center gap-3 p-3.5 bg-slate-50 hover:bg-slate-100/80 border border-slate-100 rounded-xl cursor-pointer transition-colors group">
                         <input
-                          value={couponInput}
-                          onChange={(e) => setCouponInput(e.target.value)}
-                          placeholder="e.g. FESTIVE50"
+                          type="checkbox"
+                          name={item.name}
+                          checked={form[item.name]}
+                          onChange={handleChange}
                           disabled={!isEditing}
-                          className={`${inputCls} uppercase`}
+                          className="w-4 h-4 text-orange-500 focus:ring-orange-500/20 border-slate-200 rounded accent-orange-500 cursor-pointer disabled:opacity-50"
                         />
-                        <button
-                          type="submit"
-                          disabled={!isEditing}
-                          className="px-5 bg-slate-900 hover:bg-slate-800 disabled:bg-slate-200 text-white font-bold text-xs rounded-xl cursor-pointer transition-colors shrink-0 disabled:text-slate-400 disabled:cursor-not-allowed"
-                        >
-                          Add
-                        </button>
-                      </form>
+                        <span className="text-xs font-bold text-slate-700 select-none group-hover:text-slate-900 transition-colors">{item.label}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
 
-                      <div className="flex flex-wrap gap-2 pt-2">
-                        {form.coupons.map((coupon, idx) => (
-                          <div key={idx} className="bg-emerald-50 border border-emerald-100 text-emerald-700 text-xs font-bold px-3 py-1.5 rounded-lg flex items-center gap-1.5">
-                            <span>{coupon}</span>
+            {/* TAB 3: Amenities & Offers */}
+            {activeTab === 'amenities' && (
+              <div className="space-y-8 animate-fade-in">
+                {/* Food Preference (Veg/Non-Veg/Both) */}
+                <div className="space-y-3">
+                  <div>
+                    <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Food Preference</h3>
+                    <p className="text-slate-500 text-xs">Specify the type of food preference served at your outlet.</p>
+                  </div>
+                  <div className="grid grid-cols-3 gap-3">
+                    {['Pure Veg', 'Non Veg', 'Both'].map((pref) => {
+                      const isSelected = form.foodPreference === pref;
+                      return (
+                        <button
+                          key={pref}
+                          type="button"
+                          onClick={() => setForm(prev => ({ ...prev, foodPreference: pref }))}
+                          disabled={!isEditing}
+                          className={`px-4 py-2.5 text-xs font-bold rounded-xl border flex items-center justify-center gap-2 cursor-pointer transition-all disabled:opacity-70 disabled:cursor-not-allowed ${isSelected
+                              ? 'bg-orange-50 border-orange-200 text-orange-600 shadow-sm shadow-orange-500/5'
+                              : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-800'
+                            }`}
+                        >
+                          {pref === 'Pure Veg' && (
+                            <span className="w-3.5 h-3.5 border border-green-600 flex items-center justify-center p-0.5">
+                              <span className="w-1.5 h-1.5 bg-green-600 rounded-full"></span>
+                            </span>
+                          )}
+                          {pref === 'Non Veg' && (
+                            <span className="w-3.5 h-3.5 border border-[#e12d5b] flex items-center justify-center p-0.5">
+                              <span className="w-1.5 h-1.5 bg-[#e12d5b] rounded-full"></span>
+                            </span>
+                          )}
+                          {pref === 'Both' && (
+                            <div className="flex gap-0.5">
+                              <span className="w-1.5 h-1.5 bg-green-600 rounded-full"></span>
+                              <span className="w-1.5 h-1.5 bg-[#e12d5b] rounded-full"></span>
+                            </div>
+                          )}
+                          {pref}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* Amenities tags */}
+                <div className="pt-6 border-t border-slate-100">
+                  <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">Amenities tags</h3>
+                  <p className="text-slate-500 text-xs mb-4">Select the amenities that your outlet provides. These will display as icon chips in search cards.</p>
+
+                  <div className="flex flex-wrap gap-2.5">
+                    {['WiFi', 'Parking', 'AC', 'Bar', 'Rooftop Seating', 'Live Music', 'Valet Parking', 'Wheelchair Accessible', 'Pet Friendly', 'Smoking Area', 'Kids Play Area', 'Cards Accepted'].map((amenity) => {
+                      const isSelected = form.amenities.includes(amenity);
+                      return (
+                        <button
+                          key={amenity}
+                          type="button"
+                          onClick={() => handleAmenityToggle(amenity)}
+                          disabled={!isEditing}
+                          className={`px-4 py-2 text-xs font-bold rounded-xl border flex items-center gap-2 cursor-pointer transition-all disabled:opacity-70 disabled:cursor-not-allowed ${isSelected
+                              ? 'bg-orange-50 border-orange-200 text-orange-600 shadow-sm shadow-orange-500/5'
+                              : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-800'
+                            }`}
+                        >
+                          {renderAmenityIcon(amenity)}
+                          {amenity}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div className="pt-6 border-t border-slate-100 space-y-4">
+                  <div>
+                    <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Card Taglines</h3>
+                    <p className="text-slate-500 text-xs mb-4">Highlight special messages on your listing card.</p>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div className="sm:col-span-2">
+                      <label className={labelCls}>Primary Tagline</label>
+                      <input name="tagline" value={form.tagline} onChange={handleChange} className={inputCls} placeholder="e.g. Legendary Hyderabadi Dum Biryani since 1953" disabled={!isEditing} />
+                    </div>
+                    <div className="sm:col-span-2">
+                      <label className={labelCls}>Secondary Tagline</label>
+                      <input name="tagline2" value={form.tagline2 || ''} onChange={handleChange} className={inputCls} placeholder="e.g. Highly recommended for families and groups" disabled={!isEditing} />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pt-6 border-t border-slate-100 space-y-4">
+                  <div>
+                    <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Restaurant Ratings Scores</h3>
+                    <p className="text-slate-500 text-xs mb-4">Set the custom scores that display next to the star ratings in the detailed customer view.</p>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div>
+                      <label className={labelCls}>Review Score</label>
+                      <input name="reviewScore" value={form.reviewScore || ''} onChange={handleChange} className={inputCls} placeholder="e.g. 8.3" disabled={!isEditing} />
+                    </div>
+                    <div>
+                      <label className={labelCls}>Location Score</label>
+                      <input name="locationScore" value={form.locationScore || ''} onChange={handleChange} className={inputCls} placeholder="e.g. 8.0" disabled={!isEditing} />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pt-6 border-t border-slate-100 space-y-6">
+                  <div>
+                    <h3 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Promotional Deals</h3>
+                    <p className="text-slate-500 text-xs mb-4">Display striking tags and discount labels on your listing card.</p>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div>
+                      <label className={labelCls}>Promo Offer Tagline</label>
+                      <input name="promoTagline" value={form.promoTagline} onChange={handleChange} className={inputCls} placeholder="e.g. Flat 20% Off on First Dine-in" disabled={!isEditing} />
+                    </div>
+                    <div>
+                      <label className={labelCls}>Listing Discount (%)</label>
+                      <input type="number" name="discount" value={form.discount} onChange={handleChange} className={inputCls} placeholder="e.g. 20" disabled={!isEditing} />
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    <label className={labelCls}>Active Coupon Codes</label>
+                    <form onSubmit={addCoupon} className="flex gap-2">
+                      <input
+                        value={couponInput}
+                        onChange={(e) => setCouponInput(e.target.value)}
+                        placeholder="e.g. FESTIVE50"
+                        disabled={!isEditing}
+                        className={`${inputCls} uppercase`}
+                      />
+                      <button
+                        type="submit"
+                        disabled={!isEditing}
+                        className="px-5 bg-slate-900 hover:bg-slate-800 disabled:bg-slate-200 text-white font-bold text-xs rounded-xl cursor-pointer transition-colors shrink-0 disabled:text-slate-400 disabled:cursor-not-allowed"
+                      >
+                        Add
+                      </button>
+                    </form>
+
+                    <div className="flex flex-wrap gap-2 pt-2">
+                      {form.coupons.map((coupon, idx) => (
+                        <div key={idx} className="bg-emerald-50 border border-emerald-100 text-emerald-700 text-xs font-bold px-3 py-1.5 rounded-lg flex items-center gap-1.5">
+                          <span>{coupon}</span>
+                          {isEditing && (
+                            <button
+                              type="button"
+                              onClick={() => removeCoupon(idx)}
+                              className="text-emerald-500 hover:text-emerald-700 cursor-pointer focus:outline-none"
+                            >
+                              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                              </svg>
+                            </button>
+                          )}
+                        </div>
+                      ))}
+                      {form.coupons.length === 0 && (
+                        <span className="text-slate-400 text-xs italic">No coupons added yet.</span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* TAB 4: Media Uploads */}
+            {activeTab === 'media' && (
+              <div className="space-y-6 animate-fade-in">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+                  {/* Logo Upload */}
+                  <div className="space-y-3">
+                    <label className={labelCls}>Restaurant Logo</label>
+                    <div className="flex items-center gap-4">
+                      <div className="w-20 h-20 rounded-xl overflow-hidden border border-slate-100 flex-shrink-0 bg-slate-50">
+                        {form.logo ? (
+                          <div className="relative w-full h-full">
+                            <img src={form.logo} alt="Logo Preview" className="w-full h-full object-cover" />
                             {isEditing && (
-                              <button
-                                type="button"
-                                onClick={() => removeCoupon(idx)}
-                                className="text-emerald-500 hover:text-emerald-700 cursor-pointer focus:outline-none"
-                              >
-                                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                </svg>
+                              <button type="button" onClick={() => setForm(prev => ({ ...prev, logo: '' }))} className="absolute top-1 right-1 p-0.5 bg-black/60 hover:bg-red-500/90 text-white rounded transition-colors cursor-pointer opacity-100">
+                                <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
                               </button>
                             )}
                           </div>
-                        ))}
-                        {form.coupons.length === 0 && (
-                          <span className="text-slate-400 text-xs italic">No coupons added yet.</span>
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-slate-300">
+                            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                          </div>
                         )}
                       </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* TAB 4: Media Uploads */}
-              {activeTab === 'media' && (
-                <div className="space-y-6 animate-fade-in">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    
-                    {/* Logo Upload */}
-                    <div className="space-y-3">
-                      <label className={labelCls}>Restaurant Logo</label>
-                      <div className="flex items-center gap-4">
-                        <div className="w-20 h-20 rounded-xl overflow-hidden border border-slate-100 flex-shrink-0 bg-slate-50">
-                          {form.logo ? (
-                            <div className="relative w-full h-full">
-                              <img src={form.logo} alt="Logo Preview" className="w-full h-full object-cover" />
-                              {isEditing && (
-                                <button type="button" onClick={() => setForm(prev => ({...prev, logo: ''}))} className="absolute top-1 right-1 p-0.5 bg-black/60 hover:bg-red-500/90 text-white rounded transition-colors cursor-pointer opacity-100">
-                                  <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
-                                </button>
-                              )}
-                            </div>
-                          ) : (
-                            <div className="w-full h-full flex items-center justify-center text-slate-300">
-                              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-                            </div>
-                          )}
-                        </div>
-                        <div className="flex-1">
-                          {isEditing ? (
-                            <input 
-                              type="file" 
-                              accept="image/*" 
-                              className="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100 cursor-pointer" 
-                              onChange={(e) => handleImageUpload(e, 'logo')} 
-                            />
-                          ) : (
-                            <span className="text-[11px] text-slate-400 italic font-semibold">View Only</span>
-                          )}
-                          <p className="text-[10px] text-slate-400 mt-1">Recommended square dimension, PNG or JPG.</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Main Photo Upload */}
-                    <div className="space-y-3">
-                      <label className={labelCls}>Main Photo</label>
-                      <div className="flex items-center gap-4">
-                        <div className="w-28 h-20 rounded-xl overflow-hidden border border-slate-100 flex-shrink-0 bg-slate-50">
-                          {form.coverPhoto ? (
-                            <div className="relative w-full h-full">
-                              <img src={form.coverPhoto} alt="Cover Preview" className="w-full h-full object-cover" />
-                              {isEditing && (
-                                <button type="button" onClick={() => setForm(prev => ({...prev, coverPhoto: ''}))} className="absolute top-1 right-1 p-0.5 bg-black/60 hover:bg-red-500/90 text-white rounded transition-colors cursor-pointer opacity-100">
-                                  <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
-                                </button>
-                              )}
-                            </div>
-                          ) : (
-                            <div className="w-full h-full flex items-center justify-center text-slate-300">
-                              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
-                            </div>
-                          )}
-                        </div>
-                        <div className="flex-1">
-                          {isEditing ? (
-                            <input 
-                              type="file" 
-                              accept="image/*" 
-                              className="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100 cursor-pointer" 
-                              onChange={(e) => handleImageUpload(e, 'coverPhoto')} 
-                            />
-                          ) : (
-                            <span className="text-[11px] text-slate-400 italic font-semibold">View Only</span>
-                          )}
-                          <p className="text-[10px] text-slate-400 mt-1">Large featured image displayed as the main photo on your menu page.</p>
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-
-                  {/* Gallery Upload Grid */}
-                  <div className="pt-6 border-t border-slate-100 space-y-4">
-                    <div>
-                      <label className={labelCls}>Gallery Photos</label>
-                      <p className="text-slate-500 text-xs mb-3">Upload multiple food, dining, or interior photos to showcase on your detailed menu view.</p>
-                    </div>
-
-                    <div className="grid grid-cols-3 sm:grid-cols-4 gap-4">
-                      {/* Previews */}
-                      {form.gallery.map((img, idx) => (
-                        <div key={idx} className="relative aspect-video rounded-xl overflow-hidden border border-slate-100 group shadow-sm bg-slate-50">
-                          <img src={img} alt={`Gallery ${idx + 1}`} className="w-full h-full object-cover" />
-                          {isEditing && (
-                            <button
-                              type="button"
-                              onClick={() => removeGalleryImage(idx)}
-                              className="absolute top-1.5 right-1.5 p-1 bg-black/60 hover:bg-red-500/90 text-white rounded-lg transition-colors cursor-pointer opacity-100 shadow-sm"
-                            >
-                              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
-                            </button>
-                          )}
-                        </div>
-                      ))}
-
-                      {/* Upload Box */}
-                      {isEditing ? (
-                        <label className="aspect-video rounded-xl border-2 border-dashed border-slate-200 hover:border-orange-500 hover:bg-orange-50/5 flex flex-col items-center justify-center gap-1 cursor-pointer transition-all text-slate-400 hover:text-orange-500">
-                          <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
-                          <span className="text-[10px] font-bold uppercase tracking-wider">Add Photo</span>
-                          <input type="file" multiple accept="image/*" className="hidden" onChange={handleGalleryUpload} />
-                        </label>
-                      ) : (
-                        <div className="aspect-video rounded-xl border border-dashed border-slate-200 flex flex-col items-center justify-center text-slate-400 bg-slate-50/50">
-                          <span className="text-[10px] font-semibold text-slate-400 italic">No Actions</span>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Video Upload Section */}
-                  <div className="pt-6 border-t border-slate-100 space-y-4">
-                    <label className={labelCls}>Promotional Video</label>
-                    <p className="text-slate-500 text-xs mb-3">Upload a short promotional video (max 2.5MB) to highlight your restaurant interior, chef, or special dishes.</p>
-                    
-                    <div className="flex items-start gap-4">
-                      {form.video ? (
-                        <div className="relative w-64 aspect-video rounded-xl overflow-hidden border border-slate-200 bg-black flex-shrink-0 shadow-sm">
-                          <video src={form.video} controls className="w-full h-full object-cover" />
-                          {isEditing && (
-                            <button
-                              type="button"
-                              onClick={() => setForm(prev => ({ ...prev, video: '' }))}
-                              className="absolute top-1.5 right-1.5 p-1 bg-black/60 hover:bg-red-500/90 text-white rounded-lg transition-colors cursor-pointer opacity-100 shadow-sm z-10"
-                            >
-                              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
-                            </button>
-                          )}
-                        </div>
-                      ) : (
-                        <div className="w-64 aspect-video rounded-xl border-2 border-dashed border-slate-200 flex flex-col items-center justify-center text-slate-300 bg-slate-50 flex-shrink-0">
-                          <svg className="w-8 h-8 mb-1" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 01-1.125-1.125M3.375 19.5h1.5C5.625 19.5 6 18.75 6 18V6c0-.75-.375-1.5-1.125-1.5h-1.5M20.625 19.5h-1.5c-.75 0-1.125-.75-1.125-1.5V6c0-.75.375-1.5 1.125-1.5h1.5M12 18.75a6 6 0 100-12 6 6 0 000 12z" />
-                          </svg>
-                          <span className="text-[10px] font-bold text-slate-400">NO VIDEO UPLOADED</span>
-                        </div>
-                      )}
-                      
-                      <div className="flex-grow pt-2">
+                      <div className="flex-1">
                         {isEditing ? (
-                          <input 
-                            type="file" 
-                            accept="video/*" 
-                            className="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100 cursor-pointer" 
-                            onChange={handleVideoUpload} 
+                          <input
+                            type="file"
+                            accept="image/*"
+                            className="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100 cursor-pointer"
+                            onChange={(e) => handleImageUpload(e, 'logo')}
                           />
                         ) : (
                           <span className="text-[11px] text-slate-400 italic font-semibold">View Only</span>
                         )}
-                        <p className="text-[10px] text-slate-400 mt-2">Recommended landscape format, MP4 or WebM (Max size: 2.5MB).</p>
+                        <p className="text-[10px] text-slate-400 mt-1">Recommended square dimension, PNG or JPG.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Main Photo Upload */}
+                  <div className="space-y-3">
+                    <label className={labelCls}>Main Photo</label>
+                    <div className="flex items-center gap-4">
+                      <div className="w-28 h-20 rounded-xl overflow-hidden border border-slate-100 flex-shrink-0 bg-slate-50">
+                        {form.coverPhoto ? (
+                          <div className="relative w-full h-full">
+                            <img src={form.coverPhoto} alt="Cover Preview" className="w-full h-full object-cover" />
+                            {isEditing && (
+                              <button type="button" onClick={() => setForm(prev => ({ ...prev, coverPhoto: '' }))} className="absolute top-1 right-1 p-0.5 bg-black/60 hover:bg-red-500/90 text-white rounded transition-colors cursor-pointer opacity-100">
+                                <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                              </button>
+                            )}
+                          </div>
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-slate-300">
+                            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                          </div>
+                        )}
+                      </div>
+                      <div className="flex-1">
+                        {isEditing ? (
+                          <input
+                            type="file"
+                            accept="image/*"
+                            className="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-orange-50 file:text-orange-700 hover:file:bg-orange-100 cursor-pointer"
+                            onChange={(e) => handleImageUpload(e, 'coverPhoto')}
+                          />
+                        ) : (
+                          <span className="text-[11px] text-slate-400 italic font-semibold">View Only</span>
+                        )}
+                        <p className="text-[10px] text-slate-400 mt-1">Large featured image displayed as the main photo on your menu page.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Promotional Video Upload */}
+                  <div className="space-y-3">
+                    <label className={labelCls}>Promotional Video</label>
+                    <div className="flex items-center gap-4">
+                      {isEditing ? (
+                        <label className="w-28 h-20 rounded-xl overflow-hidden border border-slate-100 flex-shrink-0 bg-slate-50 cursor-pointer block relative group hover:border-orange-500 transition-colors">
+                          <input
+                            type="file"
+                            accept="video/*"
+                            className="hidden"
+                            onChange={handleVideoUpload}
+                          />
+                          {form.video ? (
+                            <div className="relative w-full h-full">
+                              <video src={form.video} className="w-full h-full object-cover pointer-events-none" muted playsInline loop autoPlay />
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  setForm(prev => ({ ...prev, video: '' }));
+                                }}
+                                className="absolute top-1 right-1 p-0.5 bg-black/60 hover:bg-red-500/95 text-white rounded transition-colors cursor-pointer opacity-100 z-10"
+                              >
+                                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                              </button>
+                            </div>
+                          ) : (
+                            <div className="w-full h-full flex flex-col items-center justify-center text-slate-400 hover:text-orange-500 transition-colors">
+                              <svg className="w-6 h-6 mb-1" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
+                              <span className="text-[9px] font-bold uppercase tracking-wider">Upload</span>
+                            </div>
+                          )}
+                        </label>
+                      ) : (
+                        <div className="w-28 h-20 rounded-xl overflow-hidden border border-slate-100 flex-shrink-0 bg-slate-50 relative">
+                          {form.video ? (
+                            <video src={form.video} className="w-full h-full object-cover" controls />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center text-slate-350 bg-slate-50">
+                              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                      <div className="flex-1">
+                        {isEditing && (
+                          <div className="text-[11px] text-slate-500 font-semibold mb-1">
+                            Click the preview box to upload / change video
+                          </div>
+                        )}
+                        <p className="text-[10px] text-slate-400">Short promotional video (Max size: 2.5MB).</p>
                       </div>
                     </div>
                   </div>
 
                 </div>
-              )}
 
-            </div>
+                {/* Gallery Upload Grid */}
+                <div className="pt-6 border-t border-slate-100 space-y-4">
+                  <div>
+                    <label className={labelCls}>Gallery Photos</label>
+                    <p className="text-slate-500 text-xs mb-3">Upload multiple food, dining, or interior photos to showcase on your detailed menu view.</p>
+                  </div>
+
+                  <div className="grid grid-cols-3 sm:grid-cols-4 gap-4">
+                    {/* Previews */}
+                    {form.gallery.map((img, idx) => (
+                      <div key={idx} className="relative aspect-video rounded-xl overflow-hidden border border-slate-100 group shadow-sm bg-slate-50">
+                        <img src={img} alt={`Gallery ${idx + 1}`} className="w-full h-full object-cover" />
+                        {isEditing && (
+                          <button
+                            type="button"
+                            onClick={() => removeGalleryImage(idx)}
+                            className="absolute top-1.5 right-1.5 p-1 bg-black/60 hover:bg-red-500/90 text-white rounded-lg transition-colors cursor-pointer opacity-100 shadow-sm"
+                          >
+                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                          </button>
+                        )}
+                      </div>
+                    ))}
+
+                    {/* Upload Box */}
+                    {isEditing ? (
+                      <label className="aspect-video rounded-xl border-2 border-dashed border-slate-200 hover:border-orange-500 hover:bg-orange-50/5 flex flex-col items-center justify-center gap-1 cursor-pointer transition-all text-slate-400 hover:text-orange-500">
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
+                        <span className="text-[10px] font-bold uppercase tracking-wider">Add Photo</span>
+                        <input type="file" multiple accept="image/*" className="hidden" onChange={handleGalleryUpload} />
+                      </label>
+                    ) : (
+                      <div className="aspect-video rounded-xl border border-dashed border-slate-200 flex flex-col items-center justify-center text-slate-400 bg-slate-50/50">
+                        <span className="text-[10px] font-semibold text-slate-400 italic">No Actions</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+
+              </div>
+            )}
+
           </div>
         </div>
-      </AdminLayout>
-    );
-  }
+      </div>
+    </AdminLayout>
+  );
+}

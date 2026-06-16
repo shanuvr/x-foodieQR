@@ -212,7 +212,7 @@ export default function HotelListings({ onlyShowFavorites = false }) {
           ))}
         </div>
       </div>
-      
+
       {/* Food Preference */}
       <div className="mb-4">
         <h4 className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Food Preference</h4>
@@ -225,7 +225,7 @@ export default function HotelListings({ onlyShowFavorites = false }) {
           ))}
         </div>
       </div>
-      
+
       {/* Amenities */}
       <div>
         <h4 className="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1.5">Amenities</h4>
@@ -267,32 +267,30 @@ export default function HotelListings({ onlyShowFavorites = false }) {
 
   return (
     <section className="max-w-[1320px] mx-auto px-2 sm:px-4 mt-16 md:mt-32 pb-16">
-      
+
       {/* Section Header with Filter Button on Mobile */}
       <div className="sticky-nav-offset lg:relative lg:top-0 bg-white z-30 py-4 mb-6 flex flex-wrap gap-3 justify-between items-center text-left border-b border-gray-100 lg:border-none -mx-2 px-4 sm:mx-0 sm:px-0 sticky-nav-transition">
         <h2 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">
           {onlyShowFavorites ? "My Favorite Outlets" : "Popular Restaurants Near You"}
         </h2>
-        
+
         {!onlyShowFavorites && (
           <div className="flex items-center gap-2 sm:gap-3">
             {/* Static Toggle Button */}
             <div className="bg-slate-100 p-0.5 sm:p-1 rounded-lg sm:rounded-xl flex items-center border border-slate-200/50 shadow-inner">
-              <button 
-                type="button" 
+              <button
+                type="button"
                 onClick={() => setActiveToggle('general')}
-                className={`px-2 py-0.5 sm:px-3 sm:py-1.5 rounded-md sm:rounded-lg text-[10px] sm:text-xs font-bold transition-all cursor-pointer ${
-                  activeToggle === 'general' ? 'bg-[#FFA500] text-white shadow-sm' : 'text-slate-500 hover:text-slate-850'
-                }`}
+                className={`px-2 py-0.5 sm:px-3 sm:py-1.5 rounded-md sm:rounded-lg text-[10px] sm:text-xs font-bold transition-all cursor-pointer ${activeToggle === 'general' ? 'bg-[#FFA500] text-white shadow-sm' : 'text-slate-500 hover:text-slate-850'
+                  }`}
               >
                 General
               </button>
-              <button 
-                type="button" 
+              <button
+                type="button"
                 onClick={() => setActiveToggle('foodieqr')}
-                className={`px-2 py-0.5 sm:px-3 sm:py-1.5 rounded-md sm:rounded-lg text-[10px] sm:text-xs font-bold transition-all cursor-pointer ${
-                  activeToggle === 'foodieqr' ? 'bg-[#FFA500] text-white shadow-sm' : 'text-slate-500 hover:text-slate-850'
-                }`}
+                className={`px-2 py-0.5 sm:px-3 sm:py-1.5 rounded-md sm:rounded-lg text-[10px] sm:text-xs font-bold transition-all cursor-pointer ${activeToggle === 'foodieqr' ? 'bg-[#FFA500] text-white shadow-sm' : 'text-slate-500 hover:text-slate-850'
+                  }`}
               >
                 FoodieQR
               </button>
@@ -311,19 +309,17 @@ export default function HotelListings({ onlyShowFavorites = false }) {
           </div>
         )}
       </div>
-      
+
       {/* Mobile Filter Drawer (Slide-in from right) */}
       <div
-        className={`fixed inset-0 bg-black/40 z-40 transition-opacity duration-300 lg:hidden ${
-          filterOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
-        }`}
+        className={`fixed inset-0 bg-black/40 z-40 transition-opacity duration-300 lg:hidden ${filterOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+          }`}
         onClick={() => setFilterOpen(false)}
       ></div>
 
       <div
-        className={`fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white z-50 shadow-2xl transition-transform duration-300 ease-in-out lg:hidden flex flex-col ${
-          filterOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
+        className={`fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white z-50 shadow-2xl transition-transform duration-300 ease-in-out lg:hidden flex flex-col ${filterOpen ? 'translate-x-0' : 'translate-x-full'
+          }`}
       >
         <div className="flex-shrink-0 flex items-center justify-between px-5 py-4 border-b border-gray-100">
           <h3 className="text-lg font-bold text-gray-900">Filters</h3>
@@ -337,7 +333,7 @@ export default function HotelListings({ onlyShowFavorites = false }) {
             </svg>
           </button>
         </div>
-        
+
         <div className="flex-grow px-5 py-5 overflow-y-auto">
           {filterContent}
         </div>
@@ -359,9 +355,9 @@ export default function HotelListings({ onlyShowFavorites = false }) {
           </button>
         </div>
       </div>
-      
+
       <div className="flex flex-col lg:flex-row gap-4 text-left">
-        
+
         {/* Desktop Sidebar (Hidden on mobile) */}
         {!onlyShowFavorites && (
           <aside className="hidden lg:block w-56 flex-shrink-0 sticky top-24 self-start">
@@ -373,42 +369,42 @@ export default function HotelListings({ onlyShowFavorites = false }) {
             </div>
           </aside>
         )}
-        
+
         {/* Cards Area */}
         <div className="flex-1 min-w-0 space-y-4">
           {displayedRestaurants.map((restaurant, index) => {
             const activeImageIndex = activeImageIndices[restaurant.id] || 0;
             return (
-              <div 
-                key={restaurant.id} 
+              <div
+                key={restaurant.id}
                 onClick={() => navigate(`/restaurant/${restaurant.id}`)}
                 className="bg-white rounded-md shadow-[0_2px_8px_rgba(0,0,0,0.1)] border border-gray-200 overflow-hidden flex flex-row font-sans h-[135px] sm:h-[220px] cursor-pointer hover:-translate-y-1.5 hover:shadow-xl hover:border-primary/30 transition-all duration-300 ease-out animate-fade-in-up"
                 style={{ animationDelay: `${index * 150}ms`, animationFillMode: 'both' }}
               >
-                
+
                 {/* Banner Top Removed */}
-                
+
                 <div className="flex flex-row h-full w-full">
-                  
+
                   {/* Left: Image (Agoda style large image) */}
                   <div className="relative w-[105px] sm:w-[200px] md:w-[220px] flex-shrink-0 h-full group cursor-pointer overflow-hidden">
-                    
+
                     {/* Sliding Image Track */}
-                    <div 
+                    <div
                       className="flex h-full w-full transition-transform duration-300 ease-in-out"
                       style={{ transform: `translateX(-${activeImageIndex * 100}%)` }}
                     >
                       {restaurant.images.map((imgUrl, idx) => (
                         <div key={idx} className="w-full h-full flex-shrink-0">
-                          <img 
-                            alt={`${restaurant.name} ${idx + 1}`} 
-                            className="w-full h-full object-cover select-none" 
-                            src={imgUrl} 
+                          <img
+                            alt={`${restaurant.name} ${idx + 1}`}
+                            className="w-full h-full object-cover select-none"
+                            src={imgUrl}
                           />
                         </div>
                       ))}
                     </div>
-                    
+
                     {/* Award Badge Absolute */}
                     {restaurant.awardBadge && (
                       <div className="absolute top-1.5 left-1.5 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-[7px] sm:text-[9px] font-extrabold uppercase tracking-wider px-1 py-0.5 sm:px-2 sm:py-0.5 rounded-full flex items-center gap-1 shadow-md border border-white/25">
@@ -420,18 +416,17 @@ export default function HotelListings({ onlyShowFavorites = false }) {
                     )}
 
                     {/* Favorite Icon */}
-                    <button 
+                    <button
                       onClick={(e) => toggleFavorite(e, restaurant.id)}
-                      className={`absolute bottom-2 right-2 sm:bottom-auto sm:top-2 sm:right-2 w-6 h-6 sm:w-7.5 sm:h-7.5 bg-white rounded-full flex items-center justify-center shadow-sm transition-colors z-10 cursor-pointer ${
-                        favorites.includes(restaurant.id) ? 'text-red-500 shadow-md scale-105' : 'text-gray-400 hover:text-red-500'
-                      }`}
+                      className={`absolute bottom-2 right-2 sm:bottom-auto sm:top-2 sm:right-2 w-6 h-6 sm:w-7.5 sm:h-7.5 bg-white rounded-full flex items-center justify-center shadow-sm transition-colors z-10 cursor-pointer ${favorites.includes(restaurant.id) ? 'text-red-500 shadow-md scale-105' : 'text-gray-400 hover:text-red-500'
+                        }`}
                     >
                       <svg className="w-4 h-4 sm:w-4.5 sm:h-4.5" fill={favorites.includes(restaurant.id) ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
                     </button>
 
                     {/* Carousel Navigation - Left Arrow */}
                     <div className="absolute inset-y-0 left-2 hidden sm:flex items-center opacity-0 group-hover:opacity-100 transition-opacity">
-                      <button 
+                      <button
                         onClick={(e) => handlePrevImage(e, restaurant.id, restaurant.images.length)}
                         className="w-7 h-7 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-md text-gray-700 cursor-pointer"
                         type="button"
@@ -443,7 +438,7 @@ export default function HotelListings({ onlyShowFavorites = false }) {
 
                     {/* Carousel Navigation - Right Arrow */}
                     <div className="absolute inset-y-0 right-2 hidden sm:flex items-center opacity-0 group-hover:opacity-100 transition-opacity">
-                      <button 
+                      <button
                         onClick={(e) => handleNextImage(e, restaurant.id, restaurant.images.length)}
                         className="w-7 h-7 bg-white/90 hover:bg-white rounded-full flex items-center justify-center shadow-md text-gray-700 cursor-pointer"
                         type="button"
@@ -458,24 +453,24 @@ export default function HotelListings({ onlyShowFavorites = false }) {
                       {activeImageIndex + 1}/{restaurant.images.length}
                     </div>
                   </div>
-                  
+
                   {/* Middle & Right Content Wrapper */}
                   <div className="flex-grow flex flex-row p-2 sm:p-3 gap-2 sm:gap-3.5 h-full min-w-0">
-                    
+
                     {/* Middle: Info */}
                     <div className="flex-grow min-w-0 flex flex-col justify-between">
                       <div>
                         {/* Title & Mobile Rating Pill Row */}
                         <div className="flex items-start justify-between gap-1.5 mb-0.5 sm:mb-1">
                           <h3 className="text-xs sm:text-[16px] md:text-[18px] font-bold text-gray-900 leading-snug cursor-pointer hover:text-[#2b6be3] transition-colors line-clamp-1 sm:line-clamp-2">{restaurant.name}</h3>
-                          
+
                           {/* Mobile Rating Badge */}
                           <div className="sm:hidden flex items-center gap-0.5 bg-[#e9f0fa] text-[#2b6be3] px-1.5 py-0.5 rounded shrink-0">
                             <span className="font-extrabold text-[9px]">{restaurant.ratingScore}</span>
                             <span className="text-[8px] font-semibold">★</span>
                           </div>
                         </div>
-                        
+
                         {/* Stars & Reviews Count Row */}
                         <div className="flex items-center gap-1.5 mb-1 sm:mb-1 flex-wrap">
                           {/* Stars */}
@@ -516,11 +511,10 @@ export default function HotelListings({ onlyShowFavorites = false }) {
                         {/* Badges */}
                         <div className="hidden sm:flex flex-wrap gap-1 mt-0.5 sm:mt-1 text-[9px] sm:text-[10px]">
                           {restaurant.badges.map((badge, idx) => (
-                            <div key={idx} className={`px-1 py-0.5 rounded-sm flex items-center gap-0.5 ${
-                              badge.type === 'outline' ? 'border border-gray-300 text-gray-600' :
-                              badge.type === 'pink-outline' ? 'border border-[#e12d5b] text-[#e12d5b]' :
-                              badge.type === 'red-text' ? 'text-[#e12d5b] font-medium' : ''
-                            }`}>
+                            <div key={idx} className={`px-1 py-0.5 rounded-sm flex items-center gap-0.5 ${badge.type === 'outline' ? 'border border-gray-300 text-gray-600' :
+                                badge.type === 'pink-outline' ? 'border border-[#e12d5b] text-[#e12d5b]' :
+                                  badge.type === 'red-text' ? 'text-[#e12d5b] font-medium' : ''
+                              }`}>
                               {badge.icon === 'diamond' && (
                                 <svg className="w-2 h-2 sm:w-2.5 sm:h-2.5" fill="currentColor" viewBox="0 0 20 20">
                                   <path d="M2.166 6.942l7.086 10.63a1 1 0 001.5 0l7.086-10.63A1 1 0 0017.5 5.5h-15a1 1 0 00-.334 1.442z" />
@@ -554,7 +548,7 @@ export default function HotelListings({ onlyShowFavorites = false }) {
 
                     {/* Right: Rating & Pricing (Hidden on Mobile) */}
                     <div className="hidden sm:flex w-[150px] md:w-[170px] flex-col justify-between items-end border-l border-gray-100 pl-2 sm:pl-3 text-right shrink-0">
-                      
+
                       {/* Ratings Top Right */}
                       <div className="flex flex-col items-end w-full cursor-pointer group">
                         <div className="flex items-center justify-end mb-0.5">
@@ -600,7 +594,7 @@ export default function HotelListings({ onlyShowFavorites = false }) {
             );
           })}
         </div>
-        
+
       </div>
     </section>
   );
