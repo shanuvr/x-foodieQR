@@ -8,6 +8,9 @@ export default function Navbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [cartCount, setCartCount] = useState(0);
 
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
   // Load user from localStorage
   const checkUser = () => {
     try {
@@ -44,6 +47,44 @@ export default function Navbar() {
     };
   }, []);
 
+  // Track scroll direction and position
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // If mobile navigation panel is open, keep navbar visible
+      if (isOpen) {
+        setLastScrollY(currentScrollY);
+        return;
+      }
+
+      if (currentScrollY <= 50) {
+        setIsVisible(true);
+      } else if (currentScrollY > lastScrollY) {
+        // Scrolling down -> hide navbar
+        setIsVisible(false);
+      } else {
+        // Scrolling up -> show navbar
+        setIsVisible(true);
+      }
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [lastScrollY, isOpen]);
+
+  // Set the CSS custom variable for sticky page elements
+  useEffect(() => {
+    if (isVisible) {
+      document.documentElement.style.setProperty('--navbar-height', '80px');
+    } else {
+      document.documentElement.style.setProperty('--navbar-height', '0px');
+    }
+  }, [isVisible]);
+
   const handleLogout = () => {
     localStorage.removeItem('current_user');
     setCurrentUser(null);
@@ -53,7 +94,9 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm w-full">
+    <nav className={`sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm w-full transition-transform duration-300 ${
+      isVisible ? 'translate-y-0' : '-translate-y-full'
+    }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20 items-center">
           
