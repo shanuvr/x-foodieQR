@@ -374,11 +374,14 @@ export default function HotelListings({ onlyShowFavorites = false }) {
         <div className="flex-1 min-w-0 space-y-4">
           {displayedRestaurants.map((restaurant, index) => {
             const activeImageIndex = activeImageIndices[restaurant.id] || 0;
+            const score10 = parseFloat(restaurant.ratingScore) <= 5 ? parseFloat(restaurant.ratingScore) * 2 : parseFloat(restaurant.ratingScore);
+            const rawLoc = parseFloat(restaurant.locationScore);
+            const location10 = rawLoc <= 5 ? rawLoc * 2 : (rawLoc || 8.0);
             return (
               <div
                 key={restaurant.id}
                 onClick={() => navigate(`/restaurant/${restaurant.id}`)}
-                className="bg-white rounded-md shadow-[0_2px_8px_rgba(0,0,0,0.1)] border border-gray-200 overflow-hidden flex flex-row font-sans h-[135px] sm:h-[220px] cursor-pointer hover:-translate-y-1.5 hover:shadow-xl hover:border-primary/30 transition-all duration-300 ease-out animate-fade-in-up"
+                className="bg-white rounded-md shadow-[0_2px_8px_rgba(0,0,0,0.1)] border border-gray-200 relative flex flex-row font-sans h-[135px] sm:h-[220px] cursor-pointer hover:-translate-y-1.5 hover:shadow-xl hover:border-primary/30 transition-all duration-300 ease-out animate-fade-in-up"
                 style={{ animationDelay: `${index * 150}ms`, animationFillMode: 'both' }}
               >
 
@@ -550,12 +553,73 @@ export default function HotelListings({ onlyShowFavorites = false }) {
                     <div className="hidden sm:flex w-[150px] md:w-[170px] flex-col justify-between items-end border-l border-gray-100 pl-2 sm:pl-3 text-right shrink-0">
 
                       {/* Ratings Top Right */}
-                      <div className="flex flex-col items-end w-full cursor-pointer group">
+                      <div className="flex flex-col items-end w-full cursor-pointer group relative">
                         <div className="flex items-center justify-end mb-0.5">
                           <span className="text-[#2b6be3] font-bold text-[14px] md:text-[16px] group-hover:underline">{restaurant.ratingScore} {restaurant.ratingText}</span>
                         </div>
                         <div className="text-gray-500 text-[10px] mb-0.5 group-hover:underline">{restaurant.reviews}</div>
                         <div className="text-gray-900 font-bold text-[11px] md:text-[12px]">{restaurant.locationScore}</div>
+
+                        {/* Rating Breakdown Hover Tooltip */}
+                        <div className="absolute right-0 top-full mt-2.5 hidden group-hover:flex flex-col bg-white border border-slate-200 rounded-xl shadow-xl p-4 w-72 z-50 pointer-events-none text-xs text-slate-700 font-medium animate-fade-in text-left">
+                          <div className="grid grid-cols-2 gap-x-4 gap-y-3">
+                            <div className="space-y-1">
+                              <div className="flex justify-between items-center text-[10px]">
+                                <span className="text-slate-400 font-bold uppercase">Cleanliness</span>
+                                <span className="font-extrabold text-slate-700">{Math.min(10, score10 + 0.4).toFixed(1)}</span>
+                              </div>
+                              <div className="relative w-full h-1 bg-slate-100 rounded-full overflow-hidden">
+                                <div className="absolute top-0 left-0 h-full bg-orange-500 rounded-full" style={{ width: `${Math.min(10, score10 + 0.4) * 10}%` }}></div>
+                              </div>
+                            </div>
+                            <div className="space-y-1">
+                              <div className="flex justify-between items-center text-[10px]">
+                                <span className="text-slate-400 font-bold uppercase">Facilities</span>
+                                <span className="font-extrabold text-slate-750">{Math.min(10, score10 + 0.1).toFixed(1)}</span>
+                              </div>
+                              <div className="relative w-full h-1 bg-slate-100 rounded-full overflow-hidden">
+                                <div className="absolute top-0 left-0 h-full bg-orange-500 rounded-full" style={{ width: `${Math.min(10, score10 + 0.1) * 10}%` }}></div>
+                              </div>
+                            </div>
+                            <div className="space-y-1">
+                              <div className="flex justify-between items-center text-[10px]">
+                                <span className="text-slate-400 font-bold uppercase">Location</span>
+                                <span className="font-extrabold text-slate-750">{location10.toFixed(1)}</span>
+                              </div>
+                              <div className="relative w-full h-1 bg-slate-100 rounded-full overflow-hidden">
+                                <div className="absolute top-0 left-0 h-full bg-orange-500 rounded-full" style={{ width: `${location10 * 10}%` }}></div>
+                              </div>
+                            </div>
+                            <div className="space-y-1">
+                              <div className="flex justify-between items-center text-[10px]">
+                                <span className="text-slate-400 font-bold uppercase">Food Quality</span>
+                                <span className="font-extrabold text-slate-750">{Math.min(10, score10 + 0.2).toFixed(1)}</span>
+                              </div>
+                              <div className="relative w-full h-1 bg-slate-100 rounded-full overflow-hidden">
+                                <div className="absolute top-0 left-0 h-full bg-orange-500 rounded-full" style={{ width: `${Math.min(10, score10 + 0.2) * 10}%` }}></div>
+                              </div>
+                            </div>
+                            <div className="space-y-1">
+                              <div className="flex justify-between items-center text-[10px]">
+                                <span className="text-slate-400 font-bold uppercase">Service</span>
+                                <span className="font-extrabold text-slate-750">{Math.min(10, score10 + 0.1).toFixed(1)}</span>
+                              </div>
+                              <div className="relative w-full h-1 bg-slate-100 rounded-full overflow-hidden">
+                                <div className="absolute top-0 left-0 h-full bg-orange-500 rounded-full" style={{ width: `${Math.min(10, score10 + 0.1) * 10}%` }}></div>
+                              </div>
+                            </div>
+                            <div className="space-y-1">
+                              <div className="flex justify-between items-center text-[10px]">
+                                <span className="text-slate-400 font-bold uppercase">Value</span>
+                                <span className="font-extrabold text-slate-750">{Math.min(10, score10 - 0.2).toFixed(1)}</span>
+                              </div>
+                              <div className="relative w-full h-1 bg-slate-100 rounded-full overflow-hidden">
+                                <div className="absolute top-0 left-0 h-full bg-orange-500 rounded-full" style={{ width: `${Math.min(10, score10 - 0.2) * 10}%` }}></div>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="absolute -top-1.5 right-6 w-3 h-3 bg-white border-l border-t border-slate-200 rotate-45"></div>
+                        </div>
                       </div>
 
                       {/* Pricing Bottom Right (Commented Out) */}
