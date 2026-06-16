@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
@@ -9,7 +9,8 @@ export default function Navbar() {
   const [cartCount, setCartCount] = useState(0);
 
   const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
+  const lastScrollY = useRef(0);
+  const accumScroll = useRef(0);
 
   // Load user from localStorage
   const checkUser = () => {
@@ -47,41 +48,57 @@ export default function Navbar() {
     };
   }, []);
 
-  // Track scroll direction and position
+  // Track scroll direction and position with threshold accumulator
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
       // If mobile navigation panel is open, keep navbar visible
       if (isOpen) {
-        setLastScrollY(currentScrollY);
+        lastScrollY.current = currentScrollY;
+        accumScroll.current = 0;
         return;
       }
 
+      const diff = currentScrollY - lastScrollY.current;
+      lastScrollY.current = currentScrollY;
+
+      // At the top of the page, always show navbar immediately
       if (currentScrollY <= 50) {
         setIsVisible(true);
-      } else if (currentScrollY > lastScrollY) {
-        // Scrolling down -> hide navbar
-        setIsVisible(false);
-      } else {
-        // Scrolling up -> show navbar
-        setIsVisible(true);
+        accumScroll.current = 0;
+        return;
       }
-      setLastScrollY(currentScrollY);
+
+      // If direction changed, reset accumulator
+      if ((diff > 0 && accumScroll.current < 0) || (diff < 0 && accumScroll.current > 0)) {
+        accumScroll.current = 0;
+      }
+
+      accumScroll.current += diff;
+
+      // Threshold of 15px scroll distance in a single direction
+      if (accumScroll.current > 15) {
+        setIsVisible(false); // Hide scrolling down
+        accumScroll.current = 0;
+      } else if (accumScroll.current < -15) {
+        setIsVisible(true); // Show scrolling up
+        accumScroll.current = 0;
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [lastScrollY, isOpen]);
+  }, [isOpen]);
 
-  // Set the CSS custom variable for sticky page elements
+  // Set the CSS class on document element for smooth scroll transitions
   useEffect(() => {
     if (isVisible) {
-      document.documentElement.style.setProperty('--navbar-height', '80px');
+      document.documentElement.classList.remove('navbar-hidden');
     } else {
-      document.documentElement.style.setProperty('--navbar-height', '0px');
+      document.documentElement.classList.add('navbar-hidden');
     }
   }, [isVisible]);
 
@@ -94,25 +111,23 @@ export default function Navbar() {
   };
 
   return (
-    <nav className={`sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm w-full transition-transform duration-300 ${
-      isVisible ? 'translate-y-0' : '-translate-y-full'
-    }`}>
+    <nav className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm w-full sticky-nav-transition">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20 items-center">
           
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
             <Link className="flex flex-col relative" to="/">
-              <div className="flex items-center gap-2">
-                <span className="text-3xl font-bold tracking-tight text-gray-900">
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <span className="text-xl sm:text-3xl font-bold tracking-tight text-gray-900">
                   Foodie<span className="text-primary">QR</span>
                 </span>
-                <svg className="w-7 h-7 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 sm:w-7 sm:h-7 text-primary" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M4 4h4v4H4V4zm6 0h4v4h-4V4zm6 0h4v4h-4V4zM4 10h4v4H4v-4zm6 0h4v4h-4v-4zm6 0h4v4h-4v-4zM4 16h4v4H4v-4zm6 0h4v4h-4v-4zm6 0h4v4h-4v-4z"></path>
                 </svg>
-                <span className="text-[11px] font-bold text-gray-400 absolute -top-1.5 -right-5">TM</span>
+                <span className="text-[8px] sm:text-[11px] font-bold text-gray-400 absolute -top-1 sm:-top-1.5 -right-4 sm:-right-5">TM</span>
               </div>
-              <span className="text-[11px] font-extrabold tracking-widest text-[#FFA500] uppercase -mt-0.5 leading-none">
+              <span className="text-[8px] sm:text-[11px] font-extrabold tracking-widest text-[#FFA500] uppercase -mt-0.5 leading-none">
                 hunger's fest
               </span>
             </Link>

@@ -75,12 +75,19 @@ body {
 /* Dynamic sticky positioning utility classes based on navbar visibility */
 .sticky-nav-offset {
   position: sticky;
-  top: var(--navbar-height, 80px);
-  transition: top 0.3s ease-in-out;
+  top: 80px;
 }
 
 .sticky-nav-double-offset {
   position: sticky;
-  top: calc(var(--navbar-height, 80px) + var(--first-sticky-height, 120px));
-  transition: top 0.3s ease-in-out;
+  top: calc(80px + var(--first-sticky-height, 120px));
+}
+
+.sticky-nav-transition {
+  transition: transform 0.2s cubic-bezier(0.3, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.navbar-hidden .sticky-nav-transition {
+  transform: translateY(-80px);
 }

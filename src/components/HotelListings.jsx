@@ -269,7 +269,7 @@ export default function HotelListings({ onlyShowFavorites = false }) {
     <section className="max-w-[1320px] mx-auto px-2 sm:px-4 mt-16 md:mt-32 pb-16">
       
       {/* Section Header with Filter Button on Mobile */}
-      <div className="sticky-nav-offset lg:relative lg:top-0 bg-white z-30 py-4 mb-6 flex flex-wrap gap-3 justify-between items-center text-left border-b border-gray-100 lg:border-none -mx-2 px-4 sm:mx-0 sm:px-0">
+      <div className="sticky-nav-offset lg:relative lg:top-0 bg-white z-30 py-4 mb-6 flex flex-wrap gap-3 justify-between items-center text-left border-b border-gray-100 lg:border-none -mx-2 px-4 sm:mx-0 sm:px-0 sticky-nav-transition">
         <h2 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">
           {onlyShowFavorites ? "My Favorite Outlets" : "Popular Restaurants Near You"}
         </h2>
