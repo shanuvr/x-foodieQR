@@ -502,7 +502,7 @@ export default function DetailedView() {
       <div className="max-w-[1240px] mx-auto px-4 sm:px-6 py-6 font-sans">
         
         {/* Sticky Header Wrapper */}
-        <div ref={firstStickyRef} className="sticky-nav-offset z-45 bg-white/95 backdrop-blur-md -mx-4 sm:-mx-6 px-4 sm:px-6 border-b border-gray-150 shadow-sm mb-6 sticky-nav-transition">
+        <div ref={firstStickyRef} className="sticky-nav-offset z-45 bg-white/95 backdrop-blur-md -mx-4 sm:-mx-6 px-4 sm:px-6 border-b border-gray-150 shadow-sm mb-6">
           {/* Restaurant Header Info */}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-1.5 pb-1.5 pt-1.5 md:pb-3 md:pt-2.5 text-left">
             <div className="min-w-0 flex-grow space-y-1">
@@ -815,8 +815,8 @@ export default function DetailedView() {
 
         {/* Dining Preferences Selector (Dine In / Takeaway) */}
         <div 
-          style={{ top: `calc(80px + ${firstStickyHeight}px)` }}
-          className="sticky z-30 bg-white/95 backdrop-blur-md -mx-4 sm:-mx-6 px-4 sm:px-6 md:px-8 border-y border-[#d9c3ac]/60 sm:border rounded-none sm:rounded-2xl py-2 sm:py-3.5 text-left mb-2 flex flex-row items-center justify-between gap-3 relative overflow-hidden sticky-nav-transition"
+          style={{ '--first-sticky-height': `${firstStickyHeight}px` }}
+          className="sticky-nav-double-offset z-30 bg-white/95 backdrop-blur-md -mx-4 sm:-mx-6 px-4 sm:px-6 md:px-8 border-y border-[#d9c3ac]/60 sm:border rounded-none sm:rounded-2xl py-2 sm:py-3.5 text-left mb-2 flex flex-row items-center justify-between gap-3 overflow-hidden"
         >
           <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-orange-500 to-amber-500" />
           

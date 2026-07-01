@@ -76,11 +76,21 @@ body {
 .sticky-nav-offset {
   position: sticky;
   top: 80px;
+  transition: top 0.2s cubic-bezier(0.3, 1, 0.3, 1);
+}
+
+.navbar-hidden .sticky-nav-offset {
+  top: 0px;
 }
 
 .sticky-nav-double-offset {
   position: sticky;
   top: calc(80px + var(--first-sticky-height, 120px));
+  transition: top 0.2s cubic-bezier(0.3, 1, 0.3, 1);
+}
+
+.navbar-hidden .sticky-nav-double-offset {
+  top: var(--first-sticky-height, 120px);
 }
 
 .sticky-nav-transition {
