@@ -460,7 +460,7 @@ export default function DetailedView() {
               type="time"
               value={arrivalTime}
               onChange={(e) => setArrivalTime(e.target.value)}
-              className="bg-transparent text-[11px] sm:text-sm font-bold text-slate-700 focus:outline-none cursor-pointer w-[50px] sm:w-[76px] p-0 border-0"
+              className="bg-transparent text-[11px] sm:text-sm font-bold text-slate-700 focus:outline-none cursor-pointer w-[85px] sm:w-[110px] p-0 border-0"
             />
           </div>
  

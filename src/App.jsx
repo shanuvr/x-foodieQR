@@ -39,6 +39,11 @@ import SuperAdminOutletTypes from './pages/superAdmin/superAdminOutletTypes'
 import SuperAdminAnalytics from './pages/superAdmin/superAdminAnalytics'
 import SuperAdminReports from './pages/superAdmin/superAdminReports'
 import SuperAdminSettings from './pages/superAdmin/superAdminSettings'
+import TestTemplate1 from './MenuTemplates/testTemplate1/TestTemplate1'
+import TestTemplate2 from './MenuTemplates/testTemplate2/TestTemplate2'
+import TestTemplate3 from './MenuTemplates/testTemplate3/TestTemplate3'
+import TestTemplate4 from './MenuTemplates/testTemplate4/TestTemplate4'
+import TestTemplate5 from './MenuTemplates/testTemplate5/TestTemplate5'
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -55,7 +60,7 @@ function App() {
     <>
       <ScrollToTop />
       <Routes>
-        <Route path="/" element={<Home />} />
+      <Route path="/" element={<Home />} />
       <Route path="/restaurant/:id" element={<DetailedView />} />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
@@ -94,6 +99,13 @@ function App() {
       <Route path="/super-admin/analytics" element={<SuperAdminAnalytics />} />
       <Route path="/super-admin/reports" element={<SuperAdminReports />} />
       <Route path="/super-admin/settings" element={<SuperAdminSettings />} />
+
+      {/* Menu Templates Routes */}
+      <Route path="/test-template-1" element={<TestTemplate1 />} />
+      <Route path="/test-template-2" element={<TestTemplate2 />} />
+      <Route path="/test-template-3" element={<TestTemplate3 />} />
+      <Route path="/test-template-4" element={<TestTemplate4 />} />
+      <Route path="/test-template-5" element={<TestTemplate5 />} />
       </Routes>
     </>
   )

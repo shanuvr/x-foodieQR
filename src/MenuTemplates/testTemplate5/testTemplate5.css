@@ -1,0 +1,1585 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap');
+
+/* ==========================================================================
+   1. RESTAURANT FINE DINING (R5) STYLING
+   ========================================================================== */
+.r5-page {
+    background-color: #faf9f6;
+    color: #2c2c2c;
+    min-height: 100vh;
+    font-family: 'Lato', sans-serif;
+    padding: 4rem 1rem;
+}
+
+.r5-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 3rem 4rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+}
+
+.r5-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.r5-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    letter-spacing: 4px;
+    margin: 0;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+.r5-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: #888;
+    margin-top: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.r5-divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, #d4af37, transparent);
+    width: 60%;
+    margin: 2rem auto;
+}
+
+.r5-nav {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1rem;
+}
+
+.r5-nav-btn {
+    background: none;
+    border: none;
+    font-family: 'Lato', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+    color: #888;
+    cursor: pointer;
+    padding: 0.5rem 0;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.r5-nav-btn:hover {
+    color: #d4af37;
+}
+
+.r5-nav-btn.r5-active {
+    color: #1a1a1a;
+    font-weight: 700;
+}
+
+.r5-nav-btn.r5-active::after {
+    content: '';
+    position: absolute;
+    bottom: -1rem;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #d4af37;
+}
+
+.r5-menu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.r5-menu-item {
+    cursor: pointer;
+    transition: opacity 0.3s;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.r5-menu-item:hover {
+    opacity: 0.7;
+}
+
+.r5-item-img-box {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+}
+
+.r5-item-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.r5-item-info {
+    flex-grow: 1;
+}
+
+.r5-item-header {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 0.5rem;
+}
+
+.r5-item-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    margin: 0;
+    color: #1a1a1a;
+}
+
+.r5-dots {
+    flex-grow: 1;
+    border-bottom: 1px dotted #ccc;
+    margin: 0 1rem;
+    position: relative;
+    top: -6px;
+}
+
+.r5-item-price {
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #d4af37;
+}
+
+.r5-item-desc {
+    color: #666;
+    margin: 0 0 0.25rem 0;
+    font-style: italic;
+    font-size: 0.95rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.r5-item-recipe {
+    color: #888;
+    margin: 0 0 0.5rem 0;
+    font-size: 0.85rem;
+}
+
+.r5-item-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.r5-item-tags {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.r5-item-calories {
+    font-size: 0.85rem;
+    color: #888;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.r5-like-btn {
+    background: none;
+    border: none;
+    color: #ccc;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.2s, color 0.2s;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.r5-like-btn:hover {
+    transform: scale(1.1);
+    color: #ff4d4f;
+}
+
+.r5-liked {
+    color: #ff4d4f;
+}
+
+.r5-tag {
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 2px;
+    border: 1px solid;
+    font-weight: bold;
+}
+
+.r5-veg {
+    color: #4CAF50;
+    border-color: #4CAF50;
+}
+
+.r5-nonveg {
+    color: #F44336;
+    border-color: #F44336;
+}
+
+.r5-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.r5-modal {
+    background: #fff;
+    width: 90%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+    position: relative;
+    max-height: 85vh;
+}
+
+.r5-modal-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #333;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.r5-modal-content {
+    width: 100%;
+    max-height: 85vh;
+    overflow: hidden;
+}
+
+.r5-modal-img-container {
+    width: 100%;
+    height: 200px;
+    min-height: 200px;
+}
+
+.r5-modal-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.r5-modal-details {
+    padding: 28px;
+    max-height: calc(85vh - 200px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+}
+
+.r5-modal-details h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    margin: 0 0 0.5rem 0;
+    color: #1a1a1a;
+}
+
+.r5-modal-price {
+    font-size: 1.5rem;
+    color: #d4af37;
+    font-weight: 700;
+    margin: 0 0 2rem 0;
+}
+
+.r5-modal-section {
+    margin-bottom: 1.5rem;
+}
+
+.r5-modal-section h3 {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #888;
+    margin: 0 0 0.5rem 0;
+}
+
+.r5-modal-section p {
+    margin: 0;
+    color: #444;
+    line-height: 1.6;
+}
+
+.r5-modal-meta {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: auto;
+    margin-bottom: 2rem;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.r5-btn-primary {
+    background: #1a1a1a;
+    color: #fff;
+    border: none;
+    padding: 1rem;
+    font-family: 'Lato', sans-serif;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: background 0.3s;
+}
+
+.r5-btn-primary:hover {
+    background: #d4af37;
+}
+
+.r5-item-actions {
+    margin-top: 12px;
+    display: flex;
+    gap: 10px;
+}
+
+.r5-cart-btn {
+    flex: 1;
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: none;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-family: 'Lato', sans-serif;
+}
+
+.r5-cart-btn:hover {
+    background-color: #d4af37;
+}
+
+.r5-recipe-btn {
+    flex: 1;
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: 1px solid #1a1a1a;
+    background-color: transparent;
+    color: #1a1a1a;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Lato', sans-serif;
+}
+
+.r5-recipe-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+
+/* ==========================================================================
+   2. ARTISAN BAKERY (B5) STYLING
+   ========================================================================== */
+.b5-page {
+    background-color: #fdf8f2;
+    color: #2c2118;
+    min-height: 100vh;
+    font-family: 'Jost', sans-serif;
+    padding: 4rem 1rem;
+    background-image:
+        radial-gradient(circle at 20% 20%, rgba(224, 123, 57, 0.06) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(193, 145, 85, 0.08) 0%, transparent 50%);
+}
+
+.b5-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fffcf7;
+    padding: 0 0 3rem 0;
+    box-shadow: 0 20px 60px rgba(44, 33, 24, 0.08);
+    border-radius: 6px;
+    border: 1px solid rgba(193, 145, 85, 0.2);
+    overflow: hidden;
+}
+
+.b5-top-pattern,
+.b5-bottom-pattern {
+    display: flex;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 1.2rem 0;
+    background: #f5ede0;
+    border-bottom: 1px solid rgba(193, 145, 85, 0.25);
+}
+
+.b5-bottom-pattern {
+    border-top: 1px solid rgba(193, 145, 85, 0.25);
+    border-bottom: none;
+    margin-top: 3rem;
+}
+
+.b5-dot-pattern {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #c19155;
+    opacity: 0.5;
+}
+
+.b5-dot-pattern:nth-child(even) {
+    background: #e07b39;
+    opacity: 0.35;
+}
+
+.b5-header {
+    text-align: center;
+    padding: 3rem 2rem 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.b5-icon-row {
+    margin-bottom: 0.75rem;
+}
+
+.b5-header-icon {
+    font-size: 2rem;
+    color: #c19155;
+    opacity: 0.8;
+}
+
+.b5-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.4rem;
+    letter-spacing: 5px;
+    margin: 0;
+    font-weight: 700;
+    color: #2c2118;
+    text-transform: uppercase;
+}
+
+.b5-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: #9a7b5a;
+    margin-top: 0.4rem;
+    font-size: 1.15rem;
+    letter-spacing: 1px;
+}
+
+.b5-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    width: 70%;
+    margin: 1.5rem auto 0;
+}
+
+.b5-divider::before,
+.b5-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #c19155);
+}
+
+.b5-divider::after {
+    background: linear-gradient(to left, transparent, #c19155);
+}
+
+.b5-divider-icon {
+    color: #c19155;
+    font-size: 1.1rem;
+}
+
+.b5-nav {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    margin: 2.5rem 2rem 2.5rem;
+    border: 1px solid rgba(193, 145, 85, 0.3);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.b5-nav-btn {
+    flex: 1;
+    background: none;
+    border: none;
+    border-right: 1px solid rgba(193, 145, 85, 0.3);
+    font-family: 'Jost', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.78rem;
+    color: #9a7b5a;
+    cursor: pointer;
+    padding: 0.75rem 0.5rem;
+    transition: background 0.25s ease, color 0.25s ease;
+    font-weight: 500;
+}
+
+.b5-nav-btn:last-child {
+    border-right: none;
+}
+
+.b5-nav-btn:hover {
+    color: #e07b39;
+    background: rgba(224, 123, 57, 0.06);
+}
+
+.b5-nav-btn.b5-active {
+    background: #2c2118;
+    color: #f5ede0;
+    font-weight: 600;
+}
+
+.b5-menu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 0 2.5rem;
+}
+
+.b5-menu-item {
+    cursor: pointer;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(193, 145, 85, 0.15);
+    transition: background 0.2s;
+    border-radius: 4px;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.b5-menu-item:last-child {
+    border-bottom: none;
+}
+
+.b5-menu-item:hover {
+    background: rgba(224, 123, 57, 0.04);
+}
+
+.b5-item-img-box {
+    width: 82px;
+    height: 82px;
+    flex-shrink: 0;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(44, 33, 24, 0.12);
+}
+
+.b5-item-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.b5-menu-item:hover .b5-item-thumbnail {
+    transform: scale(1.06);
+}
+
+.b5-item-info {
+    flex-grow: 1;
+}
+
+.b5-item-header {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 0.4rem;
+}
+
+.b5-item-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.45rem;
+    margin: 0;
+    color: #2c2118;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.b5-dots {
+    flex-grow: 1;
+    border-bottom: 1px dotted #d4b896;
+    margin: 0 1rem;
+    position: relative;
+    top: -5px;
+}
+
+.b5-item-price {
+    font-family: 'Jost', sans-serif;
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: #c19155;
+    white-space: nowrap;
+}
+
+.b5-item-desc {
+    color: #7a6048;
+    margin: 0 0 0.4rem 0;
+    font-style: italic;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    font-family: 'Cormorant Garamond', serif;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.b5-item-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.b5-item-tags {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.b5-tag {
+    font-size: 0.68rem;
+    padding: 2px 7px;
+    border-radius: 3px;
+    border: 1px solid;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.b5-egg {
+    color: #c0720a;
+    border-color: #c0720a;
+    background: rgba(192, 114, 10, 0.07);
+}
+
+.b5-eggless {
+    color: #5a8c3c;
+    border-color: #5a8c3c;
+    background: rgba(90, 140, 60, 0.07);
+}
+
+.b5-sweetness {
+    display: inline-flex;
+    align-items: center;
+    gap: 1px;
+    font-size: 0.7rem;
+}
+
+.b5-sweetness-lg {
+    font-size: 1rem;
+}
+
+.b5-star-filled {
+    color: #c19155;
+}
+
+.b5-star-empty {
+    color: #d4c3ad;
+}
+
+.b5-item-calories {
+    font-size: 0.8rem;
+    color: #9a7b5a;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.b5-item-calories svg {
+    color: #e07b39;
+}
+
+.b5-like-btn {
+    background: none;
+    border: none;
+    color: #d4c3ad;
+    font-size: 1.15rem;
+    cursor: pointer;
+    transition: transform 0.2s, color 0.2s;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.b5-like-btn:hover {
+    transform: scale(1.15);
+    color: #e07b39;
+}
+
+.b5-liked {
+    color: #e07b39;
+}
+
+.b5-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(253, 248, 242, 0.88);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.b5-modal {
+    background: #fffcf7;
+    width: 90%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgba(44, 33, 24, 0.15);
+    position: relative;
+    border: 1px solid rgba(193, 145, 85, 0.2);
+    max-height: 85vh;
+}
+
+.b5-modal-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    background: rgba(253, 248, 242, 0.9);
+    border: 1px solid rgba(193, 145, 85, 0.3);
+    font-size: 1.1rem;
+    color: #2c2118;
+    cursor: pointer;
+    z-index: 10;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.b5-modal-close:hover {
+    background: #f5ede0;
+}
+
+.b5-modal-content {
+    width: 100%;
+    max-height: 85vh;
+    overflow: hidden;
+}
+
+.b5-modal-img-container {
+    width: 100%;
+    height: 200px;
+    min-height: 200px;
+    position: relative;
+}
+
+.b5-modal-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.b5-modal-img-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    background: linear-gradient(to top, rgba(44, 33, 24, 0.3), transparent);
+}
+
+.b5-modal-details {
+    padding: 28px;
+    background: #fffcf7;
+    max-height: calc(85vh - 200px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+}
+
+.b5-modal-details h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.4rem;
+    margin: 0 0 0.3rem 0;
+    color: #2c2118;
+    line-height: 1.1;
+}
+
+.b5-modal-price {
+    font-size: 1.4rem;
+    color: #c19155;
+    font-weight: 600;
+    margin: 0 0 2rem 0;
+}
+
+.b5-modal-section {
+    margin-bottom: 1.4rem;
+}
+
+.b5-modal-section h3 {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    color: #9a7b5a;
+    margin: 0 0 0.4rem 0;
+    font-weight: 600;
+}
+
+.b5-modal-section p {
+    margin: 0;
+    color: #4a3826;
+    line-height: 1.65;
+    font-size: 0.95rem;
+}
+
+.b5-modal-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    margin-top: auto;
+    margin-bottom: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(193, 145, 85, 0.2);
+}
+
+.b5-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+    color: #4a3826;
+}
+
+.b5-meta-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #9a7b5a;
+    font-weight: 600;
+    min-width: 72px;
+}
+
+.b5-btn-primary {
+    background: #2c2118;
+    color: #f5ede0;
+    border: none;
+    padding: 1rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    transition: background 0.3s, color 0.3s;
+    border-radius: 3px;
+    font-weight: 500;
+}
+
+.b5-btn-primary:hover {
+    background: #c19155;
+    color: #fff;
+}
+
+
+/* ==========================================================================
+   3. CHAYAKKADA / CLOUD KITCHEN (CK5) STYLING
+   ========================================================================== */
+.ck5-page {
+    background-color: #faf9f6;
+    color: #2c2c2c;
+    min-height: 100vh;
+    font-family: 'Lato', sans-serif;
+    padding: 4rem 1rem;
+}
+
+.ck5-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 0 0 3rem 0;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.ck5-top-bar {
+    background: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    padding: 0.65rem 1rem;
+    font-size: 0.78rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.ck5-live-dot {
+    width: 7px;
+    height: 7px;
+    background: #22c55e;
+    border-radius: 50%;
+    animation: ck5-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes ck5-pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5); }
+    70%  { box-shadow: 0 0 0 7px rgba(34, 197, 94, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+.ck5-live-text {
+    color: #22c55e;
+    font-weight: 700;
+}
+
+.ck5-bar-sep {
+    color: #444;
+}
+
+.ck5-bar-icon {
+    color: #888;
+    font-size: 0.75rem;
+}
+
+.ck5-bar-text {
+    color: #888;
+}
+
+.ck5-header {
+    text-align: center;
+    padding: 3rem 2rem 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.ck5-logo-row {
+    margin-bottom: 0.75rem;
+}
+
+.ck5-logo-badge {
+    width: 52px;
+    height: 52px;
+    background: #1a1a1a;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ck5-logo-icon {
+    font-size: 1.4rem;
+    color: #fff;
+}
+
+.ck5-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    letter-spacing: 4px;
+    margin: 0;
+    font-weight: 700;
+    color: #1a1a1a;
+    text-transform: uppercase;
+}
+
+.ck5-title-accent {
+    color: #e07b39;
+}
+
+.ck5-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: #888;
+    margin-top: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.ck5-divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, #e07b39, transparent);
+    width: 60%;
+    margin: 2rem auto;
+}
+
+.ck5-nav {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    margin: 0 2rem 2.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.ck5-nav-btn {
+    flex: 1;
+    background: none;
+    border: none;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    font-family: 'Lato', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.78rem;
+    color: #888;
+    cursor: pointer;
+    padding: 0.75rem 0.5rem;
+    transition: background 0.25s ease, color 0.25s ease;
+    font-weight: 400;
+}
+
+.ck5-nav-btn:last-child {
+    border-right: none;
+}
+
+.ck5-nav-btn:hover {
+    color: #e07b39;
+    background: rgba(224, 123, 57, 0.05);
+}
+
+.ck5-nav-btn.ck5-active {
+    background: #1a1a1a;
+    color: #fff;
+    font-weight: 700;
+}
+
+.ck5-menu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 0 2.5rem;
+}
+
+.ck5-menu-item {
+    cursor: pointer;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    padding: 1.5rem 0.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+    transition: background 0.2s;
+    border-radius: 4px;
+}
+
+.ck5-menu-item:last-child {
+    border-bottom: none;
+}
+
+.ck5-menu-item:hover {
+    background: rgba(224, 123, 57, 0.03);
+}
+
+.ck5-menu-item.ck5-unavailable {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.ck5-item-img-box {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.ck5-item-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.ck5-menu-item:hover .ck5-item-thumbnail {
+    transform: scale(1.06);
+}
+
+.ck5-sold-out {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #e07b39;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.ck5-item-info {
+    flex-grow: 1;
+}
+
+.ck5-item-header {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 0.5rem;
+}
+
+.ck5-item-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    margin: 0;
+    color: #1a1a1a;
+}
+
+.ck5-dots {
+    flex-grow: 1;
+    border-bottom: 1px dotted #ccc;
+    margin: 0 1rem;
+    position: relative;
+    top: -6px;
+}
+
+.ck5-item-price {
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #e07b39;
+}
+
+.ck5-item-desc {
+    color: #666;
+    margin: 0 0 0.25rem 0;
+    font-style: italic;
+    font-size: 0.95rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.ck5-item-recipe {
+    color: #888;
+    margin: 0 0 0.5rem 0;
+    font-size: 0.85rem;
+}
+
+.ck5-item-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ck5-item-tags {
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.ck5-tag {
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 2px;
+    border: 1px solid;
+    font-weight: bold;
+}
+
+.ck5-veg {
+    color: #4CAF50;
+    border-color: #4CAF50;
+}
+
+.ck5-nonveg {
+    color: #F44336;
+    border-color: #F44336;
+}
+
+.ck5-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+    color: #888;
+    background: #f5f5f5;
+    border: 1px solid #eee;
+    padding: 2px 7px;
+    border-radius: 10px;
+}
+
+.ck5-spice-dots {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.ck5-spice-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #e5e7eb;
+}
+
+.ck5-dot-active.ck5-lvl-1 { background: #facc15; }
+.ck5-dot-active.ck5-lvl-2 { background: #fb923c; }
+.ck5-dot-active.ck5-lvl-3 { background: #f97316; }
+.ck5-dot-active.ck5-lvl-4 { background: #ef4444; }
+.ck5-dot-active.ck5-lvl-5 { background: #dc2626; }
+
+.ck5-spice-lg .ck5-spice-dot {
+    width: 11px;
+    height: 11px;
+}
+
+.ck5-spice-none {
+    font-size: 0.75rem;
+    color: #aaa;
+}
+
+.ck5-item-calories {
+    font-size: 0.85rem;
+    color: #888;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.ck5-like-btn {
+    background: none;
+    border: none;
+    color: #ccc;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.2s, color 0.2s;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.ck5-like-btn:hover {
+    transform: scale(1.1);
+    color: #ff4d4f;
+}
+
+.ck5-liked {
+    color: #ff4d4f;
+}
+
+.ck5-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.ck5-modal {
+    background: #fff;
+    width: 90%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+    position: relative;
+    max-height: 85vh;
+}
+
+.ck5-modal-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #333;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.ck5-modal-content {
+    width: 100%;
+    max-height: 85vh;
+    overflow: hidden;
+}
+
+.ck5-modal-img-container {
+    width: 100%;
+    height: 200px;
+    min-height: 200px;
+}
+
+.ck5-modal-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ck5-modal-details {
+    padding: 28px;
+    max-height: calc(85vh - 200px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+}
+
+.ck5-modal-details h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    margin: 0 0 0.5rem 0;
+    color: #1a1a1a;
+}
+
+.ck5-modal-price {
+    font-size: 1.5rem;
+    color: #e07b39;
+    font-weight: 700;
+    margin: 0 0 2rem 0;
+}
+
+.ck5-modal-section {
+    margin-bottom: 1.5rem;
+}
+
+.ck5-modal-section h3 {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #888;
+    margin: 0 0 0.5rem 0;
+}
+
+.ck5-modal-section p {
+    margin: 0;
+    color: #444;
+    line-height: 1.6;
+}
+
+.ck5-modal-meta {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-top: auto;
+    margin-bottom: 1rem;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.ck5-modal-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.ck5-modal-spice {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.ck5-spice-label {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #888;
+    font-family: 'Lato', sans-serif;
+}
+
+.ck5-btn-primary {
+    background: #1a1a1a;
+    color: #fff;
+    border: none;
+    padding: 1rem;
+    font-family: 'Lato', sans-serif;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: background 0.3s;
+}
+
+.ck5-btn-primary:hover {
+    background: #e07b39;
+}
+
+
+/* ==========================================================================
+   4. RESPONSIVE MEDIA QUERIES (COMBINED)
+   ========================================================================== */
+@media (max-width: 768px) {
+    /* Restaurant (R5) Mobile */
+    .r5-page {
+        padding: 1rem 0.5rem;
+    }
+    .r5-container {
+        padding: 1.5rem 1rem;
+    }
+    .r5-title {
+        font-size: 2.2rem;
+    }
+    .r5-nav {
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+    .r5-nav-btn {
+        font-size: 0.8rem;
+    }
+    .r5-menu-item {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    .r5-item-info {
+        flex-grow: 1;
+        min-width: 0;
+    }
+    .r5-item-img-box {
+        width: 70px;
+        height: 70px;
+        flex-shrink: 0;
+    }
+    .r5-item-name {
+        font-size: 1.05rem;
+    }
+    .r5-dots {
+        margin: 0 0.4rem;
+    }
+    .r5-item-price {
+        font-size: 1rem;
+    }
+    .r5-item-desc {
+        font-size: 0.8rem;
+        margin-bottom: 0.5rem;
+    }
+    .r5-item-tags {
+        gap: 0.4rem;
+        flex-wrap: wrap;
+    }
+    .r5-tag {
+        font-size: 0.6rem;
+        padding: 1px 4px;
+    }
+    .r5-item-calories {
+        font-size: 0.75rem;
+    }
+    .r5-item-actions {
+        margin-top: 8px;
+        gap: 6px;
+    }
+    .r5-cart-btn,
+    .r5-recipe-btn {
+        padding: 5px 8px;
+        font-size: 0.72rem;
+    }
+    .r5-modal {
+        flex-direction: column;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+    .r5-modal-img-container {
+        min-height: 250px;
+    }
+    .r5-modal-details {
+        padding: 1.5rem;
+    }
+
+    /* Bakery (B5) Mobile */
+    .b5-container {
+        margin: 0 0.25rem;
+    }
+    .b5-title {
+        font-size: 2.4rem;
+        letter-spacing: 3px;
+    }
+    .b5-nav {
+        margin: 2rem 1rem 2rem;
+    }
+    .b5-nav-btn {
+        font-size: 0.68rem;
+        padding: 0.65rem 0.25rem;
+        letter-spacing: 1px;
+    }
+    .b5-menu-list {
+        padding: 0 1.25rem;
+    }
+    .b5-modal-content {
+        flex-direction: column;
+    }
+    .b5-modal {
+        max-height: 92vh;
+        overflow-y: auto;
+    }
+    .b5-modal-img-container {
+        min-height: 240px;
+    }
+    .b5-modal-details {
+        padding: 2rem 1.5rem;
+    }
+
+    /* Cloud Kitchen (CK5) Mobile */
+    .ck5-container {
+        margin: 0 0.25rem;
+    }
+    .ck5-nav {
+        margin: 0 1rem 2rem;
+    }
+    .ck5-nav-btn {
+        font-size: 0.68rem;
+        padding: 0.65rem 0.25rem;
+        letter-spacing: 1px;
+    }
+    .ck5-menu-list {
+        padding: 0 1.25rem;
+    }
+    .ck5-modal-content {
+        flex-direction: column;
+    }
+    .ck5-modal {
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+    .ck5-modal-img-container {
+        min-height: 240px;
+    }
+    .ck5-modal-details {
+        padding: 2rem 1.5rem;
+    }
+}
