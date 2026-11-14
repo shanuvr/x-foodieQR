@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AdminLayout from '../../layouts/AdminLayout';
+import defaultVideo from '../../assets/videos/mixkit-empty-restaurant-with-nice-lighting-29050-hd-ready.mp4';
 
 const businessTypes = ['LLC', 'Private Limited', 'Proprietor', 'Partnership', 'Individual'];
 const starOptions = ['1 Star', '2 Stars', '3 Stars', '4 Stars', '5 Stars'];
@@ -159,9 +160,9 @@ export default function Profile() {
     coverPhoto: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=800',
     gallery: [
       'https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&q=80&w=800',
-      'https://images.unsplash.com/photo-1601050690597-df056fb4ce78?auto=format&fit=crop&q=80&w=800'
+      'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&q=80&w=800'
     ],
-    video: 'https://assets.mixkit.co/videos/preview/mixkit-chef-preparing-a-fresh-vegetable-salad-40011-large.mp4'
+    video: defaultVideo
   });
 
   // Load from local storage if available
@@ -169,7 +170,18 @@ export default function Profile() {
     const saved = localStorage.getItem('admin_profile_data');
     if (saved) {
       try {
-        setForm(JSON.parse(saved));
+        const parsed = JSON.parse(saved);
+        if (parsed.video && parsed.video.startsWith('..')) {
+          parsed.video = defaultVideo;
+        }
+        if (parsed.gallery && Array.isArray(parsed.gallery)) {
+          parsed.gallery = parsed.gallery.map(img =>
+            img && img.includes('1601050690597-df056fb4ce78')
+              ? 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&q=80&w=800'
+              : img
+          );
+        }
+        setForm(parsed);
       } catch (e) {
         console.error('Failed to load profile data', e);
       }
@@ -249,11 +261,12 @@ export default function Profile() {
       reader.onloadend = () => {
         setForm(prev => ({
           ...prev,
-          gallery: [...prev.gallery, reader.result]
+          gallery: [...(prev.gallery || []), reader.result]
         }));
       };
       reader.readAsDataURL(file);
     });
+    e.target.value = '';
   };
 
   const removeGalleryImage = (index) => {
@@ -375,8 +388,8 @@ export default function Profile() {
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center gap-2.5 px-6 py-4.5 text-xs font-bold uppercase tracking-wider border-b-2 transition-all cursor-pointer whitespace-nowrap ${activeTab === tab.id
-                    ? 'border-orange-500 text-orange-500 bg-orange-50/10'
-                    : 'border-transparent text-slate-500 hover:text-slate-800 hover:bg-slate-50/50'
+                  ? 'border-orange-500 text-orange-500 bg-orange-50/10'
+                  : 'border-transparent text-slate-500 hover:text-slate-800 hover:bg-slate-50/50'
                   }`}
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -526,8 +539,8 @@ export default function Profile() {
                           onClick={() => setForm(prev => ({ ...prev, foodPreference: pref }))}
                           disabled={!isEditing}
                           className={`px-4 py-2.5 text-xs font-bold rounded-xl border flex items-center justify-center gap-2 cursor-pointer transition-all disabled:opacity-70 disabled:cursor-not-allowed ${isSelected
-                              ? 'bg-orange-50 border-orange-200 text-orange-600 shadow-sm shadow-orange-500/5'
-                              : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-800'
+                            ? 'bg-orange-50 border-orange-200 text-orange-600 shadow-sm shadow-orange-500/5'
+                            : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-800'
                             }`}
                         >
                           {pref === 'Pure Veg' && (
@@ -568,8 +581,8 @@ export default function Profile() {
                           onClick={() => handleAmenityToggle(amenity)}
                           disabled={!isEditing}
                           className={`px-4 py-2 text-xs font-bold rounded-xl border flex items-center gap-2 cursor-pointer transition-all disabled:opacity-70 disabled:cursor-not-allowed ${isSelected
-                              ? 'bg-orange-50 border-orange-200 text-orange-600 shadow-sm shadow-orange-500/5'
-                              : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-800'
+                            ? 'bg-orange-50 border-orange-200 text-orange-600 shadow-sm shadow-orange-500/5'
+                            : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-800'
                             }`}
                         >
                           {renderAmenityIcon(amenity)}
@@ -820,9 +833,16 @@ export default function Profile() {
 
                   <div className="grid grid-cols-3 sm:grid-cols-4 gap-4">
                     {/* Previews */}
-                    {form.gallery.map((img, idx) => (
+                    {(form.gallery || []).map((img, idx) => (
                       <div key={idx} className="relative aspect-video rounded-xl overflow-hidden border border-slate-100 group shadow-sm bg-slate-50">
-                        <img src={img} alt={`Gallery ${idx + 1}`} className="w-full h-full object-cover" />
+                        <img 
+                          src={img} 
+                          alt={`Gallery ${idx + 1}`} 
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            e.target.src = 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&q=80&w=800';
+                          }}
+                        />
                         {isEditing && (
                           <button
                             type="button"

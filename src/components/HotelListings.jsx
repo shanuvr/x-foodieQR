@@ -56,7 +56,7 @@ export default function HotelListings({ onlyShowFavorites = false }) {
       images: [
         "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=800",
         "https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&q=80&w=800",
-        "https://images.unsplash.com/photo-1601050690597-df056fb4ce78?auto=format&fit=crop&q=80&w=800"
+        "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&q=80&w=800"
       ],
       amenities: ["WiFi", "Parking", "AC", "Pure Veg"],
       awardBadge: "Foodie Award"

@@ -28,6 +28,18 @@ export default function AddCategory() {
       };
       reader.readAsDataURL(file);
     }
+    e.target.value = '';
+  };
+
+  const handleEditImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setSelectedCategory(prev => ({ ...prev, img: reader.result }));
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleDragOver = (e) => {
@@ -110,7 +122,7 @@ export default function AddCategory() {
                 </label>
                 
                 <div 
-                  className={`relative flex-1 flex flex-col items-center justify-center p-3 sm:p-4 border-2 border-dashed rounded-2xl transition-all duration-200 min-h-[80px] sm:min-h-[160px] ${
+                  className={`relative flex-1 flex flex-col items-center justify-center p-3 sm:p-4 border-2 border-dashed rounded-2xl transition-all duration-200 min-h-[140px] sm:min-h-[160px] group ${
                     isDragging 
                       ? 'border-orange-500 bg-orange-50' 
                       : 'border-slate-200 bg-slate-50 hover:bg-slate-100/50'
@@ -133,11 +145,25 @@ export default function AddCategory() {
                         alt="Category Preview" 
                         className="w-full h-full object-cover rounded-xl shadow-sm"
                       />
-                      <div className="absolute inset-0 bg-black/40 rounded-xl m-2 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
+                      <div className="absolute inset-0 bg-black/40 rounded-xl m-2 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm pointer-events-none">
                         <span className="text-white font-bold text-sm tracking-wide bg-black/50 px-4 py-2 rounded-lg">
                           Click to change
                         </span>
                       </div>
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          setImagePreview(null);
+                        }}
+                        className="absolute top-4 right-4 p-1.5 bg-black/60 hover:bg-red-500 text-white rounded-lg transition-colors cursor-pointer z-20 shadow-sm"
+                        title="Remove Image"
+                      >
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
                     </div>
                   ) : (
                     <div className="text-center flex flex-col items-center gap-2 sm:gap-3 z-0 pointer-events-none">
@@ -204,7 +230,7 @@ export default function AddCategory() {
                     id: 1,
                     title: 'Main Course',
                     desc: 'Hearty, satisfying meals including steaks, pastas, and house specialties.',
-                    img: 'https://images.unsplash.com/photo-1544025162-831109a15a31?q=80&w=150&auto=format&fit=crop'
+                    img: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=150&auto=format&fit=crop'
                   },
                   {
                     id: 2,
@@ -222,7 +248,14 @@ export default function AddCategory() {
                   <tr key={item.id} className="hover:bg-slate-50/50 transition-colors group">
                     <td className="px-4 sm:px-6 py-4">
                       <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl overflow-hidden shadow-sm border border-slate-200 bg-slate-100 flex-shrink-0">
-                        <img src={item.img} alt={item.title} className="w-full h-full object-cover" />
+                        <img 
+                          src={item.img} 
+                          alt={item.title} 
+                          className="w-full h-full object-cover" 
+                          onError={(e) => {
+                            e.target.src = 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=150&auto=format&fit=crop';
+                          }}
+                        />
                       </div>
                     </td>
                     <td className="px-4 sm:px-6 py-4">
@@ -305,9 +338,17 @@ export default function AddCategory() {
                   <input 
                     type="file" 
                     accept="image/*" 
+                    onChange={handleEditImageChange}
                     className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" 
                   />
-                  <img src={selectedCategory.img} alt={selectedCategory.title} className="w-full h-full object-cover rounded-lg shadow-sm" />
+                  <img 
+                    src={selectedCategory.img} 
+                    alt={selectedCategory.title} 
+                    className="w-full h-full object-cover rounded-lg shadow-sm"
+                    onError={(e) => {
+                      e.target.src = 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=150&auto=format&fit=crop';
+                    }}
+                  />
                   <div className="absolute inset-2 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity rounded-lg backdrop-blur-[2px] pointer-events-none">
                     <span className="text-white font-bold text-xs bg-black/50 px-3 py-1.5 rounded-lg">Change Image</span>
                   </div>
