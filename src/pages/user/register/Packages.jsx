@@ -54,6 +54,8 @@ export default function Packages() {
     { number: 5, label: 'Payment', desc: 'Secure registration' }
   ];
 
+  const stepPaths = { 1: '/register', 2: '/packages', 3: '/outlet', 4: '/outlet-details', 5: '/payment' };
+
   // Stepper Header for Mobile view
   const renderMobileSteps = () => (
     <div className="md:hidden w-full bg-[#0d1527] px-4 py-6 border-b border-[#d9c3ac]/10 flex flex-col items-center">
@@ -69,10 +71,8 @@ export default function Packages() {
         {stepsList.map((step, idx) => (
           <React.Fragment key={step.number}>
             <button
-              onClick={() => {
-                if (step.number === 1) navigate('/register');
-                if (step.number === 2) navigate('/packages');
-              }}
+              type="button"
+              onClick={() => navigate(stepPaths[step.number])}
               className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs border transition-all cursor-pointer ${
                 step.active
                   ? 'bg-orange-500 border-orange-500 text-white shadow-lg shadow-orange-500/35 ring-4 ring-orange-500/20'
@@ -129,14 +129,8 @@ export default function Packages() {
           return (
             <div 
               key={step.number}
-              onClick={() => {
-                if (isCompleted) {
-                  if (step.number === 1) navigate('/register');
-                }
-              }}
-              className={`flex items-start gap-4 relative z-10 group transition-all duration-300 ${
-                isCompleted ? 'cursor-pointer' : ''
-              }`}
+              onClick={() => navigate(stepPaths[step.number])}
+              className="flex items-start gap-4 relative z-10 group transition-all duration-300 cursor-pointer"
             >
               {/* Number Bubble */}
               <div
@@ -326,7 +320,7 @@ export default function Packages() {
               </div>
             </div>
 
-            {/* Back Button Action */}
+            {/* Back & Continue Action */}
             <div className="flex-shrink-0 pt-6 mt-4 border-t border-gray-100 flex items-center justify-between">
               <button
                 type="button"
@@ -334,6 +328,13 @@ export default function Packages() {
                 className="px-5 py-2.5 bg-white border border-[#d9c3ac] text-[#855400] rounded-lg text-xs font-extrabold hover:bg-gray-50 transition-all cursor-pointer shadow-sm"
               >
                 ← Back
+              </button>
+              <button
+                type="button"
+                onClick={() => handlePlanSelect(selectedPlan || 'standard')}
+                className="px-6 py-2.5 bg-[#FFA500] hover:bg-orange-600 text-white rounded-lg text-xs font-bold transition-all cursor-pointer shadow-sm active:scale-[0.98]"
+              >
+                Continue →
               </button>
             </div>
 

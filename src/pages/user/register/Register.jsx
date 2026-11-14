@@ -19,25 +19,25 @@ export default function Register() {
   const [countdown, setCountdown] = useState(0);
 
   useEffect(() => {
-    // Load existing form data from localStorage if available
-    const existing = localStorage.getItem('register_formData');
-    if (existing) {
-      try {
+    // Clear registration owner fields on register page for fresh demo
+    try {
+      const existing = localStorage.getItem('register_formData');
+      if (existing) {
         const parsed = JSON.parse(existing);
-        setFormData((prev) => ({
-          ...prev,
-          ownerName: parsed.ownerName || '',
-          ownerMobile: parsed.ownerMobile || '',
-          ownerEmail: parsed.ownerEmail || '',
-          otp: parsed.otp || '',
-          password: parsed.password || '',
-          confirmPassword: parsed.confirmPassword || ''
-        }));
-      } catch (e) {
-        console.error(e);
+        delete parsed.ownerName;
+        delete parsed.ownerMobile;
+        delete parsed.ownerEmail;
+        delete parsed.otp;
+        delete parsed.password;
+        delete parsed.confirmPassword;
+        localStorage.setItem('register_formData', JSON.stringify(parsed));
       }
+    } catch (e) {
+      console.error(e);
     }
   }, []);
+
+  const stepPaths = { 1: '/register', 2: '/packages', 3: '/outlet', 4: '/outlet-details', 5: '/payment' };
 
   const stepsList = [
     { number: 1, label: 'Business Details', desc: 'Owner information', active: true },
@@ -53,19 +53,11 @@ export default function Register() {
   };
 
   const isFormValid = () => {
-    return (
-      formData.ownerName.trim() !== '' &&
-      formData.ownerMobile.trim() !== '' &&
-      formData.ownerEmail.trim() !== '' &&
-      formData.otp.trim() !== '' &&
-      formData.password.trim() !== '' &&
-      formData.password === formData.confirmPassword
-    );
+    return true; // Demo mode: always valid
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!isFormValid()) return;
 
     // Save to localStorage
     const existing = localStorage.getItem('register_formData') || '{}';
@@ -118,12 +110,12 @@ export default function Register() {
         {stepsList.map((step, idx) => (
           <React.Fragment key={step.number}>
             <button
-              disabled={step.number > 1}
-              onClick={() => navigate('/register')}
+              type="button"
+              onClick={() => navigate(stepPaths[step.number])}
               className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs border transition-all cursor-pointer ${
                 step.active
                   ? 'bg-orange-500 border-orange-500 text-white shadow-lg shadow-orange-500/35 ring-4 ring-orange-500/20'
-                  : 'bg-slate-800 border-slate-700 text-gray-400'
+                  : 'bg-slate-800 border-slate-700 text-gray-400 hover:text-white'
               }`}
             >
               {step.number}
@@ -169,7 +161,8 @@ export default function Register() {
           return (
             <div 
               key={step.number}
-              className="flex items-start gap-4 relative z-10 group transition-all duration-300"
+              onClick={() => navigate(stepPaths[step.number])}
+              className="flex items-start gap-4 relative z-10 group transition-all duration-300 cursor-pointer"
             >
               {/* Number Bubble */}
               <div
@@ -220,6 +213,7 @@ export default function Register() {
           {/* Form Section */}
           <form 
             onSubmit={handleSubmit}
+            noValidate
             className="md:col-span-9 p-6 sm:p-8 md:p-10 flex flex-col justify-center overflow-y-auto"
           >
             {/* Active Step Panel */}
@@ -239,7 +233,6 @@ export default function Register() {
                       name="ownerName"
                       value={formData.ownerName}
                       onChange={handleInputChange}
-                      required
                       className="border border-gray-200 rounded-lg p-2.5 text-xs sm:text-sm font-semibold text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-[#FFA500] bg-white transition-all shadow-sm"
                     />
                   </div>
@@ -250,7 +243,6 @@ export default function Register() {
                       name="ownerMobile"
                       value={formData.ownerMobile}
                       onChange={handleInputChange}
-                      required
                       className="border border-gray-200 rounded-lg p-2.5 text-xs sm:text-sm font-semibold text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-[#FFA500] bg-white transition-all shadow-sm"
                     />
                   </div>
@@ -264,7 +256,6 @@ export default function Register() {
                       name="ownerEmail"
                       value={formData.ownerEmail}
                       onChange={handleInputChange}
-                      required
                       className="flex-grow border border-gray-200 rounded-lg p-2.5 text-xs sm:text-sm font-semibold text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-[#FFA500] bg-white transition-all shadow-sm"
                     />
                     <button 
@@ -284,7 +275,6 @@ export default function Register() {
                     name="otp"
                     value={formData.otp}
                     onChange={handleInputChange}
-                    required
                     className="border border-gray-200 rounded-lg p-2.5 text-xs sm:text-sm font-semibold text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-[#FFA500] bg-white transition-all shadow-sm"
                   />
                   {otpSent && (
@@ -314,7 +304,6 @@ export default function Register() {
                       name="password"
                       value={formData.password}
                       onChange={handleInputChange}
-                      required
                       className="border border-gray-200 rounded-lg p-2.5 text-xs sm:text-sm font-semibold text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-[#FFA500] bg-white transition-all shadow-sm"
                     />
                   </div>
@@ -325,7 +314,6 @@ export default function Register() {
                       name="confirmPassword"
                       value={formData.confirmPassword}
                       onChange={handleInputChange}
-                      required
                       className="border border-gray-200 rounded-lg p-2.5 text-xs sm:text-sm font-semibold text-gray-800 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-[#FFA500] bg-white transition-all shadow-sm"
                     />
                   </div>
@@ -337,8 +325,7 @@ export default function Register() {
             <div className="flex-shrink-0 pt-6 mt-8 border-t border-gray-100 flex items-center justify-end">
               <button
                 type="submit"
-                disabled={!isFormValid()}
-                className="px-6 py-2.5 bg-[#FFA500] disabled:bg-gray-200 hover:bg-orange-600 disabled:text-gray-400 text-white rounded-lg text-xs font-bold transition-all cursor-pointer shadow-sm active:scale-[0.98] disabled:cursor-not-allowed"
+                className="px-6 py-2.5 bg-[#FFA500] hover:bg-orange-600 text-white rounded-lg text-xs font-bold transition-all cursor-pointer shadow-sm active:scale-[0.98]"
               >
                 Continue
               </button>

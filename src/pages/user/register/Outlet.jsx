@@ -80,6 +80,8 @@ export default function Outlet() {
     { number: 5, label: 'Payment', desc: 'Secure registration' },
   ];
 
+  const stepPaths = { 1: '/register', 2: '/packages', 3: '/outlet', 4: '/outlet-details', 5: '/payment' };
+
   const handleSelect = (id) => {
     setSelected(id);
     const existing = localStorage.getItem('register_formData') || '{}';
@@ -93,7 +95,10 @@ export default function Outlet() {
   };
 
   const handleContinue = () => {
-    if (selected) navigate('/outlet-details');
+    if (!selected) {
+      handleSelect('restaurant');
+    }
+    navigate('/outlet-details');
   };
 
   const renderMobileSteps = () => (
@@ -107,13 +112,17 @@ export default function Outlet() {
       <div className="flex items-center gap-1.5 w-full justify-center py-1">
         {stepsList.map((step, idx) => (
           <React.Fragment key={step.number}>
-            <div className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs border-2 transition-all ${
-              step.active ? 'bg-orange-500 border-orange-500 text-white shadow-lg shadow-orange-500/35 ring-2 ring-orange-500/20'
-              : step.completed ? 'bg-green-600 border-green-600 text-white'
-              : 'bg-slate-800 border-slate-700 text-gray-400'
-            }`}>
+            <button
+              type="button"
+              onClick={() => navigate(stepPaths[step.number])}
+              className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs border-2 transition-all cursor-pointer ${
+                step.active ? 'bg-orange-500 border-orange-500 text-white shadow-lg shadow-orange-500/35 ring-2 ring-orange-500/20'
+                : step.completed ? 'bg-green-600 border-green-600 text-white'
+                : 'bg-slate-800 border-slate-700 text-gray-400'
+              }`}
+            >
               {step.completed ? '✓' : step.number}
-            </div>
+            </button>
             {idx < stepsList.length - 1 && (
               <div className={`h-0.5 flex-1 max-w-[24px] ${step.completed ? 'bg-green-600' : 'bg-slate-700'}`} />
             )}
@@ -147,13 +156,8 @@ export default function Outlet() {
           return (
             <div
               key={step.number}
-              onClick={() => {
-                if (isCompleted) {
-                  if (step.number === 1) navigate('/register');
-                  if (step.number === 2) navigate('/packages');
-                }
-              }}
-              className={`flex items-start gap-4 relative z-10 group transition-all duration-300 ${isCompleted ? 'cursor-pointer' : ''}`}
+              onClick={() => navigate(stepPaths[step.number])}
+              className="flex items-start gap-4 relative z-10 group transition-all duration-300 cursor-pointer"
             >
               <div className={`w-9 h-9 rounded-full flex items-center justify-center font-extrabold text-sm border transition-all duration-300 ${
                 isActive ? 'bg-orange-500 border-orange-500 text-white shadow-lg shadow-orange-500/40 ring-4 ring-orange-500/10 scale-105'
@@ -282,12 +286,7 @@ export default function Outlet() {
                 <button
                   type="button"
                   onClick={handleContinue}
-                  disabled={!selected}
-                  className={`px-5 py-2 sm:px-7 sm:py-2.5 rounded-lg text-xs sm:text-sm font-extrabold transition-all shadow-sm ${
-                    selected
-                      ? 'bg-orange-500 hover:bg-orange-600 text-white shadow-orange-500/30 shadow-md cursor-pointer'
-                      : 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                  }`}
+                  className="px-5 py-2 sm:px-7 sm:py-2.5 rounded-lg text-xs sm:text-sm font-extrabold transition-all shadow-sm bg-orange-500 hover:bg-orange-600 text-white shadow-orange-500/30 shadow-md cursor-pointer active:scale-[0.98]"
                 >
                   Continue →
                 </button>

@@ -24,7 +24,7 @@ const stepsList = [
   { number: 5, label: 'Payment',        desc: 'Secure registration',    active:    true  },
 ];
 
-const navPaths = { 1: '/register', 2: '/packages', 3: '/outlet', 4: '/outlet-details' };
+const navPaths = { 1: '/register', 2: '/packages', 3: '/outlet', 4: '/outlet-details', 5: '/payment' };
 
 export default function Payment() {
   const navigate = useNavigate();
@@ -83,11 +83,17 @@ export default function Payment() {
           <div className="flex items-center gap-1 w-full justify-center">
             {stepsList.map((s, idx) => (
               <React.Fragment key={s.number}>
-                <div className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs border-2 ${
-                  s.active ? 'bg-orange-500 border-orange-500 text-white ring-2 ring-orange-500/20'
-                  : s.completed ? 'bg-green-600 border-green-600 text-white'
-                  : 'bg-slate-800 border-slate-700 text-gray-400'
-                }`}>{s.completed ? '✓' : s.number}</div>
+                <button
+                  type="button"
+                  onClick={() => navPaths[s.number] && navigate(navPaths[s.number])}
+                  className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs border-2 cursor-pointer ${
+                    s.active ? 'bg-orange-500 border-orange-500 text-white ring-2 ring-orange-500/20'
+                    : s.completed ? 'bg-green-600 border-green-600 text-white'
+                    : 'bg-slate-800 border-slate-700 text-gray-400'
+                  }`}
+                >
+                  {s.completed ? '✓' : s.number}
+                </button>
                 {idx < stepsList.length - 1 && <div className={`h-px flex-1 max-w-[20px] ${s.completed ? 'bg-green-600' : 'bg-slate-700'}`} />}
               </React.Fragment>
             ))}
@@ -104,8 +110,8 @@ export default function Payment() {
             {stepsList.map((s) => (
               <div
                 key={s.number}
-                onClick={() => s.completed && navPaths[s.number] && navigate(navPaths[s.number])}
-                className={`flex items-start gap-4 relative z-10 transition-all ${s.completed && navPaths[s.number] ? 'cursor-pointer' : ''}`}
+                onClick={() => navPaths[s.number] && navigate(navPaths[s.number])}
+                className="flex items-start gap-4 relative z-10 transition-all cursor-pointer"
               >
                 <div className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm border transition-all ${
                   s.active ? 'bg-orange-500 border-orange-500 text-white shadow-lg shadow-orange-500/30 scale-105'

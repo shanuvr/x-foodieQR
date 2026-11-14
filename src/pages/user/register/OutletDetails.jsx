@@ -181,6 +181,8 @@ export default function OutletDetails() {
     { number: 5, label: 'Payment',        desc: 'Secure registration'                     },
   ];
 
+  const stepPaths = { 1: '/register', 2: '/packages', 3: '/outlet', 4: '/outlet-details', 5: '/payment' };
+
   const renderMobileSteps = () => (
     <div className="md:hidden w-full bg-[#0d1527] px-4 py-5 border-b border-white/5 flex flex-col items-center">
       <div className="flex items-center gap-2 mb-4">
@@ -189,13 +191,17 @@ export default function OutletDetails() {
       <div className="flex items-center gap-1 w-full justify-center">
         {stepsList.map((step, idx) => (
           <React.Fragment key={step.number}>
-            <div className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs border-2 ${
-              step.active    ? 'bg-orange-500 border-orange-500 text-white ring-2 ring-orange-500/20'
-              : step.completed ? 'bg-green-600 border-green-600 text-white'
-              : 'bg-slate-800 border-slate-700 text-gray-400'
-            }`}>
+            <button
+              type="button"
+              onClick={() => navigate(stepPaths[step.number])}
+              className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center font-bold text-xs border-2 cursor-pointer ${
+                step.active    ? 'bg-orange-500 border-orange-500 text-white ring-2 ring-orange-500/20'
+                : step.completed ? 'bg-green-600 border-green-600 text-white'
+                : 'bg-slate-800 border-slate-700 text-gray-400'
+              }`}
+            >
               {step.completed ? '✓' : step.number}
-            </div>
+            </button>
             {idx < stepsList.length - 1 && (
               <div className={`h-px flex-1 max-w-[20px] ${step.completed ? 'bg-green-600' : 'bg-slate-700'}`} />
             )}
@@ -226,13 +232,8 @@ export default function OutletDetails() {
           return (
             <div
               key={step.number}
-              onClick={() => {
-                if (isDone) {
-                  const paths = { 1: '/register', 2: '/packages', 3: '/outlet' };
-                  if (paths[step.number]) navigate(paths[step.number]);
-                }
-              }}
-              className={`flex items-start gap-4 relative z-10 transition-all ${isDone ? 'cursor-pointer' : ''}`}
+              onClick={() => navigate(stepPaths[step.number])}
+              className="flex items-start gap-4 relative z-10 transition-all cursor-pointer"
             >
               <div className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm border transition-all ${
                 isActive ? 'bg-orange-500 border-orange-500 text-white shadow-lg shadow-orange-500/30 scale-105'
@@ -296,7 +297,7 @@ export default function OutletDetails() {
               {locating ? 'Detecting GPS…' : geocoding ? 'Looking up address…' : 'Use Current Location'}
             </button>
 
-            <form onSubmit={handleSubmit} className="flex flex-col gap-5 sm:gap-7">
+            <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5 sm:gap-7">
 
               {/* Business Information */}
               <div>
